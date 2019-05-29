@@ -1,5 +1,5 @@
 /**
- * Project 3 Starter
+ * Project 3 Starter (Jeffery Hoffman)
  * UNC Charlotte Full-Stack Coding Bootcamp
  */
 

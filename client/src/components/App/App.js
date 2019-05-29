@@ -11,7 +11,6 @@ import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 
-import Trefle from '../../components/Trefle/Trefle';
 
 import './App.css';
 
