@@ -55,7 +55,6 @@ class App extends Component {
         <div className='App'>
           <Navigation />
           <div className='container'>
-            <Trefle />
             <Switch>
               <Route path='/login' component={Login} />
               <PrivateRoute path='/secret' component={Secret} />

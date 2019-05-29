@@ -36,13 +36,12 @@ class Trefle extends React.Component {
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
+            const list = items.map(function(item) {
+                return <li className="plantList" key={item.id}>{item.slug}</li>
+            });
             return (
                 <ul>
-                    
-                        <li>
-                            {items.slug}
-                        </li>
-                    ))
+                    {list}
                 </ul>
             );
         }
