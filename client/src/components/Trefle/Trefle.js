@@ -41,29 +41,7 @@ class Trefle extends React.Component {
             });
             return (
                 <ul>
-<<<<<<< HEAD
                     {list}
-=======
-
-                    <li>
-                        Scientific name: {items.slug}
-                    </li>
-                    <li>
-                        Lifespan: {items.specifications.lifespan}
-                    </li>
-                    <li>
-                        Bloom period: {items.seed.bloom_period}
-                    </li>
-                    <li>
-                        Growth period: {items.specifications.growth_period}
-                    </li>
-                    <li>
-                        Growth rate: {items.specifications.growth_rate}
-                    </li>
-                    <li>
-                        Regrowth rate: {items.specifications.regrowth_rate}
-                    </li>
->>>>>>> f4ec3da182d7484786105526c90048e8389aa3c3
                 </ul>
             );
         }
