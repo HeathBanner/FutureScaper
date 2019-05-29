@@ -9,7 +9,7 @@ class HomePage extends Component {
     return (
       <div className='Home'>
           <div className='row'>
-            <div className="col-lg-10">
+            <div className="col-lg-9">
               <img src={logo} className='App-logo' alt='logo' />
               <p>
                 Edit <code>src/pages/Home.js</code> and save to reload.
@@ -19,9 +19,7 @@ class HomePage extends Component {
               </a>
 
             </div>
-            <div className="col-lg-2">
               <Trefle />
-            </div>
           </div>
 
       </div>
