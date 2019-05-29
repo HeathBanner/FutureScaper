@@ -12,7 +12,7 @@ class Trefle extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/getPlants')
+        fetch('/api/plants/getPlants')
         .then(res => res.json())
         .then((result) => {
             this.setState({
@@ -38,11 +38,11 @@ class Trefle extends React.Component {
         } else {
             return (
                 <ul>
-                    {items.map(item => (
+                    
                         <li>
-                            {item}
+                            {items.slug}
                         </li>
-                    ))}
+                    ))
                 </ul>
             );
         }
