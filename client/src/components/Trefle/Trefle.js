@@ -13,20 +13,20 @@ class Trefle extends React.Component {
 
     componentDidMount() {
         fetch('/api/plants/getPlants')
-        .then(res => res.json())
-        .then((result) => {
-            this.setState({
-                isLoaded: true,
-                items: result
-            });
-            },
-            (error) => {
+            .then(res => res.json())
+            .then((result) => {
                 this.setState({
                     isLoaded: true,
-                    error
+                    items: result
                 });
-            }
-        );
+            },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            );
     }
 
     render() {
@@ -38,11 +38,25 @@ class Trefle extends React.Component {
         } else {
             return (
                 <ul>
-                    
-                        <li>
-                            {items.slug}
-                        </li>
-                    ))
+
+                    <li>
+                        Scientific name: {items.slug}
+                    </li>
+                    <li>
+                        Lifespan: {items.specifications.lifespan}
+                    </li>
+                    <li>
+                        Bloom period: {items.seed.bloom_period}
+                    </li>
+                    <li>
+                        Growth period: {items.specifications.growth_period}
+                    </li>
+                    <li>
+                        Growth rate: {items.specifications.growth_rate}
+                    </li>
+                    <li>
+                        Regrowth rate: {items.specifications.regrowth_rate}
+                    </li>
                 </ul>
             );
         }
