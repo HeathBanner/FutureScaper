@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 class Trefle extends React.Component {
@@ -28,6 +29,7 @@ class Trefle extends React.Component {
     }
 
     render() {
+        
         const { error, isLoaded, items } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -35,7 +37,10 @@ class Trefle extends React.Component {
             return <div>Loading...</div>;
         } else {
             const list = items.map(function(item) {
-                return <li draggable="true" className="plantList" key={item.id}>{item.common_name}</li>
+                // "Link" constricts to within the Router object, so if you link to {item.link}, it goes to:
+                // http://localhost:3030/http://trefle.io/api/plants/162791
+                // Thought we could use this if we make, for example, info routes for each plant. -Jon
+                return <li draggable="true" className="plantList" key={item.id}><Link to="#">{item.common_name}</Link></li>
             });
             return (
                 <div className="col-lg-3 plant-col">

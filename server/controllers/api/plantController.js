@@ -1,29 +1,60 @@
 const plantController = require('express').Router();
 const axios = require('axios');
 const Plant = require('../../models/plant');
+const onePlant = require('../../models/onePlant');
 const mongoose = require('mongoose');
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/futureScaper";
 mongoose.connect(MONGODB_URI);
 
+//Global Mongoose error catch (for "Plant" model):
+Plant.events.on('error', err => console.log(err.message));
+onePlant.events.on('error', err => console.log(err.message));
 
 plantController.get('/getPlants', (req, res) => {
 
     axios.defaults.headers.common['Authorization'] = 'ZCtTandOTGNEOVNxZEQ5a1Q2dHA4QT09'
 
-    axios.get('https://trefle.io//api/plants?complete_data=true').then(function (response) {
-        for (plant in response.data) {
-            console.log(response.data[plant].slug);
-            Plant.updateOne({ slug: response.data[plant].slug }, {
-                slug: response.data[plant].slug,
-                scientificName: response.data[plant].scientific_name,
-                link: response.data[plant].link
+    // Default search query:
+    // 'https://trefle.io//api/plants?complete_data=true'
+
+    let searchQuery = 'https://trefle.io//api/plants?complete_data=true&page_size=50';
+
+    axios.get(searchQuery).then(function (response) {
+        // console.log(response);
+        let rd = response.data;
+        // console.log(rd);
+        for (plant in rd) {
+            // console.log(rd[plant]);
+            // console.log(rd[plant].slug);
+            Plant.updateOne({ slug: rd[plant].slug }, {
+                slug: rd[plant].slug,
+                link: rd[plant].link,
+                commonName: rd[plant].common_name,
+                scientificName: rd[plant].scientific_name,
+                checked: false
             }, { upsert: true }).then(function (result) {
                 console.log(result);
             });
         }
-            res.json(response.data);
-        });
+        res.json(rd);
+    });
 });
 
+plantController.get('/getPlantDetails', (req, res) => {
+    // Single plant search:
+    // https://trefle.io//api/plants/117788
+    console.log("get plant details!");
+
+    const updatePlants = async () => {
+        const getPlants = await Plant.updateMany({checked: false}, {checked: true});
+
+        console.log("docs matched:", getPlants.n);            // Number of documents matched
+        console.log("docs modified:", getPlants.nModified);   // Number of documents modified
+        // console.log("got plants:", getPlants);   // 
+    };
+
+    updatePlants();
+
+});
 module.exports = plantController;
