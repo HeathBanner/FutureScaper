@@ -1,26 +1,42 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { DropTarget } from 'react-dnd'
+import { findDOMNode } from 'react-dom';
 import ItemTypes from './ItemTypes'
 import Box from './Box'
 import update from 'immutability-helper'
 
 import results from './1000'
+import './CSS/container.css'
 
-const styles = {
-  width: "100%",
-  height: "80vh",
+const plotCol = {
+  width: "70vw",
+  height: "100vh",
   border: '1px solid black',
   position: 'relative',
 }
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
+    this.ref = React.createRef();
     this.state = {
       error: null,
       isLoaded: false,
       items: results,
       boxes: [],
+      plotted: [],
     }
+  }
+
+  getElement = event => {
+    console.log(event.target)
+    console.log(document.getElementById('portal'))
+    ReactDOM.createPortal(event.target, document.getElementById('portal'))
+  }
+
+  appendPlotted() {
+
   }
 
   populateResults() {
@@ -29,12 +45,13 @@ class Container extends React.Component {
               plant.top = index * 60,
               plant.left = 0,
               plant.index = index,
+              plant.moved = false,
               plant
             )
             
           })
           this.setState({
-            boxes: plants
+            boxes: plants,
           })
 
   }
@@ -70,38 +87,80 @@ class Container extends React.Component {
     const { boxes } = this.state
 
     return connectDropTarget(
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-10" style={styles}></div>
-            <div className="col-lg-2">
-              {this.state.boxes.map(object => {
-                console.log(object)
-                const { left, top, common_name, id } = object
-                return (
-                  <Box
-                    key={id}
-                    index={object.index}
-                    id={id}
-                    left={left}
-                    top={top}
-                    hideSourceOnDrag={hideSourceOnDrag}
-                  >
-                    {common_name}
-                  </Box>
-                )
-              })}
+          <div className="row main-col">            
+            <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
+            {this.state.plotted.map(object => {
+            const { left, top, common_name, id } = object
+            return (
+              <Box   
+                key={id}
+                index={object.index}
+                id={id}
+                left={left}
+                top={top}
+                hideSourceOnDrag={hideSourceOnDrag}
+                onClick={this.getElement}
+              >
+                {common_name}
+              </Box>
+            )
+          })}
+
+            </div>
+            <div className="col-lg-2 item-col">
+                {this.state.boxes.map(object => {
+                  const { left, top, common_name, id } = object
+                  // console.log('FIREEEE')
+                  // console.log(this.state.plotted)
+                  return (
+                    <Box
+                    
+                      key={id}
+                      index={object.index}
+                      id={id}
+                      left={left}
+                      top={top}
+                      hideSourceOnDrag={hideSourceOnDrag}
+                      onClick={this.getElement}
+                    >
+                      {common_name}
+                    </Box>
+                  )
+                })}
+
             </div>
           </div>
-        </div>
       )
   }
-  moveBox(id, left, top, index) {
-    console.log(left)
-    console.log(top)
-    console.log(index)
+  moveBox(id, left, top, index, items) {
+    if (!items.moved) {
+      const plotted = this.state.boxes[index]
+      let entries = []
+      if (plotted) {
+        entries = Object.entries(plotted)
+        for (var i in entries) {
+          let key = entries[i][0]
+          key === 'top' ? items[key] = top: 
+          key === 'left' ? items[key] = left:
+          items[key] = entries[i][1]
+        }
+        console.log(items)
+      }
+      return (
+        this.setState(
+          update(this.state,
+            {plotted: {
+                $push: [items]
+              }
+            }
+            )
+        )
+      )
+      
+    }
     this.setState(
       update(this.state, 
-        {boxes: {
+        {plotted: {
           [index]: {
               $merge: { left, top }
             }
@@ -109,7 +168,6 @@ class Container extends React.Component {
         }  
       )
     )
-    console.log(this.state.boxes[index])
   }
 }
 export default DropTarget(
@@ -122,10 +180,15 @@ export default DropTarget(
       
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
-      const left = Math.round(item.left + delta.x)
-      const top = Math.round(item.top + delta.y)
-      console.log(item)
-      component.moveBox(item.id, left, top, item.index)
+      const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
+      console.log(leftOffset)
+      const left = monitor.getClientOffset().x + leftOffset
+      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y
+      console.log(topOffset)
+      const top = monitor.getClientOffset().y + topOffset
+      console.log(monitor.getClientOffset())
+      console.log(monitor.getInitialSourceClientOffset().x-monitor.getClientOffset().x)
+      component.moveBox(item.id, left, top, item.index, item)
     },
   },
   connect => ({
