@@ -10,6 +10,7 @@ const PlantSchema = new Schema({
     link: {
         type: String,
         trim: true, 
+        required: true
     },
     commonName: {
         type: String,
@@ -17,6 +18,11 @@ const PlantSchema = new Schema({
         required: true
     },
     scientificName: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    lifespan: {
         type: String,
         trim: true,
         required: true
