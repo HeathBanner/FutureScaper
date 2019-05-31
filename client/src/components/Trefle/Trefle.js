@@ -43,11 +43,9 @@ class Trefle extends React.Component {
                 return <li draggable="true" className="plantList" key={item.id}><Link to="#">{item.common_name}</Link></li>
             });
             return (
-                <div className="col-lg-3 plant-col">
-                    <ul>
-                        {list}
-                    </ul>
-                </div>
+                <ul>
+                    {list}
+                </ul>
             );
         }
     }
