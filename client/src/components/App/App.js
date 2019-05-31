@@ -11,7 +11,6 @@ import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 
-
 import './App.css';
 
 class App extends Component {
@@ -26,7 +25,7 @@ class App extends Component {
     this.handleLogout = () => {
       TokenStore.clearToken();
       this.setState(prevState => ({ auth: { ...prevState.auth, user: undefined, authToken: undefined } }));
-    }
+    }  
 
     this.state = {
       auth: {
@@ -34,7 +33,7 @@ class App extends Component {
         authToken: TokenStore.getToken(),
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
-      }
+      },
     }
   }
 

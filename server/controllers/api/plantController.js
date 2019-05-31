@@ -9,10 +9,10 @@ mongoose.connect(MONGODB_URI);
 
 plantController.get('/getPlants', (req, res) => {
 
-    axios.defaults.headers.common['Authorization'] = 'ZCtTandOTGNEOVNxZEQ5a1Q2dHA4QT09'
+    axios.defaults.headers.common['Authorization'] = 'b3VGbzVhd0M0QzcrMFQ5djFPcmhYQT09'
 
     axios.get('https://trefle.io//api/plants?complete_data=true').then(function(response) {
-        console.log(response.data[0].slug);
+        console.log(response.data[0]);
         Plant.updateOne({slug: response.data[0].slug}, {
             slug: response.data[0].slug,
             scientificName: response.data[0].scientific_name,
