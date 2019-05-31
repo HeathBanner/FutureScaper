@@ -3,6 +3,9 @@ import { DropTarget } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 import Box from './Box'
 import update from 'immutability-helper'
+
+import results from './1000'
+
 const styles = {
   width: "100%",
   height: "80vh",
@@ -13,35 +16,77 @@ class Container extends React.Component {
   constructor() {
     super(...arguments)
     this.state = {
-      boxes: [
-        {a: {id: 'a', top: 0, left: 0, title: 'Drag me around' }},
-        {b:{id: 'b',top: 60, left: 0, title: 'Drag me too' }},
-        {c:{id: 'c', top:120, left: 0, title: 'Hello' }},
-
-      ],
+      error: null,
+      isLoaded: false,
+      items: results,
+      boxes: [],
     }
   }
+
+  populateResults() {
+              const plants = this.state.items.map((plant, index) => {
+            return (
+              plant.top = index * 60,
+              plant.left = 0,
+              plant.index = index,
+              plant
+            )
+            
+          })
+          this.setState({
+            boxes: plants
+          })
+
+  }
+
+  componentDidMount() {
+    this.populateResults();
+  }
+
+//   componentDidMount() {
+//     fetch('/api/plants/getPlants')
+//         .then(res => res.json())
+//         .then((result) => {
+//           console.log(items)
+//             this.setState({
+//                 isLoaded: true,
+//                 items: items
+//             });
+//         },
+//             (error) => {
+//                 this.setState({
+//                     isLoaded: true,
+//                     error
+//                 });
+//             }
+//         )
+// }
+
+
+
   render() {
+
     const { hideSourceOnDrag, connectDropTarget } = this.props
     const { boxes } = this.state
+
     return connectDropTarget(
         <div className="container">
           <div className="row">
             <div className="col-lg-10" style={styles}></div>
             <div className="col-lg-2">
-              {this.state.boxes.map((object, index) => {
-                console.log(index)
-                const { left, top, title, id } = Object.entries(object)[0][1]
+              {this.state.boxes.map(object => {
+                console.log(object)
+                const { left, top, common_name, id } = object
                 return (
                   <Box
-                    key={Object.keys(object)}
-                    index={index}
-                    id={Object.keys(object)}
+                    key={id}
+                    index={object.index}
+                    id={id}
                     left={left}
                     top={top}
                     hideSourceOnDrag={hideSourceOnDrag}
                   >
-                    {title}
+                    {common_name}
                   </Box>
                 )
               })}
@@ -58,10 +103,9 @@ class Container extends React.Component {
       update(this.state, 
         {boxes: {
           [index]: {
-            [id]: {
               $merge: { left, top }
             }
-          }}
+          }
         }  
       )
     )
@@ -75,11 +119,13 @@ export default DropTarget(
       if (!component) {
         return
       }
+      
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
       const left = Math.round(item.left + delta.x)
       const top = Math.round(item.top + delta.y)
-      component.moveBox(item.id[0], left, top, item.index)
+      console.log(item)
+      component.moveBox(item.id, left, top, item.index)
     },
   },
   connect => ({
