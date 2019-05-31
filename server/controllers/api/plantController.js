@@ -11,7 +11,7 @@ Plant.events.on('error', err => console.log(err.message));
 
 plantController.get('/getPlants', (req, res) => {
 
-    axios.defaults.headers.common['Authorization'] = 'ZCtTandOTGNEOVNxZEQ5a1Q2dHA4QT09';
+    axios.defaults.headers.common['Authorization'] = 'b3VGbzVhd0M0QzcrMFQ5djFPcmhYQT09'
 
     // Default search query:
     // 'https://trefle.io//api/plants?complete_data=true'

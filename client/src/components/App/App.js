@@ -12,8 +12,6 @@ import NotFound from '../../pages/NotFound/NotFound';
 import About from '../../pages/About/About';
 import './App.css';
 
-
-
 class App extends Component {
 
   constructor(props) {
@@ -27,7 +25,7 @@ class App extends Component {
     this.handleLogout = () => {
       TokenStore.clearToken();
       this.setState(prevState => ({ auth: { ...prevState.auth, user: undefined, authToken: undefined } }));
-    }
+    }  
 
     this.state = {
       auth: {
@@ -35,7 +33,7 @@ class App extends Component {
         authToken: TokenStore.getToken(),
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
-      }
+      },
     }
   }
 
