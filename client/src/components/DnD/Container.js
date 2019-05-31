@@ -58,9 +58,10 @@ class Container extends React.Component {
       update(this.state, 
         {boxes: {
           [index]: {
-          [id]: {
+            [id]: {
               $merge: { left, top }
-            }}}
+            }
+          }}
         }  
       )
     )

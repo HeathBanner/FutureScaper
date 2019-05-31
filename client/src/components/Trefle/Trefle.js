@@ -1,15 +1,13 @@
 import React from 'react';
+import './style.css';
 
 class Trefle extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
+    state = {
             error: null,
             isLoaded: false,
             items: []
         };
-    }
 
     componentDidMount() {
         fetch('/api/plants/getPlants')
@@ -37,7 +35,7 @@ class Trefle extends React.Component {
             return <div>Loading...</div>;
         } else {
             const list = items.map(function(item) {
-                return <li className="plantList" key={item.id}>{item.slug}</li>
+                return <li draggable="true" className="plantList" key={item.id}>{item.common_name}</li>
             });
             return (
                 <ul>
