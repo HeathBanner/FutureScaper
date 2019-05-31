@@ -21,12 +21,8 @@ const PlantSchema = new Schema({
         trim: true,
         required: true
     },
-    checked: {
-        type: Boolean,
-        default: false,
-    },
 }, {collection: 'Plants'});
 
-const Plant = mongoose.model('Plant', PlantSchema);
+const onePlant = mongoose.model('onePlant', PlantSchema);
 
-module.exports = Plant;
+module.exports = onePlant;
