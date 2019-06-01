@@ -29,16 +29,6 @@ class Container extends React.Component {
     }
   }
 
-  getElement = event => {
-    console.log(event.target)
-    console.log(document.getElementById('portal'))
-    ReactDOM.createPortal(event.target, document.getElementById('portal'))
-  }
-
-  appendPlotted() {
-
-  }
-
   populateResults() {
               const plants = this.state.items.map((plant, index) => {
             return (
@@ -46,6 +36,7 @@ class Container extends React.Component {
               plant.left = 0,
               plant.index = index,
               plant.moved = false,
+              plant.isOrigin = true,
               plant
             )
             
@@ -53,7 +44,6 @@ class Container extends React.Component {
           this.setState({
             boxes: plants,
           })
-
   }
 
   componentDidMount() {
@@ -90,16 +80,17 @@ class Container extends React.Component {
           <div className="row main-col">            
             <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
             {this.state.plotted.map(object => {
-            const { left, top, common_name, id } = object
+            const { left, top, common_name, id, isOrigin, index } = object
             return (
               <Box   
-                key={id}
+                key={index}
                 index={object.index}
                 id={id}
                 left={left}
                 top={top}
                 hideSourceOnDrag={hideSourceOnDrag}
                 onClick={this.getElement}
+                isOrigin={isOrigin}
               >
                 {common_name}
               </Box>
@@ -109,9 +100,7 @@ class Container extends React.Component {
             </div>
             <div className="col-lg-2 item-col">
                 {this.state.boxes.map(object => {
-                  const { left, top, common_name, id } = object
-                  // console.log('FIREEEE')
-                  // console.log(this.state.plotted)
+                  const { left, top, common_name, id, isOrigin } = object
                   return (
                     <Box
                     
@@ -122,6 +111,7 @@ class Container extends React.Component {
                       top={top}
                       hideSourceOnDrag={hideSourceOnDrag}
                       onClick={this.getElement}
+                      isOrigin='true'
                     >
                       {common_name}
                     </Box>
@@ -133,7 +123,7 @@ class Container extends React.Component {
       )
   }
   moveBox(id, left, top, index, items) {
-    if (!items.moved) {
+    if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
       const plotted = this.state.boxes[index]
       let entries = []
       if (plotted) {
@@ -144,30 +134,31 @@ class Container extends React.Component {
           key === 'left' ? items[key] = left:
           items[key] = entries[i][1]
         }
-        console.log(items)
+        items.moved = true;
+        items.isOrigin = false;
+        items.index = this.state.plotted.length
       }
-      return (
-        this.setState(
-          update(this.state,
-            {plotted: {
-                $push: [items]
+        return (
+          this.setState(
+            update(this.state,
+              {plotted: {
+                  $push: [items]
+                }
               }
-            }
-            )
+              )
+          )
+        )
+      
+    } else if (!items.isOrigin) {
+      this.setState(
+        update(this.state,
+          {plotted:
+          {[items.index]:
+            {$merge: { left, top }} 
+          }} 
         )
       )
-      
     }
-    this.setState(
-      update(this.state, 
-        {plotted: {
-          [index]: {
-              $merge: { left, top }
-            }
-          }
-        }  
-      )
-    )
   }
 }
 export default DropTarget(
@@ -181,13 +172,9 @@ export default DropTarget(
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
       const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
-      console.log(leftOffset)
       const left = monitor.getClientOffset().x + leftOffset
       const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y
-      console.log(topOffset)
       const top = monitor.getClientOffset().y + topOffset
-      console.log(monitor.getClientOffset())
-      console.log(monitor.getInitialSourceClientOffset().x-monitor.getClientOffset().x)
       component.moveBox(item.id, left, top, item.index, item)
     },
   },

@@ -1,0 +1,48 @@
+
+.col-padding {
+    padding: 0px 0px 0px 0px;
+}
+
+.row {
+    width: 100%;
+}
+
+#jumbotron {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#jumbotron h1 {
+    color: white;
+    font-size: 60px;
+    text-shadow: 0px 0px 70px white
+}
+
+#intro-container {
+    height: 120vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#welcome-div {
+    width: 100vw;
+    text-align: left;
+}
+
+#container-two {
+    height: 120vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#plant-header {
+    text-align: right;
+}
+
+#plant-body {
+    text-align: left;
+}
