@@ -17,14 +17,14 @@ const Box = ({
   connectDragSource,
   isDragging,
   children,
-  onClick
-  
+  onClick,
+  isOrigin,
 }) => {
   if (isDragging && hideSourceOnDrag) {
     return null
   }
   return connectDragSource(
-      <div style={Object.assign({}, style, { left, top },  )} onClick={onClick} >{children}
+      <div style={Object.assign({}, style, { left, top },  )} onClick={onClick} origin={isOrigin} >{children}
       </div>  
   )
 }
@@ -32,8 +32,8 @@ export default DragSource(
   ItemTypes.BOX,
   {
     beginDrag(props) {
-      const { id, left, top, index, onClick } = props
-      return { id, left, top, index, onClick  }
+      const { id, left, top, index, onClick, isOrigin } = props
+      return { id, left, top, index, onClick, isOrigin  }
     },
   },
   (connect, monitor) => ({
