@@ -19,12 +19,9 @@ class Jumbotron extends React.Component {
                     </div>
 
                 </Parallax>
-            <div className="text"></div>
             </div>
         )
     }
-
-
 }
 
 export default Jumbotron;

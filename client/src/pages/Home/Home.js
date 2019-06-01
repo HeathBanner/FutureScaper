@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
-import { DragDropContextProvider } from 'react-dnd';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Item from '../../components/DnD/Item';
-import Target from '../../components/DnD/Target';
-import Card from '../../components/DnD/Card';
 import Example from '../../components/DnD/Example';
 import Jumbotron from '../../components/Home/jumbotron';
-
+import Welcome from '../../components/Home/welcome';
+import Intro from '../../components/Home/intro';
+import PlantsHeader from '../../components/Home/plantsHeader';
+import plantsBody from '../../components/Home/plantsBody';
+import PlantsBody from '../../components/Home/plantsBody';
 
 class HomePage extends Component {
 
@@ -89,10 +89,15 @@ class HomePage extends Component {
                     
                   </div>
                 </div>
-              <div className="item-container">
-                {/* {list} */}
+              <div id="intro-container" className="item-container">
+                <Welcome />
+                <Intro />
               </div>
-          </div>
+              <div id="container-two">
+                <PlantsHeader />
+                <PlantsBody />
+              </div>
+              </div>
         )
   }
 }
