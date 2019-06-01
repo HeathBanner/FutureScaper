@@ -1,7 +1,7 @@
 
 
 .main-col {
-    /* overflow: scroll; */
+    display: none
 }
 
 .plot-col {

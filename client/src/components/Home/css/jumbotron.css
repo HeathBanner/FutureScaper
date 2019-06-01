@@ -1,0 +1,21 @@
+
+.col-padding {
+    padding: 0px 0px 0px 0px;
+}
+
+#jumbotron {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#jumbotron h1 {
+    color: white;
+    font-size: 60px;
+    text-shadow: 0px 0px 70px white
+}
+
+.text {
+    height: 200vh;
+}
