@@ -77,18 +77,14 @@ class HomePage extends Component {
   render() {
 
         return (
-          <div className='Home'>
-                <div className="card-container">
-                  <Example />
-                </div>
-                <div className="App">
-                  <div className="App-intro">
-                    <div className="row">
-                      <Jumbotron />
-                    </div>
+          <div className="row">
+              <div className="card-container">
+                <Example />
+              </div>
+              <div className="row">
+                <Jumbotron />
+              </div>
                     
-                  </div>
-                </div>
               <div id="intro-container" className="item-container">
                 <Welcome />
                 <Intro />

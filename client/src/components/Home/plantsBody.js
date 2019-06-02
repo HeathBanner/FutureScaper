@@ -1,5 +1,7 @@
 import React from 'react';
 import { CSSPlugin, TimelineLite } from 'gsap/all';
+import { Parallax } from 'react-parallax';
+
 
 class PlantsBody extends React.Component {
     constructor(props) {
@@ -61,7 +63,16 @@ class PlantsBody extends React.Component {
                 neque. Praesent ullamcorper facilisis leo id dapibus. Maecenas et luctus velit, eu 
                 ornare sapien. Vivamus porttitor vehicula urna, id sollicitudin velit hendrerit eget.</p>
             </div>
-            <div className="col-lg-4 col-padding"></div>
+            <div className="col-lg-4 col-padding">
+                <Parallax
+                    bgImage={require('./css/imgs/annie-spratt-path.jpg')}
+                    bgImageAlt="Jumbtron"
+                    strength={200}>
+                            <div id="intro-img">
+                        </div>
+
+                </Parallax>
+            </div>
         </div>
         );
     }

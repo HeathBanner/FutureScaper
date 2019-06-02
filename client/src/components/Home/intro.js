@@ -1,5 +1,8 @@
 import React from 'react';
-import { CSSPlugin, TimelineLite } from 'gsap/all';
+import ReactDOM from 'react-dom'
+import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
+
+import { Parallax } from 'react-parallax';
 
 class Intro extends React.Component {
     constructor(props) {
@@ -9,53 +12,94 @@ class Intro extends React.Component {
         // logo tween
         this.logoTween = null;
     }
+    
+    introScroll = event => {
+        var timeout;
+        if(timeout) clearTimeout(timeout);
+        setTimeout(this.callParallax.bind(null, event), 200);
+    }
+
+    callParallax = event => {
+        this.parallaxIt(event, '#intro-slide', -100);
+        // this.parallaxIt(event, 'img', -30);
+    }
+
+    parallaxIt = (e, target, movement) => {
+    var $this = ReactDOM.findDOMNode(this);
+        
+
+
+        var relX = e.pageX - $this.offsetLeft
+        var relY = e.pageY - $this.offsetTop
+
+        // console.log($this.offsetLeft);
+        // console.log($this.offsetTop)
+        // console.log(e.pageX)
+        // console.log(e.pageY)
+
+        
+            TweenMax.to(target, 1, {
+                x: (relX - $this.offsetWidth/2) / $this.offsetWidth * movement,
+                y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
+                ease: Power2.easeOut
+            })
+        }
+
 
     isBottom(el) {
         const center = el.getBoundingClientRect().bottom
-        console.log('Intro' + center)
-        console.log('Intro' + window.innerHeight)
         return (
             el.getBoundingClientRect().top <= window.innerHeight
         );
     }
 
     componentDidMount() {
-        document.addEventListener('scroll', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('scroll', this.trackScrolling);
+        document.removeEventListener('wheel', this.trackScrolling);
     }
 
     trackScrolling = event => {
-        console.log(event)
-        const wrappedElement = document.getElementById('intro-div');
-        if (this.isBottom(wrappedElement)) {
-            console.log('BOTTOM');
-            this.headerAnimate(wrappedElement)
-            document.removeEventListener('scroll', this.trackScrolling);
-        }
+        // console.log(event)
+        // const wrappedElement = document.getElementById('intro-div');
+        // if (this.isBottom(wrappedElement)) {
+        //     console.log('BOTTOM');
+        //     this.headerAnimate(wrappedElement)
+        //     document.removeEventListener('wheel', this.trackScrolling);
+        // }
+        this.introScroll(event)
     }
 
-    headerAnimate() {
-        // create logo tween
-        console.log(this.logoContainer)
-        this.logoTween = new TimelineLite({ paused: true })
-            .from(this.logoContainer, 4, { x: '100vw', opacity: 0 })
-            .play();
-    }
+    // headerAnimate() {
+    //     console.log(this.logoContainer)
+    //     this.logoTween = new TimelineLite({ paused: true })
+    //         .from(this.logoContainer, 4, { x: '100vw', opacity: 0 })
+    //         .play();
+    // }
 
 
 
     render() {
         return (
-        <div className="row">
-            <div className="col-lg-4"></div>
+        <div id="intro-row" className="row">
+            <div className="col-lg-4">
+                    <Parallax
+                    bgImage={require('./css/imgs/annie-spratt.jpg')}
+                    bgImageAlt="Jumbtron"
+                    strength={200}>
+                        <div id="intro-img">
+                        </div>
+
+                    </Parallax>
+
+            </div>
             <div
-                onScroll={this.trackScrolling}
                 className="col-lg-8"
                 id="intro-div">
                 <p
+                    id="intro-slide"
                     ref={p => this.logoContainer = p}
                 >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
                 eleifend vitae lorem at, tristique feugiat neque. Phasellus nec ornare leo. 

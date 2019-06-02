@@ -3,12 +3,18 @@
     padding: 0px 0px 0px 0px;
 }
 
+.container-fluid {
+    padding: 0px 0px
+}
+
 .row {
     width: 100%;
+    margin: 0px 0px
 }
 
 #jumbotron {
     height: 50vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,6 +36,11 @@
 #welcome-div {
     width: 100vw;
     text-align: left;
+}
+
+#intro-img {
+    height: 60vh;
+    width: 100%;
 }
 
 #container-two {

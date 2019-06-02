@@ -12,8 +12,6 @@ class Welcome extends React.Component {
     
     isBottom(el) {
         const center = el.getBoundingClientRect().bottom
-        console.log('WELCOME' + center)
-        console.log('WELCOME' + window.innerHeight)
         return (
             el.getBoundingClientRect().top <= window.innerHeight
         );
@@ -30,15 +28,12 @@ class Welcome extends React.Component {
     trackScrolling = () => {
         const wrappedElement = document.getElementById('welcome-div');
         if (this.isBottom(wrappedElement)) {
-            console.log('BOTTOM');
             this.headerAnimate(wrappedElement)
             document.removeEventListener('scroll', this.trackScrolling);
         }
     }
 
     headerAnimate() {
-        // create logo tween
-        console.log(this.logoContainer)
 		this.logoTween = new TimelineLite({ paused:true })
         .from(this.logoContainer, 4, { x: '-110vw', opacity: 0})
         .play();
