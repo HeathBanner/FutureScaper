@@ -1,16 +1,15 @@
-const router = require('express').Router();
+const plantsController = require('express').Router();
 const db = require("../../models/plant");
 const mongoose = require('mongoose');
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/futureScaper";
 mongoose.connect(MONGODB_URI);
 
-//Global Mongoose error catch (for "Plant" model):
+// Global error catch for Mongoose
 db.events.on('error', err => console.log(err.message));
 
 // Define methods for the plantsController
-const plantsController = {
-
+const PLANTS = {
   findAll: function(req, res) {
     db.Plant
       .find(req.query)
@@ -42,7 +41,9 @@ const plantsController = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  }  
 }
 
-module.exports = router
+plantsController.get('/getPlants', (req, res) => res.json(PLANTS));
+
+module.exports = plantsController

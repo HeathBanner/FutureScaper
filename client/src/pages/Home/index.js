@@ -1,1 +1,1 @@
-export { default } from "./Plants.js";
+export { default } from "./Home.js";

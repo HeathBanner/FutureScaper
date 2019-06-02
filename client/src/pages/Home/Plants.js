@@ -65,7 +65,7 @@ class Plants extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Plants Should I Read?</h1>
+              <h1>What Plants Should I Eat?</h1>
             </Jumbotron>
             <form>
               <Input
