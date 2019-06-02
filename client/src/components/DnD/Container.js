@@ -56,11 +56,28 @@ class Container extends React.Component {
       isLoaded: false,
       items: results,
       season: 'spring',
-      xtraSeason: 'mid_spring',
+      xtraSeason: null,
       boxes: [],
       plotted: [],
     }
   }
+
+//   seasonStyle(props) {
+
+//     if (props.season === props.plant.bloom_period) {
+//         style.background = props.flower_color
+//     } else if (props.season === plant.fruit/seed_period_begin) {
+//         background = props.plant.fruit_color
+//     } else if (leafRetention.includes(props.season)) {
+//         if (props.leaf_retention === 'Yes') {
+//             style.background = plant.foliage_color
+//         } else {
+//             style.background = 'brown'
+//         }
+//     }
+// }
+
+
 
   populateResults() {
               const plants = this.state.items.map((plant, index) => {
@@ -79,8 +96,9 @@ class Container extends React.Component {
           })
   }
 
-  changeSeason(season)  {
+  changeSeason = (season) => {
     console.log('FIRE')
+    console.log(season)
     this.setState({xtraSeason: season});
     console.log(this.state.xtraSeason);
   }
@@ -96,12 +114,9 @@ class Container extends React.Component {
     return connectDropTarget(
           <div className="row main-col">            
             <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
-              
-              {Object.keys(seasons).map((month, index) => {
-                console.log(seasons[month]);
-                return <Seasons onClick={() => {this.changeSeason(seasons[index])}} key={index} season={seasons[index]}>{month}</Seasons>
-              })
-              }
+                <Seasons 
+                onClick={this.changeSeason} />
+
 
               {this.state.plotted.map(object => {
               const { left, top, common_name, id, isOrigin, index } = object
