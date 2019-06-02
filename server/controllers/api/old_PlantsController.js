@@ -50,26 +50,8 @@ plantController.get('/getPlants', (req, res) => {
 //         const getPlants = await Plant.find({ checked: false });
 //         // console.log(getPlants);
 
-//         //get links
-//         let queryArray = [];
-//         for (plant in getPlants) {
-//             // console.log(getPlants[plant])
-//             let curPlant = getPlants[plant];
-//             let ssLink = curPlant.link;
-//             let ssLen = ssLink.length;
-//             let ssEnd = ssLink.substring(ssLen - 6, ssLen);
-//             // console.log(`ssLink: ${ssLink}
-//             //                 ssLen: ${ssLen}
-//             //                 ssEnd: ${ssEnd}`);
-
-//             let searchQuery = 'https://trefle.io//api/plants/' + ssEnd;
-//             queryArray.push(searchQuery);
-//         }
-//         // console.log(queryArray);
-
-//         for (query in queryArray) {
 //             axios.defaults.headers.common['Authorization'] = 'ZCtTandOTGNEOVNxZEQ5a1Q2dHA4QT09';
-//             let searchQuery = queryArray[query];
+//             let searchQuery = whichPlant;
 //             axios.get(searchQuery).then(function (response) {
 //                 let rd = response.data;
 //                 console.log(rd);
@@ -93,7 +75,7 @@ plantController.get('/getPlants', (req, res) => {
 //         }
 //     };
 
-//     updatePlants();
+//     updatePlant();
 
 // });
 module.exports = plantController;
