@@ -7,9 +7,7 @@ import { Parallax } from 'react-parallax';
 class Intro extends React.Component {
     constructor(props) {
         super(props);
-        // logo container
         this.logoContainer = null;
-        // logo tween
         this.logoTween = null;
     }
     
@@ -21,29 +19,17 @@ class Intro extends React.Component {
 
     callParallax = event => {
         this.parallaxIt(event, '#intro-slide', -100);
-        // this.parallaxIt(event, 'img', -30);
+        this.parallaxIt(event, '#intro-div', -70);
     }
 
     parallaxIt = (e, target, movement) => {
     var $this = ReactDOM.findDOMNode(this);
-        
-
-
-        var relX = e.pageX - $this.offsetLeft
-        var relY = e.pageY - $this.offsetTop
-
-        // console.log($this.offsetLeft);
-        // console.log($this.offsetTop)
-        // console.log(e.pageX)
-        // console.log(e.pageY)
-
-        
-            TweenMax.to(target, 1, {
-                x: (relX - $this.offsetWidth/2) / $this.offsetWidth * movement,
-                y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
-                ease: Power2.easeOut
-            })
-        }
+    var relY = e.pageY - $this.offsetTop
+        TweenMax.to(target, 1, {
+            y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
+            ease: Power2.easeOut
+        })
+    }
 
 
     isBottom(el) {
@@ -85,6 +71,7 @@ class Intro extends React.Component {
         return (
         <div id="intro-row" className="row">
             <div className="col-lg-4">
+                <div id="intro-div">
                     <Parallax
                     bgImage={require('./css/imgs/annie-spratt.jpg')}
                     bgImageAlt="Jumbtron"
@@ -93,6 +80,7 @@ class Intro extends React.Component {
                         </div>
 
                     </Parallax>
+                </div>
 
             </div>
             <div
