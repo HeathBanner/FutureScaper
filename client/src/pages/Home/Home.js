@@ -78,9 +78,7 @@ class HomePage extends Component {
 
         return (
           <div className="row">
-              <div className="card-container">
                 <Example />
-              </div>
               <div className="row">
                 <Jumbotron />
               </div>
