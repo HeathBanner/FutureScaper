@@ -8,7 +8,6 @@ import Jumbotron from '../../components/Home/jumbotron';
 import Welcome from '../../components/Home/welcome';
 import Intro from '../../components/Home/intro';
 import PlantsHeader from '../../components/Home/plantsHeader';
-import plantsBody from '../../components/Home/plantsBody';
 import PlantsBody from '../../components/Home/plantsBody';
 
 class HomePage extends Component {
@@ -53,6 +52,7 @@ class HomePage extends Component {
       ],
     }
   }
+
   deleteItem = (id) => {
       this.setState(state => {
         return {
