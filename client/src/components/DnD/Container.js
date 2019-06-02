@@ -2,9 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { DropTarget } from 'react-dnd'
 import { findDOMNode } from 'react-dom';
+import update from 'immutability-helper'
+
 import ItemTypes from './ItemTypes'
 import Box from './Box'
-import update from 'immutability-helper'
+import Seasons from './seasons';
 
 import results from './1000'
 import './CSS/container.css'
@@ -16,6 +18,35 @@ const plotCol = {
   position: 'relative',
 }
 
+const months = {
+  mid_winter: 'Jan', 
+  late_winer: 'Feb', 
+  early_winter: 'Mar', 
+  mid_spring: 'Apr', 
+  late_spring: 'May', 
+  early_summer: 'June', 
+  mid_summer: 'July', 
+  late_summer: 'Aug', 
+  early_fall: 'Sep', 
+  mid_fall: 'Oct', 
+  late_fall: 'Nov', 
+  early_winter: 'Dec'
+};
+const seasons = {
+  jan: 'mid_winter', 
+  feb: 'late_winter', 
+  mar: 'early_spring', 
+  apr: 'mid_spring',
+  may: 'late_spring',
+  june: 'early_summer',
+  july: 'mid_summer',
+  aug: 'late_summer',
+  sep: 'early_fall',
+  oct: 'mid_fall',
+  nov: 'late_fall',
+  dec: 'early_winter'
+}
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
@@ -24,6 +55,8 @@ class Container extends React.Component {
       error: null,
       isLoaded: false,
       items: results,
+      season: 'spring',
+      xtraSeason: 'mid_spring',
       boxes: [],
       plotted: [],
     }
@@ -46,54 +79,45 @@ class Container extends React.Component {
           })
   }
 
+  changeSeason(season)  {
+    console.log('FIRE')
+    this.setState({xtraSeason: season});
+    console.log(this.state.xtraSeason);
+  }
+
   componentDidMount() {
     this.populateResults();
   }
 
-//   componentDidMount() {
-//     fetch('/api/plants/getPlants')
-//         .then(res => res.json())
-//         .then((result) => {
-//           console.log(items)
-//             this.setState({
-//                 isLoaded: true,
-//                 items: items
-//             });
-//         },
-//             (error) => {
-//                 this.setState({
-//                     isLoaded: true,
-//                     error
-//                 });
-//             }
-//         )
-// }
-
-
-
   render() {
 
     const { hideSourceOnDrag, connectDropTarget } = this.props
-    const { boxes } = this.state
-
+    
     return connectDropTarget(
           <div className="row main-col">            
             <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
-            {this.state.plotted.map(object => {
-            const { left, top, common_name, id, isOrigin, index } = object
-            return (
-              <Box   
-                key={index}
-                index={object.index}
-                id={id}
-                left={left}
-                top={top}
-                hideSourceOnDrag={hideSourceOnDrag}
-                onClick={this.getElement}
-                isOrigin={isOrigin}
-              >
-                {common_name}
-              </Box>
+              
+              {Object.keys(seasons).map((month, index) => {
+                console.log(seasons[month]);
+                return <Seasons onClick={() => {this.changeSeason(seasons[index])}} key={index} season={seasons[index]}>{month}</Seasons>
+              })
+              }
+
+              {this.state.plotted.map(object => {
+              const { left, top, common_name, id, isOrigin, index } = object
+              return (
+                <Box   
+                  key={index}
+                  index={object.index}
+                  id={id}
+                  left={left}
+                  top={top}
+                  hideSourceOnDrag={hideSourceOnDrag}
+                  onClick={this.getElement}
+                  isOrigin={isOrigin}
+                >
+                  {common_name}
+                </Box>
             )
           })}
 
