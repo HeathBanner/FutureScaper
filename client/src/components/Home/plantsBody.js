@@ -1,7 +1,7 @@
 import React from 'react';
-import { CSSPlugin, TimelineLite } from 'gsap/all';
+import ReactDOM from 'react-dom'
+import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
 import { Parallax } from 'react-parallax';
-
 
 class PlantsBody extends React.Component {
     constructor(props) {
@@ -12,6 +12,26 @@ class PlantsBody extends React.Component {
         this.logoTween = null;
     }
 
+    introScroll = event => {
+        var timeout;
+        if(timeout) clearTimeout(timeout);
+        setTimeout(this.callParallax.bind(null, event), 200);
+    }
+
+    callParallax = event => {
+        this.parallaxIt(event, '#plant-p', -200);
+        this.parallaxIt(event, '#plant-parallax', -120);
+    }
+
+    parallaxIt = (e, target, movement) => {
+    var $this = ReactDOM.findDOMNode(this);
+    var relY = e.pageY - $this.offsetTop
+        TweenMax.to(target, 1, {
+            y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
+            ease: Power2.easeOut
+        })
+    }
+
     isBottom(el) {
         const center = el.getBoundingClientRect().bottom
         return (
@@ -20,19 +40,20 @@ class PlantsBody extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('scroll', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('scroll', this.trackScrolling);
+        document.removeEventListener('wheel', this.trackScrolling);
     }
 
     trackScrolling = event => {
-        const wrappedElement = document.getElementById('plants-body');
-        if (this.isBottom(wrappedElement)) {
-            this.headerAnimate(wrappedElement)
-            document.removeEventListener('scroll', this.trackScrolling);
-        }
+        // const wrappedElement = document.getElementById('plants-body');
+        // if (this.isBottom(wrappedElement)) {
+        //     this.headerAnimate(wrappedElement)
+        //     document.removeEventListener('scroll', this.trackScrolling);
+        // }
+        this.introScroll(event);
     }
 
     headerAnimate() {
@@ -52,6 +73,7 @@ class PlantsBody extends React.Component {
                 className="col-lg-8 col-padding"
                 id="plants-body">
                 <p
+                    id="plant-p"
                     ref={p => this.logoContainer = p}
                 >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
                 eleifend vitae lorem at, tristique feugiat neque. Phasellus nec ornare leo. 
@@ -64,14 +86,15 @@ class PlantsBody extends React.Component {
                 ornare sapien. Vivamus porttitor vehicula urna, id sollicitudin velit hendrerit eget.</p>
             </div>
             <div className="col-lg-4 col-padding">
-                <Parallax
-                    bgImage={require('./css/imgs/annie-spratt-path.jpg')}
-                    bgImageAlt="Jumbtron"
-                    strength={200}>
-                            <div id="intro-img">
-                        </div>
-
-                </Parallax>
+                <div id="plant-parallax">
+                    <Parallax
+                        bgImage={require('./css/imgs/annie-spratt-path.jpg')}
+                        bgImageAlt="Jumbtron"
+                        strength={200}>
+                                <div id="intro-img">
+                            </div>
+                    </Parallax>
+                </div>
             </div>
         </div>
         );

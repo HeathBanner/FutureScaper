@@ -1,5 +1,7 @@
 import React from 'react';
-import { CSSPlugin, TimelineLite } from 'gsap/all';
+import ReactDOM from 'react-dom'
+import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
+
 
 class Welcome extends React.Component {
 	constructor(props){
@@ -8,6 +10,26 @@ class Welcome extends React.Component {
 		this.logoContainer = null;
 		// logo tween
 		this.logoTween = null;
+    }
+
+    introScroll = event => {
+        var timeout;
+        if(timeout) clearTimeout(timeout);
+        setTimeout(this.callParallax.bind(null, event), 200);
+    }
+
+    callParallax = event => {
+        this.parallaxIt(event, '#welcome-parallax', -10);
+        // this.parallaxIt(event, '#intro-div', -70);
+    }
+
+    parallaxIt = (e, target, movement) => {
+    var $this = ReactDOM.findDOMNode(this);
+    var relY = e.pageY - $this.offsetTop
+        TweenMax.to(target, 1, {
+            y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
+            ease: Power2.easeOut
+        })
     }
     
     isBottom(el) {
@@ -18,19 +40,20 @@ class Welcome extends React.Component {
     }
 
 	componentDidMount() {
-        document.addEventListener('scroll', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling);
     }
 
-    componentWillUnmount() {
-        document.removeEventListener('scroll', this.trackScrolling);
-    }
+    // componentWillUnmount() {
+    //     document.removeEventListener('scroll', this.trackScrolling);
+    // }
 
-    trackScrolling = () => {
-        const wrappedElement = document.getElementById('welcome-div');
-        if (this.isBottom(wrappedElement)) {
-            this.headerAnimate(wrappedElement)
-            document.removeEventListener('scroll', this.trackScrolling);
-        }
+    trackScrolling = event => {
+        // const wrappedElement = document.getElementById('welcome-div');
+        // if (this.isBottom(wrappedElement)) {
+        //     this.headerAnimate(wrappedElement)
+        //     document.removeEventListener('scroll', this.trackScrolling);
+        // }
+        this.introScroll(event)
     }
 
     headerAnimate() {
@@ -46,6 +69,7 @@ class Welcome extends React.Component {
         <div className="row">
             <div id="welcome-div" className="col-lg-8">
                 <h1
+                id="welcome-parallax"
                 ref={ h1 => this.logoContainer = h1 }
                 onScroll={this.trackScrolling}
                 >Welcome to our landscape planner!</h1>
