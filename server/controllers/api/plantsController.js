@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/futureScaper";
 mongoose.connect(MONGODB_URI);
 
-// Global Mongoose error catch
+// Global error catch for Mongoose
 db.events.on('error', err => console.log(err.message));
 
 // Define methods for the plantsController
@@ -46,4 +46,3 @@ const PLANTS = {
 
 plantsController.get('/getPlants', (req, res) => res.json(PLANTS));
 
-module.exports = plantsController;

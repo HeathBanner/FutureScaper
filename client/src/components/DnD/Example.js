@@ -3,7 +3,7 @@ import Container from './Container'
 const DragAroundNaive = () => {
   const hideSourceOnDrag = useState(true)
   return (
-    <div>
+    <div className="row">
       <Container hideSourceOnDrag={hideSourceOnDrag} />
     </div>
   )
