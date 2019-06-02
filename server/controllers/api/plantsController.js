@@ -46,3 +46,4 @@ const PLANTS = {
 
 plantsController.get('/getPlants', (req, res) => res.json(PLANTS));
 
+module.exports = plantsController
