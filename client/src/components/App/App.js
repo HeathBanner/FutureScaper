@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-
 import API from '../../lib/API';
 import TokenStore from '../../lib/TokenStore';
 import AuthContext from '../../contexts/AuthContext';
@@ -10,9 +9,11 @@ import Login from '../../pages/Login/Login';
 import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
+import About from '../../pages/About/About';
 import './App.css';
 
 class App extends Component {
+
   constructor(props) {
     super(props);
 
@@ -49,12 +50,14 @@ class App extends Component {
 
   render() {
     return (
+     
       <AuthContext.Provider value={this.state.auth}>
         <div className='App'>
-          <Navigation />
-          <div className='container'>
+          {/* <Navigation /> */}
+          <div className='container-fluid'>
             <Switch>
               <Route path='/login' component={Login} />
+              <Route path="/about" component={About} />
               <PrivateRoute path='/secret' component={Secret} />
               <Route exact path='/' component={Home} />
               <Route component={NotFound} />

@@ -1,27 +1,83 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { DropTarget } from 'react-dnd'
-import ItemTypes from './ItemTypes'
-import Box from './Box'
+import { findDOMNode } from 'react-dom';
 import update from 'immutability-helper'
 
-import results from './1000'
+import ItemTypes from './ItemTypes'
+import Box from './Box'
+import Seasons from './seasons';
 
-const styles = {
-  width: "100%",
-  height: "80vh",
+import results from './1000'
+import './CSS/container.css'
+
+const plotCol = {
+  width: "70vw",
+  height: "100vh",
   border: '1px solid black',
   position: 'relative',
 }
+
+const months = {
+  mid_winter: 'Jan', 
+  late_winer: 'Feb', 
+  early_winter: 'Mar', 
+  mid_spring: 'Apr', 
+  late_spring: 'May', 
+  early_summer: 'June', 
+  mid_summer: 'July', 
+  late_summer: 'Aug', 
+  early_fall: 'Sep', 
+  mid_fall: 'Oct', 
+  late_fall: 'Nov', 
+  early_winter: 'Dec'
+};
+const seasons = {
+  jan: 'mid_winter', 
+  feb: 'late_winter', 
+  mar: 'early_spring', 
+  apr: 'mid_spring',
+  may: 'late_spring',
+  june: 'early_summer',
+  july: 'mid_summer',
+  aug: 'late_summer',
+  sep: 'early_fall',
+  oct: 'mid_fall',
+  nov: 'late_fall',
+  dec: 'early_winter'
+}
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
+    this.ref = React.createRef();
     this.state = {
       error: null,
       isLoaded: false,
       items: results,
+      season: 'spring',
+      xtraSeason: null,
       boxes: [],
+      plotted: [],
     }
   }
+
+//   seasonStyle(props) {
+
+//     if (props.season === props.plant.bloom_period) {
+//         style.background = props.flower_color
+//     } else if (props.season === plant.fruit/seed_period_begin) {
+//         background = props.plant.fruit_color
+//     } else if (leafRetention.includes(props.season)) {
+//         if (props.leaf_retention === 'Yes') {
+//             style.background = plant.foliage_color
+//         } else {
+//             style.background = 'brown'
+//         }
+//     }
+// }
+
+
 
   populateResults() {
               const plants = this.state.items.map((plant, index) => {
@@ -29,87 +85,119 @@ class Container extends React.Component {
               plant.top = index * 60,
               plant.left = 0,
               plant.index = index,
+              plant.moved = false,
+              plant.isOrigin = true,
               plant
             )
             
           })
           this.setState({
-            boxes: plants
+            boxes: plants,
           })
+  }
 
+  changeSeason = (season) => {
+    console.log('FIRE')
+    console.log(season)
+    this.setState({xtraSeason: season});
+    console.log(this.state.xtraSeason);
   }
 
   componentDidMount() {
     this.populateResults();
   }
 
-//   componentDidMount() {
-//     fetch('/api/plants/getPlants')
-//         .then(res => res.json())
-//         .then((result) => {
-//           console.log(items)
-//             this.setState({
-//                 isLoaded: true,
-//                 items: items
-//             });
-//         },
-//             (error) => {
-//                 this.setState({
-//                     isLoaded: true,
-//                     error
-//                 });
-//             }
-//         )
-// }
-
-
-
   render() {
 
     const { hideSourceOnDrag, connectDropTarget } = this.props
-    const { boxes } = this.state
-
+    
     return connectDropTarget(
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-10" style={styles}></div>
-            <div className="col-lg-2">
-              {this.state.boxes.map(object => {
-                console.log(object)
-                const { left, top, common_name, id } = object
-                return (
-                  <Box
-                    key={id}
-                    index={object.index}
-                    id={id}
-                    left={left}
-                    top={top}
-                    hideSourceOnDrag={hideSourceOnDrag}
-                  >
-                    {common_name}
-                  </Box>
-                )
-              })}
+          <div className="row main-col">            
+            <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
+                <Seasons 
+                onClick={this.changeSeason} />
+
+
+              {this.state.plotted.map(object => {
+              const { left, top, common_name, id, isOrigin, index } = object
+              return (
+                <Box   
+                  key={index}
+                  index={object.index}
+                  id={id}
+                  left={left}
+                  top={top}
+                  hideSourceOnDrag={hideSourceOnDrag}
+                  onClick={this.getElement}
+                  isOrigin={isOrigin}
+                >
+                  {common_name}
+                </Box>
+            )
+          })}
+
+            </div>
+            <div className="col-lg-2 item-col">
+                {this.state.boxes.map(object => {
+                  const { left, top, common_name, id, isOrigin } = object
+                  return (
+                    <Box
+                    
+                      key={id}
+                      index={object.index}
+                      id={id}
+                      left={left}
+                      top={top}
+                      hideSourceOnDrag={hideSourceOnDrag}
+                      onClick={this.getElement}
+                      isOrigin='true'
+                    >
+                      {common_name}
+                    </Box>
+                  )
+                })}
+
             </div>
           </div>
-        </div>
       )
   }
-  moveBox(id, left, top, index) {
-    console.log(left)
-    console.log(top)
-    console.log(index)
-    this.setState(
-      update(this.state, 
-        {boxes: {
-          [index]: {
-              $merge: { left, top }
-            }
-          }
-        }  
+  moveBox(id, left, top, index, items) {
+    if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
+      const plotted = this.state.boxes[index]
+      let entries = []
+      if (plotted) {
+        entries = Object.entries(plotted)
+        for (var i in entries) {
+          let key = entries[i][0]
+          key === 'top' ? items[key] = top: 
+          key === 'left' ? items[key] = left:
+          items[key] = entries[i][1]
+        }
+        items.moved = true;
+        items.isOrigin = false;
+        items.index = this.state.plotted.length
+      }
+        return (
+          this.setState(
+            update(this.state,
+              {plotted: {
+                  $push: [items]
+                }
+              }
+              )
+          )
+        )
+      
+    } else if (!items.isOrigin) {
+      this.setState(
+        update(this.state,
+          {plotted:
+          {[items.index]:
+            {$merge: { left, top }} 
+          }} 
+        )
       )
-    )
-    console.log(this.state.boxes[index])
+    }
   }
 }
 export default DropTarget(
@@ -122,10 +210,11 @@ export default DropTarget(
       
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
-      const left = Math.round(item.left + delta.x)
-      const top = Math.round(item.top + delta.y)
-      console.log(item)
-      component.moveBox(item.id, left, top, item.index)
+      const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
+      const left = monitor.getClientOffset().x + leftOffset
+      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y
+      const top = monitor.getClientOffset().y + topOffset
+      component.moveBox(item.id, left, top, item.index, item)
     },
   },
   connect => ({

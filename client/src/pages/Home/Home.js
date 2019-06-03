@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-
+import update from 'immutability-helper';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import Item from '../../components/DnD/Item';
-import Target from '../../components/DnD/Target';
-import Card from '../../components/DnD/Card';
-import update from 'immutability-helper';
 
 import Example from '../../components/DnD/Example';
-import { DragDropContextProvider } from 'react-dnd';
-
+import Jumbotron from '../../components/Home/jumbotron';
+import Welcome from '../../components/Home/welcome';
+import Intro from '../../components/Home/intro';
+import PlantsHeader from '../../components/Home/plantsHeader';
+import PlantsBody from '../../components/Home/plantsBody';
 
 class HomePage extends Component {
 
@@ -53,6 +52,7 @@ class HomePage extends Component {
       ],
     }
   }
+
   deleteItem = (id) => {
       this.setState(state => {
         return {
@@ -74,56 +74,24 @@ class HomePage extends Component {
       )
     }
 
-
-  // componentDidMount() {
-  //   fetch('/api/plants/getPlants')
-  //     .then(res => res.json())
-  //     .then((result) => {
-  //       this.setState({
-  //         isLoaded: true,
-  //         items: result
-  //       });
-  //     },
-  //       (error) => {
-  //         this.setState({
-  //           isLoaded: true,
-  //           error
-  //         });
-  //       }
-  //     );
-  // }
-
-  // const Types = {
-  //   BOX: 'box',
-  // };
   render() {
 
-    const { error, isLoaded, items } = this.state;
-    // if (error) {
-    //   return <div>Error: {error.message}</div>;
-    // } else if (!isLoaded) {
-    //   return <div>Loading...</div>;
-    // } else {
-    //   const list = items.map(item => {
-    //     return <Item key={item.id} item={item.slug} handleDrop={() => this.deleteItem(item.id)} />
-    //   });
-    // }
         return (
-          <div className='Home'>
-                <div className="App">
-                  <div className="App-intro">
-                    <div className="app-container">
-                    </div>
-                    <div className="card-container">
-                      <Example />
-                      <Target />
-                    </div>
-                  </div>
-                </div>
-              <div className="item-container">
-                {/* {list} */}
+          <div className="row">
+                <Example />
+              <div className="row">
+                <Jumbotron />
               </div>
-          </div>
+                    
+              <div id="intro-container" className="item-container">
+                <Welcome />
+                <Intro />
+              </div>
+              <div id="container-two">
+                <PlantsHeader />
+                <PlantsBody />
+              </div>
+              </div>
         )
   }
 }

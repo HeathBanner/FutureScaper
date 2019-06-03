@@ -1,0 +1,35 @@
+
+properties of plants (to save as fields):
+
+scientific name
+common name
+
+.main_species.specifications.shape_and_orientation ("Erect")
+.main_species.specifications.max_height_at_base_age            "max_height_at_base_age": {"ft": 50,
+ "cm": 1523.925632429137
+}
+.main_species.specifications.mature_height
+.main_species.specifications.lifespan ("Short")
+.main_species.growth_rate ("Rapid")
+.main_species.growth_period ("Spring, Summer, Fall")
+.main_species.growth_habit ("Tree")
+.main_species.growth_form ("Single Stem")
+
+.main_species.growth.shade_tolerance ("Intolerant")
+.main_species.growth.moisture_use
+.main_species.growth.drought_tolerance
+
+.main_species.seed.seedling_vigor
+.main_species.seed.bloom_period
+.main_species.seed.commercial_availability
+
+.main_species.products.palatable_human (can you eat it?)
+
+.main_species.foliage.color
+.main_species.flower.color
+
+.images (array of "url")
+
+.duration ("Perrenial")
+
+

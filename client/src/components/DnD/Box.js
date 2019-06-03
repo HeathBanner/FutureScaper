@@ -1,6 +1,8 @@
 import React from 'react'
 import { DragSource } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import { findDOMNode } from 'react-dom';
+
 const style = {
   position: 'absolute',
   border: '1px dashed gray',
@@ -15,12 +17,14 @@ const Box = ({
   connectDragSource,
   isDragging,
   children,
+  onClick,
+  isOrigin,
 }) => {
   if (isDragging && hideSourceOnDrag) {
     return null
   }
   return connectDragSource(
-      <div style={Object.assign({}, style, { left, top })}>{children}
+      <div style={Object.assign({}, style, { left, top },  )} onClick={onClick} origin={isOrigin} >{children}
       </div>  
   )
 }
@@ -28,8 +32,8 @@ export default DragSource(
   ItemTypes.BOX,
   {
     beginDrag(props) {
-      const { id, left, top, index } = props
-      return { id, left, top, index }
+      const { id, left, top, index, onClick, isOrigin } = props
+      return { id, left, top, index, onClick, isOrigin  }
     },
   },
   (connect, monitor) => ({
