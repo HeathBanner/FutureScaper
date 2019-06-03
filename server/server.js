@@ -6,6 +6,7 @@
 //-- .env --------------------------------------------------------------------
 const path = require('path');
 if (process.env.NODE_ENV !== 'production') {
+  console.log('NOT PRODUCTION')
   require('dotenv').config({
     path: path.resolve(__dirname, '.env')
   });
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 
 //-- Static Server (Production) ----------------------------------------------
 if (process.env.NODE_ENV === 'production') {
+  console.log('PRODUCTION')
   const clientBuildPath = path.join(__dirname, '..', 'client', 'build');
   console.log(`Client build path: ${clientBuildPath}\n`);
   app.use(express.static(clientBuildPath));
@@ -42,6 +44,7 @@ app.use(require('./controllers'));
 
 //-- React catch-all ---------------------------------------------------------
 app.get('*', (req, res) => {
+  console.log('Catch all')
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 

@@ -10,17 +10,23 @@ db.events.on('error', err => console.log(err.message));
 
 // Define methods for the plantsController
 const PLANTS = {
-  findAll: function(req, res) {
-    db.Plant
-      .find(req.query)
+  findAll: function(res) {
+    db
+      .find()
       .sort({ date: -1 })
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    db.Plant
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
+    console.log('hit')
+    db
+      .findById({_id: '5cf3cc792c8cb765b35ff869'})
+      .then(dbModel => {
+        console.log(dbModel)
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
@@ -44,6 +50,10 @@ const PLANTS = {
   }  
 }
 
-plantsController.get('/getPlants', (req, res) => res.json(PLANTS));
+plantsController.get('/getPlants', (req, res) => {
+  console.log('TEST')
+
+  PLANTS.findById(req, res)
+});
 
 module.exports = plantsController

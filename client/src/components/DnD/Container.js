@@ -55,29 +55,33 @@ class Container extends React.Component {
       error: null,
       isLoaded: false,
       items: results,
-      season: 'spring',
-      xtraSeason: null,
+      season: '',
+      xtraSeason: 'Late Spring',
       boxes: [],
       plotted: [],
     }
   }
 
-//   seasonStyle(props) {
+  seasonStyle(props, style) {
+    const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
+    console.log(props.Flower_Color)
 
-//     if (props.season === props.plant.bloom_period) {
-//         style.background = props.flower_color
-//     } else if (props.season === plant.fruit/seed_period_begin) {
-//         background = props.plant.fruit_color
-//     } else if (leafRetention.includes(props.season)) {
-//         if (props.leaf_retention === 'Yes') {
-//             style.background = plant.foliage_color
-//         } else {
-//             style.background = 'brown'
-//         }
-//     }
-// }
-
-
+    if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
+        style.backgroundColor = props.Flower_Color
+        console.log('bloom')
+    } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
+        style.backgroundColor = props.Fruit_Color
+        console.log('fruit')
+    } else if (leafRetention.includes(this.state.xtraSeason)) {
+        if (props.Leaf_Retention === 'Yes') {
+            style.backgroundColor = props.Foliage_Color
+            console.log('retention')
+        } else {
+            console.log('problem')
+            style.backgroundColor = 'brown'
+        }
+    }
+  }
 
   populateResults() {
               const plants = this.state.items.map((plant, index) => {
@@ -89,7 +93,6 @@ class Container extends React.Component {
               plant.isOrigin = true,
               plant
             )
-            
           })
           this.setState({
             boxes: plants,
@@ -105,6 +108,13 @@ class Container extends React.Component {
 
   componentDidMount() {
     this.populateResults();
+    fetch('/api/plants/getPlants')
+    .then(res => res.json())
+      .then(
+      (result) => {
+        console.log(result)
+      }
+      )
   }
 
   render() {
@@ -114,46 +124,55 @@ class Container extends React.Component {
     return connectDropTarget(
           <div className="row main-col">            
             <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
-                <Seasons 
-                onClick={this.changeSeason} />
+                {/* <Seasons 
+                onClick={this.changeSeason} /> */}
 
 
               {this.state.plotted.map(object => {
-              const { left, top, common_name, id, isOrigin, index } = object
-              return (
-                <Box   
-                  key={index}
-                  index={object.index}
-                  id={id}
-                  left={left}
-                  top={top}
-                  hideSourceOnDrag={hideSourceOnDrag}
-                  onClick={this.getElement}
-                  isOrigin={isOrigin}
-                >
-                  {common_name}
-                </Box>
-            )
-          })}
+                  var style = {
+                    backgroundColor: 'brown'
+                  }
+                  this.seasonStyle(object, style)
 
-            </div>
-            <div className="col-lg-2 item-col">
-                {this.state.boxes.map(object => {
-                  const { left, top, common_name, id, isOrigin } = object
+                  const { left, top, id, Scientific_Name ,isOrigin, index } = object
                   return (
-                    <Box
-                    
-                      key={id}
+                    <Box   
+                      key={index}
                       index={object.index}
                       id={id}
                       left={left}
                       top={top}
                       hideSourceOnDrag={hideSourceOnDrag}
                       onClick={this.getElement}
+                      isOrigin={isOrigin}
+                      seasonStyle={style}
+                      plant={object}
+                    >{Scientific_Name}</Box>
+            )
+          })}
+
+            </div>
+            <div className="col-lg-2 item-col">
+                {this.state.boxes.map(object => {
+                    var style = {
+                      backgroundColor: 'brown'
+                    }
+                  this.seasonStyle(object, style)
+                  console.log(style);
+                  const { left, top, Scientific_Name, id, isOrigin } = object
+                  console.log(Scientific_Name)
+                  return (
+                    <Box
+                      key={id}
+                      index={object.index}
+                      id={id}
+                      left={left}
+                      top={top}
+                      hideSourceOnDrag={hideSourceOnDrag}
                       isOrigin='true'
-                    >
-                      {common_name}
-                    </Box>
+                      seasonStyle={style}
+                      plant={object}
+                    >{Scientific_Name}</Box>
                   )
                 })}
 

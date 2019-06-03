@@ -31,7 +31,7 @@ const PlantSchema = new Schema({
         type: Boolean,
         default: false,
     },
-}, {collection: 'Plants'});
+}, {collection: 'USDA'});
 
 const Plant = mongoose.model('Plant', PlantSchema);
 
