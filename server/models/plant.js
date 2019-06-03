@@ -5,17 +5,27 @@ const PlantSchema = new Schema({
     slug: {
         type: String,
         trim: true,
+        required: true
+    },
+    link: {
+        type: String,
+        trim: true, 
+    },
+    commonName: {
+        type: String,
+        trim: true, 
+        required: true
     },
     scientificName: {
         type: String,
         trim: true,
+        required: true
     },
-    link: {
-        type: String,
-        trim: true,
-        required: "Image is required!"
+    checked: {
+        type: Boolean,
+        default: false,
     },
-}, {collection: 'Plant'});
+}, {collection: 'Plants'});
 
 const Plant = mongoose.model('Plant', PlantSchema);
 
