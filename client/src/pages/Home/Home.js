@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
+import Homeinfo from "../../components/Home/homeinfo";
 import Example from '../../components/DnD/Example';
 import Jumbotron from '../../components/Home/jumbotron';
 import Welcome from '../../components/Home/welcome';
 import Intro from '../../components/Home/intro';
 import PlantsHeader from '../../components/Home/plantsHeader';
 import PlantsBody from '../../components/Home/plantsBody';
+import Footer from "../../components/Footer/Footer";
 
 class HomePage extends Component {
 
@@ -77,21 +78,26 @@ class HomePage extends Component {
   render() {
 
         return (
-          <div className="row">
-                <Example />
+          <div>
+                {/* <Example /> */}
               <div className="row">
                 <Jumbotron />
               </div>
-                    
+              <div className="row">
+                <Homeinfo />
+              </div>
+
               <div id="intro-container" className="item-container">
-                <Welcome />
-                <Intro />
+                {/* <Welcome /> */}
+                {/* <Intro /> */}
               </div>
               <div id="container-two">
-                <PlantsHeader />
-                <PlantsBody />
+                {/* <PlantsHeader /> */}
+                {/* <PlantsBody /> */}
               </div>
+                <Footer />
               </div>
+              
         )
   }
 }
