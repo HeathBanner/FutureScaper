@@ -28,7 +28,10 @@
     "react": "^16.8.6",
     "react-dnd": "^7.4.5",
     "react-dnd-html5-backend": "^7.4.4",
+    "react-dom": "^16.8.6",
     "react-gsap": "^1.2.0",
-    "react-parallax": "^2.2.0"
+    "react-parallax": "^2.2.0",
+    "react-tilt": "^0.1.4",
+    "tilt.js": "^1.2.1"
   }
 }
