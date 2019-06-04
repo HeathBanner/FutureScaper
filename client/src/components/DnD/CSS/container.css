@@ -18,3 +18,20 @@
     height: 100%;
 }
 
+#backBtn {
+    position: absolute;
+    bottom: 0%;
+    left: 10%;
+}
+
+#nextBtn {
+    position: absolute;
+    bottom: 0%;
+    right: 10%;
+}
+
+#plot-search {
+    position: absolute;
+    bottom: 10%;
+}
+

@@ -31,7 +31,6 @@ class Intro extends React.Component {
         })
     }
 
-
     isBottom(el) {
         const center = el.getBoundingClientRect().bottom
         return (
