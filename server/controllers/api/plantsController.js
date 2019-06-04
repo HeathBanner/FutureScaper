@@ -134,4 +134,4 @@ plantsController.post('/plotSearch', (req, res) => {
 
 // setInterval(PLANTS.insertGoodies, 30000)
 
-module.exports = plantsController
+module.exports = plantsController;

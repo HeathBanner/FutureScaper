@@ -1,0 +1,43 @@
+.navbar {
+    background: white !important;
+    font-family: 'Source Sans Pro', sans-serif;
+    min-height: 4em;
+    font-size: 20px;    
+}
+
+    .wrap {
+        text-align:center;
+        padding-bottom:5px;
+        background: /* gradient can be an image */
+          linear-gradient(
+            to left, 
+            rgb(17, 114, 25) 0%,
+            rgb(11, 177, 47) 12%,
+            rgb(44, 199, 57) 47%,
+            rgba(14,92,21) 100%
+          )
+          left 
+          bottom
+          #777    
+          no-repeat
+          ; 
+        background-size:100% 5px;
+      }
+
+
+
+.navbar-brand {
+    font-weight: bold !important;
+    color: rgb(17, 114, 25) !important;
+    
+}
+
+.nav-item {
+    color: #0C3823;
+}
+
+.logo {
+    height: 90px;
+}
+
+

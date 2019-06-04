@@ -23,7 +23,10 @@
 #jumbotron h1 {
     color: white;
     font-size: 60px;
-    text-shadow: 0px 0px 70px white
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 5px;
+    text-align: center;
+
 }
 
 #intro-container {
@@ -31,6 +34,11 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background: red;
+}
+
+#intro-container h1 {
+    align-items: center;
 }
 
 #welcome-div {
@@ -48,6 +56,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background:blue;
 }
 
 #plant-header {
@@ -56,4 +65,17 @@
 
 #plant-body {
     text-align: left;
+}
+
+.homepageinfo {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    height: 22em;
+
+}
+
+.sides {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
 }

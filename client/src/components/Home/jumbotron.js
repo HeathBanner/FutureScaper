@@ -15,7 +15,7 @@ class Jumbotron extends React.Component {
                 strength={300}>
 
                     <div id="jumbotron">
-                        <h1 id="jumbo-header">Future Scaper</h1>
+                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i>Garden Planner for your every need</h1>  
                     </div>
 
                 </Parallax>
