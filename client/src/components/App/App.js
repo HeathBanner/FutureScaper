@@ -10,6 +10,8 @@ import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 import About from '../../pages/About/About';
+import Search from "../../pages/Search/Search"
+import Example from "../DnD/Example"
 import './App.css';
 
 class App extends Component {
@@ -59,6 +61,8 @@ class App extends Component {
               <Route path='/login' component={Login} />
               {/* <Route path='/register' component={register} /> */}
               <Route path="/about" component={About} />
+              <Route path="/search" component={Search}/>
+              <Route path="/create" component={Example}/>
               <PrivateRoute path='/secret' component={Secret} />
               <Route exact path='/' component={Home} />
               <Route component={NotFound} />

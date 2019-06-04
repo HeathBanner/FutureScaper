@@ -23,13 +23,22 @@ class HomePage extends Component {
 
         return (
           <div>
-              {/* <Example /> */}
-            <div className="row">
-              <Jumbotron />
-            </div>
-            <div className="row">
-              <Homeinfo />
-            </div>
+                {/* <Example /> */}
+              <div className="row">
+                <Jumbotron />
+              </div>
+              <div className="row">
+                <Homeinfo />
+              </div>
+
+              <div id="intro-container" className="item-container">
+                {/* <Welcome /> */}
+                {/* <Intro /> */}
+              </div>
+              <div id="container-two">
+                {/* <PlantsHeader />
+                <PlantsBody /> */}
+              </div>
               <Footer />
           </div>
               

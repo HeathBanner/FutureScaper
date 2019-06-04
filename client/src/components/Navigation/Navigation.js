@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from "../Home/css/imgs/logoSmall.png"
+import Logo from "../../images/logo.png";
 import AuthContext from '../../contexts/AuthContext';
 import AuthDropdown from '../../components/AuthDropdown/AuthDropdown';
 import Tilt from 'react-tilt';
@@ -27,7 +27,7 @@ class Navigation extends Component {
     const togglerClass = `navbar-toggler ${collapsed && 'collapsed'}`;
 
     return (
-      <div className="wrap fixed-top shadow-lg">
+      <div className="wrap fixed-top ">
       <div className='Navigation'>
         <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <Tilt className="Tilt" options={{ max : 25 }} >

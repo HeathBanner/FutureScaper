@@ -30,7 +30,6 @@
 }
 
 #intro-container {
-    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -52,7 +51,6 @@
 }
 
 #container-two {
-    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -71,7 +69,6 @@
     text-align: center;
     padding: 25px;
     font-family: 'Source Sans Pro', sans-serif;
-    height: 22em;
     color: #333;
     margin: 10px;
 
@@ -81,11 +78,6 @@
     border-bottom: 1px solid black;
     padding-bottom: 10px;
     
-}
-
-.search {
-    text-align: center;
-
 }
 
 .search:focus {
