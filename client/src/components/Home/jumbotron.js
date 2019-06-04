@@ -7,7 +7,7 @@ class Jumbotron extends React.Component {
 
     render() {
         return (
-            <div className="col-lg-12 col-padding">
+            <div className="col-lg-12 col-padding shadow">
                 
                 <Parallax 
                 bgImage={require('./css/imgs/lawrence-kayku.png')}
@@ -15,7 +15,7 @@ class Jumbotron extends React.Component {
                 strength={300}>
 
                     <div id="jumbotron">
-                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i>Garden Planner for your every need</h1>  
+                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i>Garden planner for your every need</h1>  
                     </div>
 
                 </Parallax>

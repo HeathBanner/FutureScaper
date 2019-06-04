@@ -13,7 +13,7 @@
 }
 
 #jumbotron {
-    height: 50vh;
+    height: 45vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@
 }
 
 #intro-container {
-    height: 120vh;
+    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -52,7 +52,7 @@
 }
 
 #container-two {
-    height: 120vh;
+    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -69,13 +69,65 @@
 
 .homepageinfo {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     font-family: 'Source Sans Pro', sans-serif;
     height: 22em;
+    color: #333;
+    margin: 10px;
 
 }
 
 .sides {
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    
 }
+
+.search {
+    text-align: center;
+
+}
+
+.search:focus {
+    border: 1px rgb(17, 142, 44) solid !important;
+    box-shadow: 0px 0px 10px rgb(17, 142, 44) !important;
+}
+
+.btn {
+    background: rgb(17, 142, 44) !important;
+    width: 75%;
+    text-align: center;
+}
+
+.pad {
+    padding: 10px;
+}
+@media (min-width: 768px) { 
+    .sides {
+        border-right: 1px solid black;
+        padding-bottom: 0px;
+        border-bottom: 0px;
+       
+    }
+    #jumbotron {
+        height: 55vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .homepageinfo {
+       margin: 0px;
+    }
+ }
+
+ .icon {
+     height: 200px;
+     padding: 20px;
+ }
+
+ .icon2 {
+     height: 190px;
+     padding: 20px;
+ }
