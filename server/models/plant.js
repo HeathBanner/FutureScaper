@@ -17,7 +17,7 @@ const PlantSchema = new Schema({
         trim: true, 
         required: true
     },
-    scientificName: {
+    Scientific_Name: {
         type: String,
         trim: true,
         required: true
@@ -31,7 +31,50 @@ const PlantSchema = new Schema({
         type: Boolean,
         default: false,
     },
-}, {collection: 'Plants'});
+
+    Bloom_Period: {
+        type: String,
+        trim: true,
+    },
+    Flower_Color: {
+        type: String,
+        trim: true,
+    },
+    Fruit_Seed_Period_Begin: {
+        type: String,
+        trim: true,
+    },
+    Active_Growth_Period: {
+        type: String,
+        trim: true,
+    },
+    Leaf_Retention: {
+        type: String,
+        trim: true,  
+    },
+    Common_Name: {
+        type: String,
+        trim: true,
+    },
+    Fact_Sheets: {
+        type: String,
+        trim: true,
+    },
+
+    Plant_Guides: {
+        type: String,
+        trim: true,
+    },
+    Characteristics_Data: {
+        type: String,
+        trim: true,
+    },
+
+
+
+
+
+}, {collection: 'cleaner'});
 
 const Plant = mongoose.model('Plant', PlantSchema);
 

@@ -7,6 +7,8 @@ import update from 'immutability-helper'
 import ItemTypes from './ItemTypes'
 import Box from './Box'
 import Seasons from './seasons';
+import PageButtons from './PageButtons';
+import PlotSearch from './PlotSearch';
 
 import results from './1000'
 import './CSS/container.css'
@@ -53,47 +55,67 @@ class Container extends React.Component {
     this.ref = React.createRef();
     this.state = {
       error: null,
-      isLoaded: false,
-      items: results,
-      season: 'spring',
-      xtraSeason: null,
+      items: null,
+      season: '',
+      xtraSeason: 'Late Spring',
       boxes: [],
       plotted: [],
+      pageNumber: 0,
+      isLoaded: false,
+      nextPage: true,
+      plotSearch: "",
     }
   }
 
-//   seasonStyle(props) {
-
-//     if (props.season === props.plant.bloom_period) {
-//         style.background = props.flower_color
-//     } else if (props.season === plant.fruit/seed_period_begin) {
-//         background = props.plant.fruit_color
-//     } else if (leafRetention.includes(props.season)) {
-//         if (props.leaf_retention === 'Yes') {
-//             style.background = plant.foliage_color
-//         } else {
-//             style.background = 'brown'
-//         }
-//     }
-// }
-
-
+  seasonStyle(props, style) {
+    const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
+    if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
+        style.boxShadow = `0px 0px 20px ${props.Flower_Color}`
+        console.log('bloom')
+    } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
+        style.boxShadow = `0px 0px 20px ${props.Fruit_Color}`
+        console.log('fruit')
+    } else if (leafRetention.includes(this.state.xtraSeason)) {
+        if (props.Leaf_Retention === 'Yes') {
+            style.boxShadow = `0px 0px 20px ${props.Foliage_Color}`
+            console.log('retention')
+        } else {
+            console.log('problem')
+            style.boxShadow = `0px 0px 20px brown`
+        }
+    }
+  }
 
   populateResults() {
-              const plants = this.state.items.map((plant, index) => {
-            return (
-              plant.top = index * 60,
-              plant.left = 0,
-              plant.index = index,
-              plant.moved = false,
-              plant.isOrigin = true,
-              plant
-            )
-            
-          })
-          this.setState({
-            boxes: plants,
-          })
+      const plants = this.state.items.map((plant, index) => {
+      return (
+        plant.top = index * 60,
+        plant.left = 0,
+        plant.index = index,
+        plant.moved = false,
+        plant.isOrigin = true,
+        plant
+        )
+      })
+      if (this.state.nextPage) {
+        console.log('NEXT')
+        this.setState({
+          boxes: plants,
+          isLoaded: false,
+          // pageNumber: this.state.pageNumber + 5,
+          nextPage: false
+        })
+        this.forceUpdate();
+      } else if (!this.state.nextPage) {
+        console.log('BACK')
+        this.setState({
+          boxes: plants,
+          isLoaded: false,
+          // pageNumber: this.state.pageNumber - 5,
+          nextPage: true,
+        })
+        this.forceUpdate();
+      }
   }
 
   changeSeason = (season) => {
@@ -103,8 +125,94 @@ class Container extends React.Component {
     console.log(this.state.xtraSeason);
   }
 
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    console.log(value)
+    this.setState({
+      [name]: value
+    });
+    fetch('/api/plants/plotSearch', {
+      method: 'POST',
+      body: JSON.stringify({data: value}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+      .then((result) => {
+        this.setState({
+          items: result,
+          isLoaded: true,
+        });
+        this.forceUpdate();
+      })
+
+  }
+
+  pageChange = (page) => {
+    console.log(page)
+    if (page === 'next') {
+      fetch('/api/plants/getNew', {
+        method: 'POST',
+        body: JSON.stringify({data: this.state.pageNumber}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+        .then((result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+            nextPage: true,
+            pageNumber: this.state.pageNumber + 5
+          });
+          this.forceUpdate();
+        })
+    } else if (page === 'back') {
+      fetch('/api/plants/getNew', {
+        method: 'POST',
+        body: JSON.stringify({data: (this.state.pageNumber)}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+        .then((result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+            nextPage: false,
+            pageNumber: this.state.pageNumber - 5
+          });
+          this.forceUpdate();
+        })
+
+    }
+  }
+  
+  componentDidUpdate(newProps, newState) {
+    this.state.isLoaded ? this.populateResults() : console.log('NOPE')
+  }
+
   componentDidMount() {
-    this.populateResults();
+    console.log('DID MOUNT')
+    if (!this.state.items) {
+
+      fetch('/api/plants/getPlants')
+      .then(res => res.json())
+        .then(
+        (result) => {
+          this.setState({
+            items: result,
+            isLoaded: true
+          });
+        }
+      )
+    }
   }
 
   render() {
@@ -114,49 +222,60 @@ class Container extends React.Component {
     return connectDropTarget(
           <div className="row main-col">            
             <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
-                <Seasons 
-                onClick={this.changeSeason} />
+                {/* <Seasons 
+                onClick={this.changeSeason} /> */}
 
 
               {this.state.plotted.map(object => {
-              const { left, top, common_name, id, isOrigin, index } = object
-              return (
-                <Box   
-                  key={index}
-                  index={object.index}
-                  id={id}
-                  left={left}
-                  top={top}
-                  hideSourceOnDrag={hideSourceOnDrag}
-                  onClick={this.getElement}
-                  isOrigin={isOrigin}
-                >
-                  {common_name}
-                </Box>
-            )
-          })}
+                  var style = {
+                    boxShadow: '0px 0px 20px brown'
+                  }
+                  this.seasonStyle(object, style)
 
-            </div>
-            <div className="col-lg-2 item-col">
-                {this.state.boxes.map(object => {
-                  const { left, top, common_name, id, isOrigin } = object
+                  const { left, top, id, Common_Name ,isOrigin, index } = object
                   return (
-                    <Box
-                    
-                      key={id}
+                    <Box   
+                      key={index}
                       index={object.index}
                       id={id}
                       left={left}
                       top={top}
                       hideSourceOnDrag={hideSourceOnDrag}
                       onClick={this.getElement}
+                      isOrigin={isOrigin}
+                      seasonStyle={style}
+                      plant={object}
+                    >{Common_Name}</Box>
+            )
+          })}
+
+            </div>
+            <div className="col-lg-2 item-col">
+              <div id="loaded-dnd">
+                {this.state.boxes.map(object => {
+                    var style = {
+                      boxShadow: `0px 0px 20px brown`
+                    }
+                  console.log(object)
+                    this.seasonStyle(object, style)
+                  const { left, top, id, Common_Name } = object
+                  return (
+                    <Box
+                      key={id}
+                      index={object.index}
+                      id={id}
+                      left={left}
+                      top={top}
+                      hideSourceOnDrag={hideSourceOnDrag}
                       isOrigin='true'
-                    >
-                      {common_name}
-                    </Box>
+                      seasonStyle={style}
+                      plant={object}
+                    >{Common_Name}</Box>
                   )
                 })}
-
+                <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+                <PageButtons onClick={this.pageChange}/>
+              </div>
             </div>
           </div>
       )
@@ -187,7 +306,6 @@ class Container extends React.Component {
               )
           )
         )
-      
     } else if (!items.isOrigin) {
       this.setState(
         update(this.state,
