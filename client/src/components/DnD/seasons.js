@@ -3,7 +3,6 @@ import PlantsBody from '../Home/plantsBody';
 
 import results from './1000'
 
-const leafRetention = ['early_fall', 'mid_fall', 'late_fall', 'early_winter', 'mid_winter', 'late_winter'];
 
 const months = {
     mid_winter: 'Jan', 

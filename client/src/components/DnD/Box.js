@@ -5,8 +5,8 @@ import { findDOMNode } from 'react-dom';
 
 const style = {
   position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
+  borderRadius: '50%',
+  backgroundColor: 'rgb(239, 255, 226)',
   padding: '0.5rem 1rem',
   cursor: 'move',
 }
@@ -19,12 +19,14 @@ const Box = ({
   children,
   onClick,
   isOrigin,
+  plant,
+  seasonStyle
 }) => {
   if (isDragging && hideSourceOnDrag) {
     return null
   }
   return connectDragSource(
-      <div style={Object.assign({}, style, { left, top },  )} onClick={onClick} origin={isOrigin} >{children}
+      <div style={Object.assign({}, style, { left, top }, seasonStyle )} plant onClick={onClick} origin={isOrigin} >{children}
       </div>  
   )
 }
@@ -32,8 +34,8 @@ export default DragSource(
   ItemTypes.BOX,
   {
     beginDrag(props) {
-      const { id, left, top, index, onClick, isOrigin } = props
-      return { id, left, top, index, onClick, isOrigin  }
+      const { id, left, top, index, onClick, isOrigin, plant, seasonStyle } = props
+      return { id, left, top, index, onClick, isOrigin, plant, seasonStyle  }
     },
   },
   (connect, monitor) => ({

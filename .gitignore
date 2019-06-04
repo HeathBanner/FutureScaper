@@ -49,9 +49,4 @@ typings/
 .env
 .env.test
 node_modules
-<<<<<<< HEAD
-node_modules
-node_modules
-=======
 
->>>>>>> efeef3b0d63786a4e3bd9e0c122394ab3677c421
