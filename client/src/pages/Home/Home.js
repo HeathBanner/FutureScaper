@@ -87,15 +87,16 @@ class HomePage extends Component {
                 <Homeinfo />
               </div>
 
-              {/* <div id="intro-container" className="item-container">
-                <Welcome />
-                <Intro />
+              <div id="intro-container" className="item-container">
+                {/* <Welcome /> */}
+                {/* <Intro /> */}
               </div>
               <div id="container-two">
-                <PlantsHeader />
-                <PlantsBody />
-              </div> */}
-                <Footer />
+                {/* <PlantsHeader /> */}
+                {/* <PlantsBody /> */}
+              </div>
+              <Footer />
+
               </div>
               
         )

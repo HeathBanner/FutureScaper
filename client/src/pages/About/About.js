@@ -4,6 +4,7 @@ import Container from "../../components/Container";
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import bg from './images/bg.jpg';
+import Logo from '../../components/Home/css/imgs/logo.png'
 
 const About = () =>
   <div>
@@ -12,6 +13,11 @@ const About = () =>
       <h2>Build a Greener Future</h2>
     </Hero>
     <Container style={{ marginTop: 30 }}>
+    
+   <span data-tilt>
+     <img className="logo" src={Logo} alt="logo"></img>
+   </span>
+
       <Row>
         <Col size="md-12">
           <h1>Welcome To FutureScaper!</h1>

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Logo from "../Home/css/imgs/logoSmall.png"
 import AuthContext from '../../contexts/AuthContext';
 import AuthDropdown from '../../components/AuthDropdown/AuthDropdown';
+import Tilt from 'react-tilt';
+
 
 
 class Navigation extends Component {
@@ -25,12 +27,14 @@ class Navigation extends Component {
     const togglerClass = `navbar-toggler ${collapsed && 'collapsed'}`;
 
     return (
-      <div class="wrap fixed-top shadow">
+      <div className="wrap fixed-top shadow-lg">
       <div className='Navigation'>
         <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+        <Tilt className="Tilt" options={{ max : 25 }} >
+        <img className="Tilt-inner logo" src={Logo} alt="logo"/>
+        </Tilt>
           <Link className='navbar-brand' to='#'>
-            <img src={Logo} className="logo Tilt-inner" alt="logo"/>
-            </Link>
+          </Link>
           <button className={togglerClass} onClick={this.toggleCollapse} data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
             <span className='navbar-toggler-icon'></span>
           </button>
