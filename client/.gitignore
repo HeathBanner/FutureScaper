@@ -2,7 +2,11 @@
 
 # dependencies
 node_modules/
+<<<<<<< HEAD
+/.pnp
+=======
 .pnp/
+>>>>>>> df197a4ce1553a71d722b1f576d1d44e7e54806e
 .pnp.js
 
 # testing
