@@ -40,12 +40,14 @@ class Welcome extends React.Component {
     }
 
 	componentDidMount() {
-        document.addEventListener('wheel', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling,true);
     }
 
-    // componentWillUnmount() {
-    //     document.removeEventListener('scroll', this.trackScrolling);
-    // }
+    componentWillUnmount = () => {
+        console.log("WELCOME TESTING ")
+        document.removeEventListener("wheel", this.trackScrolling, true);
+        
+      };
 
     trackScrolling = event => {
         // const wrappedElement = document.getElementById('welcome-div');
@@ -68,7 +70,8 @@ class Welcome extends React.Component {
         return (
         <div className="row">
             <div id="welcome-div" className="col-lg-8">
-                <h1
+                <h1 
+                className = "test1"
                 id="welcome-parallax"
                 ref={ h1 => this.logoContainer = h1 }
                 onScroll={this.trackScrolling}

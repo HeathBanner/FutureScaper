@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    background: red;
+    background: white;
 }
 
 #intro-container h1 {
@@ -54,7 +54,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    background:blue;
+    background:white;
 }
 
 #plant-header {
@@ -123,3 +123,14 @@
      height: 190px;
      padding: 20px;
  }
+
+ .test1 {
+     margin-top: 30px;
+ }
+ 
+ .test2 {
+    margin-bottom: 100px;
+
+ }
+
+

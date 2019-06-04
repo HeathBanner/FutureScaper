@@ -39,12 +39,14 @@ class Intro extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('wheel', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling, true);
     }
 
-    componentWillUnmount() {
-        document.removeEventListener('wheel', this.trackScrolling);
-    }
+    componentWillUnmount = () => {
+        console.log("INTRO TESTING ")
+        document.removeEventListener("wheel", this.trackScrolling, true);
+        
+      };
 
     trackScrolling = event => {
         // console.log(event)

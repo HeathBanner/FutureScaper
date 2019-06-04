@@ -10,6 +10,7 @@ import Intro from '../../components/Home/intro';
 import PlantsHeader from '../../components/Home/plantsHeader';
 import PlantsBody from '../../components/Home/plantsBody';
 import Footer from "../../components/Footer/Footer";
+import Navigation from '../../components/Navigation/Navigation';
 
 class HomePage extends Component {
 
@@ -79,6 +80,8 @@ class HomePage extends Component {
 
         return (
           <div>
+                <Navigation></Navigation>
+
                 {/* <Example /> */}
               <div className="row">
                 <Jumbotron />
