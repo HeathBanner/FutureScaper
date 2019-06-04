@@ -70,18 +70,18 @@ class Container extends React.Component {
   seasonStyle(props, style) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
-        style.backgroundColor = props.Flower_Color
+        style.boxShadow = `0px 0px 20px ${props.Flower_Color}`
         console.log('bloom')
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
-        style.backgroundColor = props.Fruit_Color
+        style.boxShadow = `0px 0px 20px ${props.Fruit_Color}`
         console.log('fruit')
     } else if (leafRetention.includes(this.state.xtraSeason)) {
         if (props.Leaf_Retention === 'Yes') {
-            style.backgroundColor = props.Foliage_Color
+            style.boxShadow = `0px 0px 20px ${props.Foliage_Color}`
             console.log('retention')
         } else {
             console.log('problem')
-            style.backgroundColor = 'brown'
+            style.boxShadow = `0px 0px 20px brown`
         }
     }
   }
@@ -228,11 +228,11 @@ class Container extends React.Component {
 
               {this.state.plotted.map(object => {
                   var style = {
-                    backgroundColor: 'brown'
+                    boxShadow: '0px 0px 20px brown'
                   }
                   this.seasonStyle(object, style)
 
-                  const { left, top, id, Scientific_Name ,isOrigin, index } = object
+                  const { left, top, id, Common_Name ,isOrigin, index } = object
                   return (
                     <Box   
                       key={index}
@@ -245,18 +245,20 @@ class Container extends React.Component {
                       isOrigin={isOrigin}
                       seasonStyle={style}
                       plant={object}
-                    >{Scientific_Name}</Box>
+                    >{Common_Name}</Box>
             )
           })}
 
             </div>
             <div className="col-lg-2 item-col">
+              <div id="loaded-dnd">
                 {this.state.boxes.map(object => {
                     var style = {
-                      backgroundColor: 'brown'
+                      boxShadow: `0px 0px 20px brown`
                     }
-                  this.seasonStyle(object, style)
-                  const { left, top, Scientific_Name, id, isOrigin } = object
+                  console.log(object)
+                    this.seasonStyle(object, style)
+                  const { left, top, id, Common_Name } = object
                   return (
                     <Box
                       key={id}
@@ -268,11 +270,12 @@ class Container extends React.Component {
                       isOrigin='true'
                       seasonStyle={style}
                       plant={object}
-                    >{Scientific_Name}</Box>
+                    >{Common_Name}</Box>
                   )
                 })}
-              <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-              <PageButtons onClick={this.pageChange}/>
+                <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+                <PageButtons onClick={this.pageChange}/>
+              </div>
             </div>
           </div>
       )

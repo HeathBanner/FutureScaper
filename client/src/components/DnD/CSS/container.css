@@ -1,6 +1,10 @@
 
 
 .main-col {
+    z-index: 2;
+    position: fixed;
+    top: 0%;
+    background: white;
     /* display: none */
 }
 
@@ -9,7 +13,7 @@
 }
 
 .item-col {
-    overflow: scroll;
+    /* overflow: scroll; */
     width: 100%;
 }
 
@@ -20,18 +24,47 @@
 
 #backBtn {
     position: absolute;
-    bottom: 0%;
+    bottom: 2%;
     left: 10%;
+    border: none;
+    border-radius: 3px;
+    background: rgb(152, 224, 94);
+    padding: 5px 10px;
+    font-weight: bold;
 }
 
 #nextBtn {
     position: absolute;
-    bottom: 0%;
+    bottom: 2%;
     right: 10%;
+    border: none;
+    border-radius: 3px;
+    background: rgb(152, 224, 94);
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.plot-btns:hover {
+    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
+}
+
+#backBtn:active, #nextBtn:active, #nextBtn:focus, #nextBtn:visited {
+    border: none;
+    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.7);
 }
 
 #plot-search {
     position: absolute;
     bottom: 10%;
+    width: 85%;
+    text-align: center;
+    border-radius: 3px;
+    background: rgb(152, 224, 94, 0.3);
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+#plot-search:hover {
+    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
 }
 

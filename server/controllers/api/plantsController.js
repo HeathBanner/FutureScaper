@@ -9,7 +9,7 @@ mongoose.connect(MONGODB_URI);
 // Global error catch for Mongoose
 db.events.on('error', err => console.log(err.message));
 
-var goodyInterval = 30000
+var goodyInterval = 0
 
 // Define methods for the plantsController
 const PLANTS = {
@@ -28,7 +28,7 @@ const PLANTS = {
     console.log(req.body.data)
     var regex = new RegExp("^"  + req.body.data);
     db
-      .find({'Scientific_Name': regex}, null, {limit: 5})
+      .find({'Common_Name': regex}, null, {limit: 5})
       .sort({date: -1})
       .then(dbModel => {
         console.log(dbModel)

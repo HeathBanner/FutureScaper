@@ -5,7 +5,8 @@ import { findDOMNode } from 'react-dom';
 
 const style = {
   position: 'absolute',
-  border: '1px dashed gray',
+  borderRadius: '50%',
+  backgroundColor: 'rgb(239, 255, 226)',
   padding: '0.5rem 1rem',
   cursor: 'move',
 }

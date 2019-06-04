@@ -7,8 +7,8 @@ class PageButtons extends React.Component {
         return (
             <div>
                 <div>
-                    <button onClick={() => this.props.onClick('back')} id="backBtn">Back</button>
-                    <button onClick={() => this.props.onClick('next')} id="nextBtn">Next</button>
+                    <button onClick={() => this.props.onClick('back')} id="backBtn" class="plot-btns">Back</button>
+                    <button onClick={() => this.props.onClick('next')} id="nextBtn" class="plot-btns">Next</button>
                 </div>
             </div>
         )

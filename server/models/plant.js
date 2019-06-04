@@ -74,7 +74,7 @@ const PlantSchema = new Schema({
 
 
 
-}, {collection: 'USDA'});
+}, {collection: 'cleaner'});
 
 const Plant = mongoose.model('Plant', PlantSchema);
 
