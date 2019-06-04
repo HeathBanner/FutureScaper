@@ -18,7 +18,7 @@ const UserSchema = new Schema({
       'Password should be four characters or longer'
     ]
   },
-})
+}, {collection: 'users'})
 
 class newUser {
   constructor({ id, email, password }) {

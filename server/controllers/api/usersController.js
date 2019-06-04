@@ -10,10 +10,12 @@ usersController.get('/me', JWTVerifier, (req, res) => {
 
 usersController.post('/login', (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email)
   db.Users.findOne({ email })
     .then(user => {
+      console.log(!user || !user.comparePassword(password))
       if (!user || !user.comparePassword(password)) {
+        console.log('wtf')
         return res.status(401).send("Unauthorized");
       }
 
@@ -31,5 +33,10 @@ usersController.post('/register', (req, res) => {
     .then(user => res.json(user))
     .catch(err => res.json(err));
 });
+
+
+// db.Users.create({email: 'heathbanner@outlook.com', password: 'mixedpass'})
+// .then(user => console.log(user))
+// .catch(err => console.log(err));
 
 module.exports = usersController;
