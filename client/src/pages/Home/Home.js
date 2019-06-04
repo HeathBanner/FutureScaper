@@ -95,7 +95,8 @@ class HomePage extends Component {
                 {/* <PlantsHeader /> */}
                 {/* <PlantsBody /> */}
               </div>
-                <Footer />
+              <Footer />
+
               </div>
               
         )
