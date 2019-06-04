@@ -1,34 +1,20 @@
 import React from "react";
 import "./css/jumbotron.css";
-<<<<<<< HEAD
 import Search from "../../images/Search.png";
 import Create from "../../images/planicon.png";
 import Tilt from 'react-tilt';
 
 
-=======
-import Plan from "../Home/css/imgs/planicon.png";
-import Search from "../Home/css/imgs/searchicon.png";
-import Tilt from "react-tilt";
->>>>>>> dc389227d55cd97833aab0174672fde7466c2da5
 
 class Homeinfo extends React.Component {
   render() {
     return (
-<<<<<<< HEAD
 <div className="row homepageinfo">
-=======
-      <div className="row homepageinfo">
->>>>>>> dc389227d55cd97833aab0174672fde7466c2da5
         <div className="col-md-6 col-sm-12 sides">
           <div className="row">
             <div className="col-12">
               <Tilt>
-<<<<<<< HEAD
                 <img src={Create} className="icon" alt="plan icon" />
-=======
-                <img src={Plan} className="icon" alt="plan icon" />
->>>>>>> dc389227d55cd97833aab0174672fde7466c2da5
               </Tilt>
             </div>
           </div>
@@ -50,11 +36,7 @@ class Homeinfo extends React.Component {
           <div className="row">
             <div className="col-12">
               <Tilt>
-<<<<<<< HEAD
                 <img src={Search} className="icon" alt="plan icon" />
-=======
-                <img src={Search} className="icon2" alt="plan icon" />
->>>>>>> dc389227d55cd97833aab0174672fde7466c2da5
               </Tilt>
             </div>
           </div>

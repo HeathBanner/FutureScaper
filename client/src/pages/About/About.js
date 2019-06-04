@@ -5,9 +5,45 @@ import Row from "../../components/Row";
 import Col from "../../components/Col";
 import bg from './images/bg.jpg';
 import Logo from '../../components/Home/css/imgs/logo.png'
+import Homeinfo from "../../components/Home/homeinfo";
+import Welcome from '../../components/Home/welcome';
+import Intro from '../../components/Home/intro';
+import PlantsHeader from '../../components/Home/plantsHeader';
+import PlantsBody from '../../components/Home/plantsBody';
+import NavAbout from '../../components/NavAbout/NavAbout'
+
+import Jumbotron from '../../components/Home/jumbotron';
+
+import Footer from "../../components/Footer/Footer";
+
 
 const About = () =>
+
   <div>
+    <NavAbout></NavAbout>
+        {/* <Example /> */}
+      <div className="row">
+        <Jumbotron />
+      </div>
+      <div className="row">
+        {/* <Homeinfo /> */}
+      </div>
+
+      <div id="intro-container" className="item-container">
+        <Welcome />
+        <Intro />
+      </div>
+      <div id="container-two">
+        <PlantsHeader />
+        <PlantsBody />
+      </div>
+      <Footer />
+
+      </div>
+
+
+
+{/* <div>
     <Hero backgroundImage={bg}>
       <h1>FutureScaper</h1>
       <h2>Build a Greener Future</h2>
@@ -71,6 +107,8 @@ const About = () =>
         </Col>
       </Row>
     </Container>
-  </div>;
+  </div>; */}
+      
+
 
 export default About;
