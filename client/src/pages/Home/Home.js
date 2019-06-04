@@ -4,6 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Homeinfo from "../../components/Home/homeinfo";
 import Jumbotron from '../../components/Home/jumbotron';
 import Footer from "../../components/Footer/Footer";
+import Navigation from '../../components/Navigation/Navigation';
 
 class HomePage extends Component {
 
@@ -21,6 +22,8 @@ class HomePage extends Component {
 
         return (
           <div>
+                <Navigation></Navigation>
+
                 {/* <Example /> */}
               <div className="row">
                 <Jumbotron />

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
 import { Parallax } from 'react-parallax';
-import Container from '../Container';
 
 class PlantsBody extends React.Component {
     constructor(props) {
@@ -41,14 +40,12 @@ class PlantsBody extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('wheel', this.trackScrolling,true);
+        document.addEventListener('wheel', this.trackScrolling);
     }
 
-    componentWillUnmount = () => {
-        console.log("PLANT BODY TESTING ")
-
-        document.removeEventListener("wheel", this.trackScrolling, true);
-      };
+    componentWillUnmount() {
+        document.removeEventListener('wheel', this.trackScrolling);
+    }
 
     trackScrolling = event => {
         // const wrappedElement = document.getElementById('plants-body');
@@ -69,17 +66,15 @@ class PlantsBody extends React.Component {
 
     render() {
         return (
-        <div className="row ">
-
+        <div className="row">
             <div
                 onScroll={this.trackScrolling}
                 className="col-lg-8 "
                 id="plants-body">
-                        <div className="container">
                 <p
                     id="plant-p"
                     ref={p => this.logoContainer = p}
-                > TEST Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
+                >TEST Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
                 eleifend vitae lorem at, tristique feugiat neque. Phasellus nec ornare leo. 
                 Suspendisse potenti. Nulla sed dapibus arcu. Duis urna erat, scelerisque at 
                 ultrices nec, viverra at massa. Ut pulvinar placerat viverra. Vivamus ultrices 
@@ -89,16 +84,15 @@ class PlantsBody extends React.Component {
                 neque. Praesent ullamcorper facilisis leo id dapibus. Maecenas et luctus velit, eu 
                 ornare sapien. Vivamus porttitor vehicula urna, id sollicitudin velit hendrerit eget.</p>
             </div>
-            </div>
             <div className="col-lg-4 ">
                 <div id="plant-parallax">
                     <Parallax
                         bgImage={require('./css/imgs/annie-spratt-path.jpg')}
                         bgImageAlt="Jumbtron"
                         strength={200}>
-                                <div id="intro-img"></div>
+                                <div className="test2" id="intro-img">
+                            </div>
                     </Parallax>
-                    <br></br>
                 </div>
             </div>
         </div>

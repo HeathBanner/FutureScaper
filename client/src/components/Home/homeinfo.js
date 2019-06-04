@@ -14,6 +14,7 @@ class Homeinfo extends React.Component {
           <div className="row">
             <div className="col-12">
               <Tilt>
+
                 <img src={Plan} className="icon" alt="plan icon" />
               </Tilt>
             </div>

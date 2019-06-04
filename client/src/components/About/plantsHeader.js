@@ -37,14 +37,12 @@ class PlantsHeader extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('wheel', this.trackScrolling,true);
+        document.addEventListener('wheel', this.trackScrolling);
     }
 
-    componentWillUnmount = () => {
-        console.log("PLANT HEADER TESTING ")
-
-        document.removeEventListener("wheel", this.trackScrolling, true);
-      };
+    componentWillUnmount() {
+        document.removeEventListener('wheel', this.trackScrolling);
+    }
 
     trackScrolling = event => {
         // const wrappedElement = document.getElementById('plants-header');
