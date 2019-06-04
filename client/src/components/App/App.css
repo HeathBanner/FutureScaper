@@ -37,7 +37,12 @@
 }
 
 .logo {
-    height: 90px;
+    height: 100px;
+}
+
+.icon {
+  height: 75px;
+  justify-content: center
 }
 
 

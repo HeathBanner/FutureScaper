@@ -30,7 +30,7 @@
 }
 
 #intro-container {
-    height: 120vh;
+    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -52,7 +52,7 @@
 }
 
 #container-two {
-    height: 120vh;
+    /* height: 120vh; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -78,4 +78,8 @@
 .sides {
     border-right: 1px solid black;
     border-left: 1px solid black;
+}
+
+.icon {
+    height:100px;
 }

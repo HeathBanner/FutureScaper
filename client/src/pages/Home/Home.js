@@ -92,8 +92,8 @@ class HomePage extends Component {
                 {/* <Intro /> */}
               </div>
               <div id="container-two">
-                {/* <PlantsHeader /> */}
-                {/* <PlantsBody /> */}
+                {/* <PlantsHeader />
+                <PlantsBody /> */}
               </div>
                 <Footer />
               </div>
