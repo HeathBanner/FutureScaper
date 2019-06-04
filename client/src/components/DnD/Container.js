@@ -1,7 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { DropTarget } from 'react-dnd'
-import { findDOMNode } from 'react-dom';
 import update from 'immutability-helper'
 
 import ItemTypes from './ItemTypes'
@@ -10,7 +8,6 @@ import Seasons from './seasons';
 import PageButtons from './PageButtons';
 import PlotSearch from './PlotSearch';
 
-import results from './1000'
 import './CSS/container.css'
 
 const plotCol = {
