@@ -79,12 +79,12 @@ class HomePage extends Component {
 
         return (
           <div>
-                <Example />
+                {/* <Example /> */}
               <div className="row">
-                {/* <Jumbotron /> */}
+                <Jumbotron />
               </div>
               <div className="row">
-                {/* <Homeinfo /> */}
+                <Homeinfo />
               </div>
 
               <div id="intro-container" className="item-container">
