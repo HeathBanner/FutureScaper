@@ -9,7 +9,7 @@ import Tilt from "react-tilt";
 class Homeinfo extends React.Component {
   render() {
     return (
-      <div className="row homepageinfo">
+<div className="row homepageinfo">
         <div className="col-md-6 col-sm-12 sides">
           <div className="row">
             <div className="col-12">
@@ -36,7 +36,7 @@ class Homeinfo extends React.Component {
           <div className="row">
             <div className="col-12">
               <Tilt>
-                <img src={Search} className="icon2" alt="plan icon" />
+                <img src={Search} className="icon" alt="plan icon" />
               </Tilt>
             </div>
           </div>
