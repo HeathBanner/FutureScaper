@@ -19,7 +19,15 @@ class Homeinfo extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-4 col-sm-12 sides"><h3>Search Plant Database</h3></div>
+        <div className="col-md-4 col-sm-12 sides"><h3>Search Plant Database</h3>
+        <form>
+  <div class="form-group">
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for Plant"/>
+  </div>
+ 
+  <button type="submit" class="btn btn-success btn-block">Search</button>
+</form>
+        </div>
         <div className="col-md-4 col-sm-12"><h3>Something later</h3></div>
       </div>
     );

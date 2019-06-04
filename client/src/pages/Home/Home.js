@@ -79,7 +79,7 @@ class HomePage extends Component {
 
         return (
           <div>
-                <Example />
+                {/* <Example /> */}
               <div className="row">
                 <Jumbotron />
               </div>
@@ -87,14 +87,14 @@ class HomePage extends Component {
                 <Homeinfo />
               </div>
 
-              <div id="intro-container" className="item-container">
+              {/* <div id="intro-container" className="item-container">
                 <Welcome />
                 <Intro />
               </div>
               <div id="container-two">
                 <PlantsHeader />
                 <PlantsBody />
-              </div>
+              </div> */}
                 <Footer />
               </div>
               
