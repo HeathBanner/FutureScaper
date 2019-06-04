@@ -40,7 +40,7 @@ class Welcome extends React.Component {
     }
 
 	componentDidMount() {
-        document.addEventListener('wheel', this.trackScrolling);
+        document.addEventListener('wheel', this.trackScrolling,true);
     }
 
     componentWillUnmount = () => {
