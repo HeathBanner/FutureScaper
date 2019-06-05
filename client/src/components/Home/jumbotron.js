@@ -10,12 +10,12 @@ class Jumbotron extends React.Component {
             <div className="col-lg-12 col-padding shadow">
                 
                 <Parallax 
-                bgImage={require('./css/imgs/flower1.png')}
+                bgImage={require('./css/imgs/flower4.jpg')}
                 bgImageAlt="Jumbtron"
                 strength={300}>
 
                     <div id="jumbotron">
-                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i>Garden planner for your every need</h1>  
+                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i><strong>Garden planner for your every need</strong></h1>  
                     </div>
 
                 </Parallax>

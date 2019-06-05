@@ -11,6 +11,8 @@ import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 import About from '../../pages/About/About';
 import Search from "../../pages/Search/Search"
+import Example from "../DnD/Example"
+import Register from "../../pages/Register/Register"
 import Plot from '../../pages/Plot/Plot';
 import './App.css';
 
@@ -59,7 +61,7 @@ class App extends Component {
           <div className='container-fluid'>
             <Switch>
               <Route path='/login' component={Login} />
-              {/* <Route path='/register' component={register} /> */}
+              <Route path='/register' component={Register} />
               <Route path="/about" component={About} />
               <Route path="/search" component={Search}/>
               <Route path="/create" component={Plot}/>
