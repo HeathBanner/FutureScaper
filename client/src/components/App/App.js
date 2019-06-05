@@ -59,6 +59,7 @@ class App extends Component {
           <div className='container-fluid'>
             <Switch>
               <Route path='/login' component={Login} />
+              {/* <Route path='/register' component={register} /> */}
               <Route path="/about" component={About} />
               <Route path="/search" component={Search}/>
               <Route path="/create" component={Example}/>
