@@ -55,7 +55,7 @@ class App extends Component {
      
       <AuthContext.Provider value={this.state.auth}>
         <div className='App'>
-          {/* <Navigation /> */}
+          <Navigation />
           <div className='container-fluid'>
             <Switch>
               <Route path='/login' component={Login} />

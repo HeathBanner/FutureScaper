@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./login.css";
 
 class LoginForm extends Component {
   state = {
@@ -25,9 +26,11 @@ class LoginForm extends Component {
     const { email, password } = this.state;
 
     return (
+      <div className="container">
       <div className='LoginForm'>
         <div className='card'>
           <div className='card-body'>
+            <h1>Login</h1>
             <form className='LoginForm' onSubmit={this.handleSubmit}>
               <div className='input-group mb-3'>
                 <div className="input-group-prepend">
@@ -59,10 +62,11 @@ class LoginForm extends Component {
                 />
               </div>
 
-              <button className='btn btn-primary' type='submit'>Login</button>
+              <button className='btn btn-primary lbutton' type='submit'>Login</button>
             </form>
           </div>
         </div>
+      </div>
       </div>
     )
   }

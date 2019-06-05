@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import API from '../../lib/API';
 import AuthContext from '../../contexts/AuthContext';
 import LoginForm from '../../components/LoginForm/LoginForm';
+import "../../components/LoginForm/login.css"
+
 
 class Login extends Component {
   static contextType = AuthContext;
@@ -47,25 +49,23 @@ class Login extends Component {
     }
 
     return (
+      <div className="container">
       <div className='Login'>
+        
         <div className='row'>
           <div className='col'>
-            <h1>Login</h1>
+            <LoginForm onSubmit={this.handleSubmit} />
           </div>
         </div>
         {this.state.error &&
-          <div className='row'>
+          <div className='row alert'>
             <div className='col'>
               <div className='alert alert-danger mb-3' role='alert'>
                 {this.state.error}
               </div>
             </div>
           </div>}
-        <div className='row'>
-          <div className='col'>
-            <LoginForm onSubmit={this.handleSubmit} />
-          </div>
-        </div>
+      </div>
       </div>
     );
   }
