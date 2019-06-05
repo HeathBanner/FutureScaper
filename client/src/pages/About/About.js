@@ -17,12 +17,6 @@ import Jumbotron from '../../components/Home/jumbotron';
 import Footer from "../../components/Footer/Footer";
 
 
-import Welcome from '../../components/Home/welcome';
-import Intro from '../../components/Home/intro';
-import PlantsHeader from '../../components/Home/plantsHeader';
-import PlantsBody from '../../components/Home/plantsBody';
-
-
 const About = () =>
 
   <div>

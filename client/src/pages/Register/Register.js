@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
-
-import "./login.css";
-
-class LoginForm extends Component {
+import "./register.css";
+class Register extends Component {
   state = {
     email: '',
     password: ''
@@ -29,11 +26,11 @@ class LoginForm extends Component {
 
     return (
       <div className="container">
-      <div className='LoginForm'>
+      <div className='RegisterForm top'>
         <div className='card'>
           <div className='card-body'>
-            <h1>Login</h1>
-            <form className='LoginForm' onSubmit={this.handleSubmit}>
+            <h1>Register</h1>
+            <form className='RegisterForm' onSubmit={this.handleSubmit}>
               <div className='input-group mb-3'>
                 <div className="input-group-prepend">
                   <span className="input-group-text">@</span>
@@ -64,10 +61,7 @@ class LoginForm extends Component {
                 />
               </div>
 
-              <button className='btn btn-primary lbutton' type='submit'>Login</button>
-              <Link to="/register" onClick={this.toggleCollapse}>
-              <button className='btn btn-primary lbutton' type='submit'>Create a new account</button>
-              </Link>
+              <button className='btn btn-primary lbutton' type='submit'>Register</button>
             </form>
           </div>
         </div>
@@ -77,5 +71,5 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default Register;
 

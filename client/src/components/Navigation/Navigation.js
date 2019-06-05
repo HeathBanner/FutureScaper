@@ -27,7 +27,7 @@ class Navigation extends Component {
     const togglerClass = ` navbar-toggler ${collapsed && 'collapsed'}`;
 
     return (
-      <div className="wrap fixed-top ">
+      <div className="wrap fixed-top shadow">
       <div className='Navigation'>
         <nav className='navbar navbar-expand-lg navbar-light bg-light'>
           <Link to="/" onClick={this.toggleCollapse}>
