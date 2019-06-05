@@ -16,6 +16,7 @@ class Homeinfo extends React.Component {
             <Link to="/create" onClick={this.toggleCollapse}>
 
               <Tilt>
+
                 <img src={Plan} className="icon" alt="plan icon" />
               </Tilt>
               </Link>
