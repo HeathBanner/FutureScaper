@@ -10,12 +10,14 @@
 
 .plot-col {
     width: 100%;
+    height: 100%;
     background: rgb(10, 160, 0);
 }
 
 .item-col {
     /* overflow: scroll; */
     width: 100%;
+    height: 100px;
 }
 
 .drag-area {

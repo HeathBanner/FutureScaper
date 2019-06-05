@@ -11,7 +11,7 @@ import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
 import About from '../../pages/About/About';
 import Search from "../../pages/Search/Search"
-import Example from "../DnD/Example"
+import Plot from '../../pages/Plot/Plot';
 import './App.css';
 
 class App extends Component {
@@ -62,7 +62,7 @@ class App extends Component {
               {/* <Route path='/register' component={register} /> */}
               <Route path="/about" component={About} />
               <Route path="/search" component={Search}/>
-              <Route path="/create" component={Example}/>
+              <Route path="/create" component={Plot}/>
               <PrivateRoute path='/secret' component={Secret} />
               <Route exact path='/' component={Home} />
               <Route component={NotFound} />
