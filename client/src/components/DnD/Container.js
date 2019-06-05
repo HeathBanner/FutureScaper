@@ -46,6 +46,7 @@ const seasons = {
   dec: 'early_winter'
 }
 
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
@@ -82,6 +83,30 @@ class Container extends React.Component {
         }
     }
   }
+
+  whatAmI =(plant, style) => {
+    let isTree = false;
+    let isShrub = false;
+    let isFlower = false;
+  
+    if (plant.Christmas_Tree_Product)
+      if (plant.Christmas_Tree_Product === "Yes") 
+        isTree = true;
+    if (plant.Height_Mature_feet)
+      if (plant.Height_Mature_feet > 5) 
+         isTree = true;
+  
+    if (isTree === false)
+      if (plant.Shape_And_Orientation === "Rounded")
+        isShrub = true;
+      if (plant.Flower_Color)
+        isFlower = true;
+  
+      if (isTree) return "tree";
+      if (isShrub) return "shrub";
+      if (isFlower) return "flower";
+  }
+  
 
   populateResults() {
     console.log(this.state.items)
@@ -207,7 +232,8 @@ class Container extends React.Component {
         (result) => {
           this.setState({
             items: result,
-            isLoaded: true
+            isLoaded: true,
+
           });
         }
       )
@@ -229,6 +255,7 @@ class Container extends React.Component {
                               boxShadow: `0px 0px 20px brown`
                             }
                             this.seasonStyle(object, style)
+                            this.whatAmI(object, style);
                           const { left, top, id, Common_Name } = object
                           return (
                             <Box

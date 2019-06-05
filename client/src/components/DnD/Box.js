@@ -13,6 +13,7 @@ const style = {
   // width: '150px',
   margin: '0px 0px'
 }
+
 const Box = ({
   hideSourceOnDrag,
   left,
