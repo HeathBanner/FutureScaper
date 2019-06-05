@@ -10,7 +10,7 @@ class Jumbotron extends React.Component {
             <div className="col-lg-12 col-padding shadow">
                 
                 <Parallax 
-                bgImage={require('./css/imgs/lawrence-kayku.png')}
+                bgImage={require('./css/imgs/flower1.png')}
                 bgImageAlt="Jumbtron"
                 strength={300}>
 

@@ -123,3 +123,10 @@
      height: 190px;
      padding: 20px;
  }
+
+ .jumbotron{
+    position: relative;
+    z-index:-101;
+  }
+  
+ 

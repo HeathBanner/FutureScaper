@@ -3,6 +3,7 @@
     font-family: 'Source Sans Pro', sans-serif;
     min-height: 3em;
     font-size: 20px;    
+    color: black !important;
 }
 
     .wrap {
@@ -33,11 +34,14 @@
 }
 
 .nav-item {
-    color: #0C3823;
+    color: #444 !important;
+    padding: 5px;
 }
 
 .logo {
     height: 80px;
 }
+
+
 
 
