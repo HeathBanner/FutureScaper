@@ -1,4 +1,5 @@
 import React from "react";
+// import PlotSearch from '../../components/DnD/PlotSearch';
 import "./search.css";
 
 const Search = () => (
@@ -13,6 +14,7 @@ const Search = () => (
               class="form-control form-control-lg search"
               placeholder="Search"
             />
+            {/* <PlotSearch onChange={this.handleInputChange} /> */}
           </div>
         </div>
       </div>
