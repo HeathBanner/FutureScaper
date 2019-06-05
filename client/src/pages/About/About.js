@@ -8,8 +8,6 @@ import Logo from '../../components/Home/css/imgs/logo.png'
 import Homeinfo from "../../components/Home/homeinfo";
 import Welcome from '../../components/Home/welcome';
 import Intro from '../../components/Home/intro';
-import PlantsHeader from '../../components/Home/plantsHeader';
-import PlantsBody from '../../components/Home/plantsBody';
 import NavAbout from '../../components/NavAbout/NavAbout'
 
 import Jumbotron from '../../components/Home/jumbotron';
@@ -17,8 +15,6 @@ import Jumbotron from '../../components/Home/jumbotron';
 import Footer from "../../components/Footer/Footer";
 
 
-import Welcome from '../../components/Home/welcome';
-import Intro from '../../components/Home/intro';
 import PlantsHeader from '../../components/Home/plantsHeader';
 import PlantsBody from '../../components/Home/plantsBody';
 
