@@ -13,10 +13,13 @@ class Homeinfo extends React.Component {
         <div className="col-md-6 col-sm-12 sides">
           <div className="row">
             <div className="col-12">
+            <Link to="/create" onClick={this.toggleCollapse}>
+
               <Tilt>
 
                 <img src={Plan} className="icon" alt="plan icon" />
               </Tilt>
+              </Link>
             </div>
           </div>
           <div className="row">
@@ -27,18 +30,23 @@ class Homeinfo extends React.Component {
 
           <div className="row">
             <div className="col-12 pad">
+              <Link to="/create" onClick={this.toggleCollapse}>
               <button type="button" class="btn btn-success shadow" data-toggle="modal" data-target=".bd-example-modal-xl">
                 Create Garden
               </button>
+              </Link>
           </div>
           </div>
         </div>
         <div className="col-md-6 col-sm-12">
           <div className="row">
             <div className="col-12">
+            <Link to="/search" onClick={this.toggleCollapse}>
+
               <Tilt>
                 <img src={Search} className="icon" alt="plan icon" />
               </Tilt>
+              </Link>
             </div>
           </div>
           <div className="row">

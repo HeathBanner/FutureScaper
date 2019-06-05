@@ -1,7 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { DropTarget } from 'react-dnd'
-import { findDOMNode } from 'react-dom';
 import update from 'immutability-helper'
 
 import ItemTypes from './ItemTypes'
@@ -10,11 +8,10 @@ import Seasons from './seasons';
 import PageButtons from './PageButtons';
 import PlotSearch from './PlotSearch';
 
-import results from './1000'
 import './CSS/container.css'
 
 const plotCol = {
-  width: "70vw",
+  width: "100%",
   height: "100vh",
   border: '1px solid black',
   position: 'relative',
@@ -86,11 +83,38 @@ class Container extends React.Component {
     }
   }
 
+  whatAmI = (plant, style) => {
+    let isTree = false;
+    let isShrub = false;
+    let isFlower = false;
+  
+    if (plant.Christmas_Tree_Product)
+      if (plant.Christmas_Tree_Product === "Yes") 
+        isTree = true;
+    if (plant.Height_Mature_feet)
+      if (plant.Height_Mature_feet > 5) 
+         isTree = true;
+  
+    if (isTree === false)
+      if (plant.Shape_And_Orientation === "Rounded")
+        isShrub = true;
+      if (plant.Flower_Color)
+        isFlower = true;
+  
+      if (isTree) return "tree";
+      if (isShrub) return "shrub";
+      if (isFlower) return "flower";
+  }
+  
+
   populateResults() {
+    console.log(this.state.items)
+
       const plants = this.state.items.map((plant, index) => {
+        console.log(plant.Common_Name.length)
       return (
-        plant.top = index * 60,
-        plant.left = 0,
+        plant.top = 20,
+        plant.left = ((index+1)*15) - (plant.Common_Name.length/4) + '%',
         plant.index = index,
         plant.moved = false,
         plant.isOrigin = true,
@@ -147,7 +171,6 @@ class Container extends React.Component {
         });
         this.forceUpdate();
       })
-
   }
 
   pageChange = (page) => {
@@ -221,11 +244,42 @@ class Container extends React.Component {
     const { hideSourceOnDrag, connectDropTarget } = this.props
     
     return connectDropTarget(
-          <div className="row main-col">            
-            <div id="portal" className="col-lg-10 plot-col" style={plotCol}>
-                {/* <Seasons 
-                onClick={this.changeSeason} /> */}
+      <div>
+        <div className="row main-col">
+                  <div className="col-lg-12 item-col">
+                      <div id="loaded-dnd">
+                        {this.state.boxes.map(object => {
+                          console.log(object)
+                            var style = {
+                              boxShadow: `0px 0px 20px brown`
+                            }
+                            this.seasonStyle(object, style)
+                            this.whatAmI(object, style);
+                          const { left, top, id, Common_Name } = object
+                          return (
+                            <Box
+                              key={id}
+                              index={object.index}
+                              id={id}
+                              left={left}
+                              top={top}
+                              hideSourceOnDrag={hideSourceOnDrag}
+                              isOrigin='true'
+                              seasonStyle={style}
+                              plant={object}
+                            >{Common_Name}</Box>
+                          )
+                        })}
+                        {/* <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+                        <PageButtons onClick={this.pageChange}/> */}
+                      </div>
+                    </div>
+        
+        <div className="row">
 
+          <div className="col-lg-12 plot-col" style={plotCol}>
+              {/* <Seasons 
+              onClick={this.changeSeason} /> */}
 
               {this.state.plotted.map(object => {
                   var style = {
@@ -250,35 +304,10 @@ class Container extends React.Component {
             )
           })}
 
-            </div>
-            <div className="col-lg-2 item-col">
-              <div id="loaded-dnd">
-                {this.state.boxes.map(object => {
-                    var style = {
-                      boxShadow: `0px 0px 20px brown`
-                    }
-                  console.log(object)
-                    this.seasonStyle(object, style)
-                  const { left, top, id, Common_Name } = object
-                  return (
-                    <Box
-                      key={id}
-                      index={object.index}
-                      id={id}
-                      left={left}
-                      top={top}
-                      hideSourceOnDrag={hideSourceOnDrag}
-                      isOrigin='true'
-                      seasonStyle={style}
-                      plant={object}
-                    >{Common_Name}</Box>
-                  )
-                })}
-                <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-                <PageButtons onClick={this.pageChange}/>
-              </div>
-            </div>
           </div>
+        </div>
+        </div>            
+      </div>
       )
   }
   moveBox(id, left, top, index, items) {
@@ -296,6 +325,7 @@ class Container extends React.Component {
         items.moved = true;
         items.isOrigin = false;
         items.index = this.state.plotted.length
+        items.position = 'absolute'
       }
         return (
           this.setState(
@@ -329,9 +359,9 @@ export default DropTarget(
       
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
-      const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
+      const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x 
       const left = monitor.getClientOffset().x + leftOffset
-      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y
+      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y - 100
       const top = monitor.getClientOffset().y + topOffset
       component.moveBox(item.id, left, top, item.index, item)
     },
