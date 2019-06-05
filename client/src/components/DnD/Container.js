@@ -117,6 +117,9 @@ class Container extends React.Component {
       style.backgroundPosition = 'center';
       style.backgroundSize = 'cover';
       style.height = '150px';
+      style.width = 'auto';
+      style.fontSize = '1.2rem';
+      style.textShadow = '1px 1px 1px white';
       style.zIndex = '100';
 
       if (isTree) {
