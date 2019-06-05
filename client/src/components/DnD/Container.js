@@ -84,26 +84,62 @@ class Container extends React.Component {
   }
 
   whatAmI = (plant, style) => {
+
+    console.log(plant, style);
+
     let isTree = false;
     let isShrub = false;
     let isFlower = false;
-  
+
+    let treeImg = Math.floor(Math.random() * 4) + 1;
+    let shrubImg = Math.floor(Math.random() * 4) + 1;
+    
+
     if (plant.Christmas_Tree_Product)
-      if (plant.Christmas_Tree_Product === "Yes") 
+      if (plant.Christmas_Tree_Product === "Yes")  {
         isTree = true;
+        treeImg = 2;
+      }
+        
     if (plant.Height_Mature_feet)
-      if (plant.Height_Mature_feet > 5) 
+      if (plant.Height_Mature_feet >= 5) 
          isTree = true;
   
     if (isTree === false)
       if (plant.Shape_And_Orientation === "Rounded")
         isShrub = true;
-      if (plant.Flower_Color)
+      if (plant.Flower_Color) {
         isFlower = true;
-  
-      if (isTree) return "tree";
-      if (isShrub) return "shrub";
-      if (isFlower) return "flower";
+        var flowerColor = plant.Flower_Color;
+      }
+      
+      style.backgroundRepeat = 'no-repeat';
+      style.backgroundPosition = 'center';
+      style.backgroundSize = 'cover';
+      style.height = '150px';
+      style.zIndex = '100';
+
+      if (isTree) {
+        console.log("it's a tree."); 
+        style.backgroundImage = 'url(./images/Trees/Tree' + treeImg + '.png)';
+
+        return "tree";
+      }
+
+      if (isShrub) {
+        console.log("it's a shrub."); 
+        style.backgroundImage = 'url(./images/Bushes/Bush' + shrubImg + '.png)';
+
+        return "shrub";
+      }
+      if (isFlower) {
+        console.log("it's a flower. \ncolor:", flowerColor); 
+
+        flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
+        style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)';
+
+        return "flower";
+      }
   }
   
 
@@ -232,7 +268,6 @@ class Container extends React.Component {
           this.setState({
             items: result,
             isLoaded: true,
-
           });
         }
       )
@@ -287,7 +322,7 @@ class Container extends React.Component {
                   }
                   this.seasonStyle(object, style)
                   this.whatAmI(object, style)
-                  const { left, top, id, Common_Name ,isOrigin, index } = object
+                  const { left, top, id, Common_Name, isOrigin, index } = object
                   return (
                     <Box   
                       key={index}
