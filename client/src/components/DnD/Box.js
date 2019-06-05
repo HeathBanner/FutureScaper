@@ -10,6 +10,7 @@ const style = {
   padding: '0.5rem 1rem',
   cursor: 'move',
 }
+
 const Box = ({
   hideSourceOnDrag,
   left,
