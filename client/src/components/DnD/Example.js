@@ -1,9 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import Container from './Container'
 
-import { DragDropContext } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-
 const DragAroundNaive = () => {
   const hideSourceOnDrag = useState(true)
   return (
@@ -12,4 +9,4 @@ const DragAroundNaive = () => {
     </div>
   )
 }
-export default DragDropContext(HTML5Backend)(DragAroundNaive);
+export default DragAroundNaive;

@@ -5,11 +5,15 @@ import { findDOMNode } from 'react-dom';
 
 const style = {
   position: 'absolute',
+  display: 'inline',
   borderRadius: '50%',
   backgroundColor: 'rgb(239, 255, 226)',
   padding: '0.5rem 1rem',
   cursor: 'move',
+  // width: '150px',
+  margin: '0px 0px'
 }
+
 const Box = ({
   hideSourceOnDrag,
   left,
@@ -34,6 +38,7 @@ export default DragSource(
   ItemTypes.BOX,
   {
     beginDrag(props) {
+      console.log(props)
       const { id, left, top, index, onClick, isOrigin, plant, seasonStyle } = props
       return { id, left, top, index, onClick, isOrigin, plant, seasonStyle  }
     },
