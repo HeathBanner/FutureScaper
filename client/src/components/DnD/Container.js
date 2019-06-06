@@ -51,7 +51,7 @@ class ErrorBoundary extends React.Component {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
-  
+
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below and re-render with error message
     this.setState({
@@ -60,7 +60,7 @@ class ErrorBoundary extends React.Component {
     })
     // You can also log error messages to an error reporting service here
   }
-  
+
   render() {
     if (this.state.errorInfo) {
       // Error path
@@ -77,7 +77,7 @@ class ErrorBoundary extends React.Component {
     }
     // Normally, just render children
     return this.props.children;
-  }  
+  }
 }
 
 class Container extends React.Component {
@@ -300,151 +300,153 @@ class Container extends React.Component {
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then((result) => {
-          this.setState({
-            items: result,
-            isLoaded: true,
-            nextPage: false,
-            pageNumber: this.state.pageNumber - 5
-          });
-          // this.forceUpdate();
-        })
-    }
-  }
-
-  componentDidUpdate(newProps, newState) {
-    this.state.isLoaded ? this.populateResults() : console.log('NOPE')
-  }
-
-  componentDidMount() {
-    if (!this.state.items) {
-      fetch('/api/plants/getPlants')
-        .then(res => res.json())
-        .then(
-          (result) => {
+          if (this.state.pageNumber > 5) {
             this.setState({
               items: result,
               isLoaded: true,
+              nextPage: false,
+              pageNumber: this.state.pageNumber - 5
             });
           }
-        )
-    }
+      // this.forceUpdate();
+    })
   }
+}
 
-  render() {
+componentDidUpdate(newProps, newState) {
+  this.state.isLoaded ? this.populateResults() : console.log('NOPE')
+}
 
-    const { hideSourceOnDrag, connectDropTarget } = this.props
+componentDidMount() {
+  if (!this.state.items) {
+    fetch('/api/plants/getPlants')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+          });
+        }
+      )
+  }
+}
 
-    return connectDropTarget(
-      <div className="row main-col">
-        <div className="col-lg-12 item-col">
-          <div id="loaded-dnd">
-            {this.state.boxes.map(object => {
-              console.log(object)
+render() {
+
+  const { hideSourceOnDrag, connectDropTarget } = this.props
+
+  return connectDropTarget(
+    <div className="row main-col">
+      <div className="col-lg-12 item-col">
+        <div id="loaded-dnd">
+          {this.state.boxes.map(object => {
+            console.log(object)
+            var style = {
+              textShadow: `0px 0px 20px brown`
+            }
+            this.seasonStyle(object, style)
+            this.whatAmI(object, style);
+            const { left, top, id, Common_Name } = object
+            return (
+              <Box
+                key={id}
+                index={object.index}
+                id={id}
+                left={left}
+                top={top}
+                hideSourceOnDrag={hideSourceOnDrag}
+                isOrigin='true'
+                seasonStyle={style}
+                plant={object}
+              ><span className='undropped-plants'>{Common_Name}</span></Box>
+            )
+          })}
+          <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+          <PageButtons onClick={this.pageChange} />
+        </div>
+      </div>
+
+      <div className="row">
+
+        <div className="row">
+          <div className="col-lg-12 plot-col" style={plotCol}>
+            {/* <Seasons 
+              onClick={this.changeSeason} /> */}
+
+            {this.state.plotted.map(object => {
               var style = {
-                textShadow: `0px 0px 20px brown`
+                textShadow: '0px 0px 20px brown'
               }
               this.seasonStyle(object, style)
-              this.whatAmI(object, style);
-              const { left, top, id, Common_Name } = object
+              this.whatAmI(object, style)
+              const { left, top, id, Common_Name, isOrigin, index } = object
               return (
                 <Box
-                  key={id}
+                  key={index}
                   index={object.index}
                   id={id}
                   left={left}
                   top={top}
                   hideSourceOnDrag={hideSourceOnDrag}
-                  isOrigin='true'
+                  onClick={this.getElement}
+                  isOrigin={isOrigin}
                   seasonStyle={style}
                   plant={object}
-                ><span className='undropped-plants'>{Common_Name}</span></Box>
+                ><span className='dropped-plants'>{Common_Name}</span></Box>
               )
             })}
-            <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-            <PageButtons onClick={this.pageChange} />
-          </div>
-        </div>
 
-        <div className="row">
-
-          <div className="row">
-            <div className="col-lg-12 plot-col" style={plotCol}>
-              {/* <Seasons 
-              onClick={this.changeSeason} /> */}
-
-              {this.state.plotted.map(object => {
-                var style = {
-                  textShadow: '0px 0px 20px brown'
-                }
-                this.seasonStyle(object, style)
-                this.whatAmI(object, style)
-                const { left, top, id, Common_Name, isOrigin, index } = object
-                return (
-                  <Box
-                    key={index}
-                    index={object.index}
-                    id={id}
-                    left={left}
-                    top={top}
-                    hideSourceOnDrag={hideSourceOnDrag}
-                    onClick={this.getElement}
-                    isOrigin={isOrigin}
-                    seasonStyle={style}
-                    plant={object}
-                  ><span className='dropped-plants'>{Common_Name}</span></Box>
-                )
-              })}
-
-            </div>
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
 
-  moveBox(id, left, top, index, items) {
-    
-    if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
-      const plotted = this.state.boxes[index]
-      let entries = []
-      if (plotted) {
-        entries = Object.entries(plotted)
-        for (var i in entries) {
-          let key = entries[i][0]
-          key === 'top' ? items[key] = top :
-            key === 'left' ? items[key] = left :
-              items[key] = entries[i][1]
-        }
-        items.moved = true;
-        items.isOrigin = false;
-        items.index = this.state.plotted.length;
-        items.position = 'absolute'
+moveBox(id, left, top, index, items) {
+
+  if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
+    const plotted = this.state.boxes[index]
+    let entries = []
+    if (plotted) {
+      entries = Object.entries(plotted)
+      for (var i in entries) {
+        let key = entries[i][0]
+        key === 'top' ? items[key] = top :
+          key === 'left' ? items[key] = left :
+            items[key] = entries[i][1]
       }
-      return (
-        this.setState(
-          update(this.state,
-            {
-              plotted: {
-                $push: [items]
-              }
-            }
-          )
-        )
-      );
-    } else if (!items.isOrigin) {
+      items.moved = true;
+      items.isOrigin = false;
+      items.index = this.state.plotted.length;
+      items.position = 'absolute'
+    }
+    return (
       this.setState(
         update(this.state,
           {
-            plotted:
-            {
-              [items.index]:
-                { $merge: { left, top } }
+            plotted: {
+              $push: [items]
             }
           }
         )
       )
-    }
+    );
+  } else if (!items.isOrigin) {
+    this.setState(
+      update(this.state,
+        {
+          plotted:
+          {
+            [items.index]:
+              { $merge: { left, top } }
+          }
+        }
+      )
+    )
   }
+}
 }
 
 export default DropTarget(
