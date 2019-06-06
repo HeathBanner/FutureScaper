@@ -14,6 +14,7 @@ const Search = () => (
               class="form-control form-control-lg search"
               placeholder="Search"
             />
+            {/* <PlotSearch onChange={this.handleInputChange} /> */}
           </div>
         </div>
       </div>

@@ -59,13 +59,13 @@ const PLANTS = {
   },
   cleanUp: function() {
     var counter = 0;
-    for (var i = 0; i < 4000; i++) {
+    for (var i = 0; i < 2400; i++) {
 
       db
       .find({}, null , {skip: i, limit: 1})
       .then(dbModel => {
-        if ((dbModel[0].Scientific_Name) && (dbModel[0].Bloom_Period) && (dbModel[0].Flower_Color) && (dbModel[0].Active_Growth_Period) && (dbModel[0].Leaf_Retention) && (dbModel[0].Fruit_Seed_Period_Begin)) {
-          // console.log('COMPLETE')
+        if ((dbModel[0].Commercial_Availability != null)) {
+          console.log('pass')
           // console.log(dbModel[0].Scientific_Name)
       } else {
         counter++
@@ -76,14 +76,15 @@ const PLANTS = {
         // console.log(test.Bloom_Period)
         // console.log(test.Flower_Color)
         // console.log(test.Fruit_Color)
-
+      
         db.findOneAndDelete({Scientific_Name: dbModel[0].Scientific_Name})
           .then(result => {
             // console.log(result)
           })
       }
-      })
+      });
     }
+    console.log("done!")
     console.log(counter);
   },
   insertGoodies: function() {
@@ -135,6 +136,6 @@ plantsController.post('/plotSearch', (req, res) => {
 });
 
 
-// setInterval(PLANTS.insertGoodies, 30000)
+// PLANTS.cleanUp();
 
 module.exports = plantsController;
