@@ -33,7 +33,9 @@
     "react-gsap": "^1.2.0",
     "react-modal": "^3.8.1",
     "react-parallax": "^2.2.0",
+    "react-slick": "^0.24.0",
     "react-tilt": "^0.1.4",
+    "slick-carousel": "^1.8.1",
     "tilt.js": "^1.2.1"
   }
 }
