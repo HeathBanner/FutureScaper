@@ -47,30 +47,10 @@ const seasons = {
 }
 
 class Container extends React.Component {
-  constructor(handleInputChange) {
+  constructor() {
     super(...arguments)
     this.ref = React.createRef();
-    handleInputChange = event => {
-      const { name, value } = event.target;
-      this.setState({ [name]: value });
-      fetch('/api/plants/plotSearch', {
-        method: 'POST',
-        body: JSON.stringify({data: value}),
-        headers:{
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .catch(error => console.error('Error:', error))
-        .then((result) => {
-          this.setState({
-            items: result,
-            isLoaded: true,
-          });
-          this.forceUpdate();
-        })
-    }
-  
+    
     this.state = {
       error: null,
       items: null,
@@ -200,6 +180,26 @@ class Container extends React.Component {
     this.setState({xtraSeason: season});
   }
 
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+    fetch('/api/plants/plotSearch', {
+      method: 'POST',
+      body: JSON.stringify({data: value}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+      .then((result) => {
+        this.setState({
+          items: result,
+          isLoaded: true,
+        });
+        this.forceUpdate();
+      })
+  }
 
   pageChange = (page) => {
     if (page === 'next') {
