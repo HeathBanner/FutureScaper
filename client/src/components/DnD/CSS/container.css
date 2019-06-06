@@ -10,6 +10,7 @@
 .plot-col {
     width: 100%;
     height: 100%;
+    border: none !important;
     background: rgb(51, 173, 55, 0.74);
 }
 
@@ -29,7 +30,7 @@
     top: 135px;
     left: 5%;
     border: none;
-    border-radius: 3px;
+    border-radius: 30%;
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
@@ -46,7 +47,7 @@
     top: 135px;
     right: 5%;
     border: none;
-    border-radius: 3px;
+    border-radius: 30%;
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
@@ -58,7 +59,19 @@
     z-index: 100;
 }
 
+.undropped-plants {
+    text-transform: capitalize;
+    opacity: 0.8;
+}
+
+.undropped-plants:hover{
+    opacity: 1;
+    text-shadow: 2px 2px 1px white;
+    text-emphasis: bold;
+}
+
 .dropped-plants {
+    text-transform: capitalize;
     opacity: 0;
 }
 
@@ -93,11 +106,6 @@
     /* transform: translateY(100%); */
     /* animation-name: drift;
     animation-duration: 0.5s; */
-}
-
-#plot-search:active {
-    /* box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5); */
-    /* transform: translateY(100%); */
 }
 
 .DnD {

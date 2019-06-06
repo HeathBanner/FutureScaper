@@ -46,6 +46,40 @@ const seasons = {
   dec: 'early_winter'
 }
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null, errorInfo: null };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // Catch errors in any components below and re-render with error message
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    })
+    // You can also log error messages to an error reporting service here
+  }
+
+  render() {
+    if (this.state.errorInfo) {
+      // Error path
+      return (
+        <div>
+          <h2>Something went wrong.</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo.componentStack}
+          </details>
+        </div>
+      );
+    }
+    // Normally, just render children
+    return this.props.children;
+  }
+}
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
@@ -155,23 +189,35 @@ class Container extends React.Component {
       console.log("it's a flower. \ncolor:", flowerColor);
       if (!isBunch) {
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
-        style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)';
+        style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)'
+        style.minHeight = '115px';
+        return "flower";
       } else {
         console.log("actually, it's a bunch of flowers.");
         style.backgroundImage = 'url(./images/Flowers/bunch.png)';
+        style.minHeight = '115px';
+        return "bunchflower";
       }
-
-      style.minHeight = '100px';
-      return "bunchflower";
     }
   }
 
   populateResults() {
     const plants = this.state.items.map((plant, index) => {
+      let plantIndex;
+      let plantLeft;
+
+      if (index) plantIndex = index;
+      else plantIndex = 0;
+
+      // if (plant.Common_Name)
+      //   plantLeft = ((index + 1) * 15) - (plant.Common_Name.length / 4) + '%';
+      // else plantLeft = ((index + 1) * 15) - (48 / 4) + '%';
+
+      plantLeft = ((index + 1) * 15) + '%';
       return (
         plant.top = 100,
-        plant.left = ((index + 1) * 15) - (plant.Common_Name.length / 4) + '%',
-        plant.index = index,
+        plant.left = plantLeft,
+        plant.index = plantIndex,
         plant.moved = false,
         plant.isOrigin = true,
         plant
@@ -185,7 +231,7 @@ class Container extends React.Component {
         pageNumber: this.state.pageNumber + 5,
         nextPage: false
       })
-      this.forceUpdate();
+      // this.forceUpdate();
     } else if (!this.state.nextPage) {
       console.log('BACK')
       this.setState({
@@ -194,7 +240,7 @@ class Container extends React.Component {
         pageNumber: this.state.pageNumber - 5,
         nextPage: true,
       });
-      this.forceUpdate();
+      // this.forceUpdate();
     }
   }
 
@@ -219,7 +265,7 @@ class Container extends React.Component {
           items: result,
           isLoaded: true,
         });
-        this.forceUpdate();
+        // this.forceUpdate();
       })
   }
 
@@ -241,7 +287,7 @@ class Container extends React.Component {
             nextPage: true,
             pageNumber: this.state.pageNumber + 5
           });
-          this.forceUpdate();
+          // this.forceUpdate();
         })
     } else if (page === 'back') {
       fetch('/api/plants/getNew', {
@@ -254,166 +300,172 @@ class Container extends React.Component {
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then((result) => {
-          this.setState({
-            items: result,
-            isLoaded: true,
-            nextPage: false,
-            pageNumber: this.state.pageNumber - 5
-          });
-          this.forceUpdate();
-        })
-    }
-  }
-
-  componentDidUpdate(newProps, newState) {
-    this.state.isLoaded ? this.populateResults() : console.log('NOPE')
-  }
-
-  componentDidMount() {
-    if (!this.state.items) {
-      fetch('/api/plants/getPlants')
-        .then(res => res.json())
-        .then(
-          (result) => {
+          if (this.state.pageNumber > 5) {
             this.setState({
               items: result,
               isLoaded: true,
+              nextPage: false,
+              pageNumber: this.state.pageNumber - 5
             });
           }
-        )
-    }
+      // this.forceUpdate();
+    })
   }
+}
 
-  render() {
+componentDidUpdate(newProps, newState) {
+  this.state.isLoaded ? this.populateResults() : console.log('NOPE')
+}
 
-    const { hideSourceOnDrag, connectDropTarget } = this.props
+componentDidMount() {
+  if (!this.state.items) {
+    fetch('/api/plants/getPlants')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+          });
+        }
+      )
+  }
+}
 
-    return connectDropTarget(
-        <div className="row main-col">
-          <div className="col-lg-12 item-col">
-            <div id="loaded-dnd">
-              {this.state.boxes.map(object => {
-                console.log(object)
-                var style = {
-                  textShadow: `0px 0px 20px brown`
-                }
-                this.seasonStyle(object, style)
-                this.whatAmI(object, style);
-                const { left, top, id, Common_Name } = object
-                return (
-                  <Box
-                    key={id}
-                    index={object.index}
-                    id={id}
-                    left={left}
-                    top={top}
-                    hideSourceOnDrag={hideSourceOnDrag}
-                    isOrigin='true'
-                    seasonStyle={style}
-                    plant={object}
-                  >{Common_Name}</Box>
-                )
-              })}
-              <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-              <PageButtons onClick={this.pageChange} />
-            </div>
-          </div>
+render() {
 
-          <div className="row">
+  const { hideSourceOnDrag, connectDropTarget } = this.props
 
-            <div className="row">
-              <div className="col-lg-12 plot-col" style={plotCol}>
-                {/* <Seasons 
+  return connectDropTarget(
+    <div className="row main-col">
+      <div className="col-lg-12 item-col">
+        <div id="loaded-dnd">
+          {this.state.boxes.map(object => {
+            console.log(object)
+            var style = {
+              textShadow: `0px 0px 20px brown`
+            }
+            this.seasonStyle(object, style)
+            this.whatAmI(object, style);
+            const { left, top, id, Common_Name } = object
+            return (
+              <Box
+                key={id}
+                index={object.index}
+                id={id}
+                left={left}
+                top={top}
+                hideSourceOnDrag={hideSourceOnDrag}
+                isOrigin='true'
+                seasonStyle={style}
+                plant={object}
+              ><span className='undropped-plants'>{Common_Name}</span></Box>
+            )
+          })}
+          <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+          <PageButtons onClick={this.pageChange} />
+        </div>
+      </div>
+
+      <div className="row">
+
+        <div className="row">
+          <div className="col-lg-12 plot-col" style={plotCol}>
+            {/* <Seasons 
               onClick={this.changeSeason} /> */}
 
-                {this.state.plotted.map(object => {
-                  var style = {
-                    textShadow: '0px 0px 20px brown'
-                  }
-                  this.seasonStyle(object, style)
-                  this.whatAmI(object, style)
-                  const { left, top, id, Common_Name, isOrigin, index } = object
-                  return (
-                    <Box
-                      key={index}
-                      index={object.index}
-                      id={id}
-                      left={left}
-                      top={top}
-                      hideSourceOnDrag={hideSourceOnDrag}
-                      onClick={this.getElement}
-                      isOrigin={isOrigin}
-                      seasonStyle={style}
-                      plant={object}
-                    ><span className='dropped-plants'>{Common_Name}</span></Box>
-                  )
-                })}
+            {this.state.plotted.map(object => {
+              var style = {
+                textShadow: '0px 0px 20px brown'
+              }
+              this.seasonStyle(object, style)
+              this.whatAmI(object, style)
+              const { left, top, id, Common_Name, isOrigin, index } = object
+              return (
+                <Box
+                  key={index}
+                  index={object.index}
+                  id={id}
+                  left={left}
+                  top={top}
+                  hideSourceOnDrag={hideSourceOnDrag}
+                  onClick={this.getElement}
+                  isOrigin={isOrigin}
+                  seasonStyle={style}
+                  plant={object}
+                ><span className='dropped-plants'>{Common_Name}</span></Box>
+              )
+            })}
 
-              </div>
-            </div>
           </div>
         </div>
-        )
-      }
-  moveBox(id, left, top, index, items) {
-    if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
-      const plotted = this.state.boxes[index]
-        let entries = []
-      if (plotted) {
-          entries = Object.entries(plotted)
-        for (var i in entries) {
-          let key = entries[i][0]
-        key === 'top' ? items[key] = top:
-        key === 'left' ? items[key] = left:
-        items[key] = entries[i][1]
+      </div>
+    </div>
+  )
+}
+
+moveBox(id, left, top, index, items) {
+
+  if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
+    const plotted = this.state.boxes[index]
+    let entries = []
+    if (plotted) {
+      entries = Object.entries(plotted)
+      for (var i in entries) {
+        let key = entries[i][0]
+        key === 'top' ? items[key] = top :
+          key === 'left' ? items[key] = left :
+            items[key] = entries[i][1]
       }
       items.moved = true;
       items.isOrigin = false;
-      items.index = this.state.plotted.length
+      items.index = this.state.plotted.length;
       items.position = 'absolute'
     }
-      return (
-        this.setState(
-          update(this.state,
-              {plotted: {
-          $push: [items]
-      }
-    }
-  )
-)
-);
-    } else if (!items.isOrigin) {
-          this.setState(
-            update(this.state,
-              {
-                plotted:
-                {
-                  [items.index]:
-                  { $merge: { left, top } }
-                }
-              }
-            )
-          )
+    return (
+      this.setState(
+        update(this.state,
+          {
+            plotted: {
+              $push: [items]
+            }
+          }
+        )
+      )
+    );
+  } else if (!items.isOrigin) {
+    this.setState(
+      update(this.state,
+        {
+          plotted:
+          {
+            [items.index]:
+              { $merge: { left, top } }
+          }
         }
-        }
-      }
-      export default DropTarget(
-        ItemTypes.BOX,
+      )
+    )
+  }
+}
+}
+
+export default DropTarget(
+  ItemTypes.BOX,
   {
-          drop(props, monitor, component) {
-        if (!component) {
+    drop(props, monitor, component) {
+      if (!component) {
         return
-        }
-        const item = monitor.getItem()
-        const delta = monitor.getDifferenceFromInitialOffset()
-        const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
-        const left = monitor.getClientOffset().x + leftOffset
-        const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y - 200
-        const top = monitor.getClientOffset().y + topOffset
-        component.moveBox(item.id, left, top, item.index, item)
-      },
+      }
+      const item = monitor.getItem()
+      const delta = monitor.getDifferenceFromInitialOffset()
+      const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x
+      const left = monitor.getClientOffset().x + leftOffset
+      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y - 200
+      const top = monitor.getClientOffset().y + topOffset
+      component.moveBox(item.id, left, top, item.index, item)
     },
+  },
   connect => ({
-          connectDropTarget: connect.dropTarget(),
-      }),
-    )(Container)
+    connectDropTarget: connect.dropTarget(),
+  }),
+)(Container)
