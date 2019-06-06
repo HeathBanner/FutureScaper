@@ -69,7 +69,14 @@ const PlantSchema = new Schema({
         type: String,
         trim: true,
     },
-
+    Accepted_Symbol: {
+        type: String,
+        trim: true,
+    },
+    Image: {
+        type: Array,
+        trim: true
+    },
 
 
 

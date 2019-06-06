@@ -3,6 +3,7 @@ const db = require("../../models/plant");
 const partA = require('../../models/partA');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const cheerio = require('cheerio');
 
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/futureScaper";
@@ -57,6 +58,56 @@ const PLANTS = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  scraper: function(req, res) {
+    for (var i = 0; i < 3; i++) {
+      db
+      .find({}, null , {skip: i + goodyInterval, limit: 1})
+      .then(result => {
+        console.log(i)
+        var symbol = result[0].Accepted_Symbol
+        console.log(symbol)
+
+        axios.get('https://plants.sc.egov.usda.gov/core/profile?symbol=' + symbol).then(function(response) {
+          var $ = cheerio.load(response.data);
+          var img;
+          var arr = [];
+          $('body').find('img[alt="no standard photo"]').map((elem, index) => {
+            console.log('ELEM' + elem)
+            img = $(index).attr('src')
+            .split('/');
+            img = img[img.length-1]
+            var length = img.length
+            var newString = img.substring(0, length-7) + 'l' + img.substring(length-6);
+            newString = `https://plants.sc.egov.usda.gov/gallery/large/${newString}`
+            arr[elem] = newString
+          });
+        db.update({Scientific_Name: result[0].Scientific_Name}, {
+          Image: arr,
+        }, {new: true})
+        .then(final => {
+          console.log(final)
+          console.log(arr)
+          if (i === 3) {
+            console.log('UPDATE')
+            goodyInterval++
+            
+          }  
+        })
+        
+      })
+      
+    })
+
+
+    }
+
+  },
+
+
+
+
+
   cleanUp: function() {
     var counter = 0;
     for (var i = 0; i < 4000; i++) {
@@ -134,6 +185,9 @@ plantsController.post('/plotSearch', (req, res) => {
   PLANTS.findByName(req, res);
 });
 
+
+// setInterval(PLANTS.scraper, 20000);
+// PLANTS.scraper()
 
 // setInterval(PLANTS.insertGoodies, 30000)
 
