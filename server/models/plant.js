@@ -77,6 +77,11 @@ const PlantSchema = new Schema({
         type: Array,
         trim: true
     },
+    Commercial_Availability: {
+        type:String,
+        trim:true,
+    }
+
 
 
 

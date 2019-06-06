@@ -1,14 +1,76 @@
 import React from "react";
 import "./search.css";
 
-import Container from '../../components/DnD/Container';
+import PlantSearch from '../../components/plantSearch/plantSearch';
 
-class Search extends Container {
+class Search extends React.Component {
 
+  constructor() {
+    super(...arguments)
+    this.state = {
+      plotSearch: '',
+      items: [],
+      isLoaded: false,
+      card: '',
+      nextPage: '',
+    }
+  }
+
+  handleInputChange = event => {
+    console.log(this.state.items)
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+    fetch('/api/plants/plantSearch', {
+      method: 'POST',
+      body: JSON.stringify({ data: value }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then((result) => {
+        this.setState({
+          items: result,
+          isLoaded: true,
+        });
+        this.forceUpdate();
+      })
+  }
+
+  componentWillMount() {
+    console.log('MOUNTED')
+    if (!this.state.items) {
+      console.log('BEFORE FIRE')
+      fetch('/api/plants/getPlants')
+      .then(res => res.json())
+        .then(
+        (result) => {
+          console.log(result)
+          this.setState({
+            items: result,
+            isLoaded: true,
+          });
+          this.forceUpdate();
+        }
+      )
+    }
+  }
+
+  populateCards() {
+    console.log(this.state.items)
+    if (this.state.items) {
+
+    }
+  }
+
+  // componentDidUpdate(newProps, newState) {
+  //   this.state.isLoaded ? this.populateResults() : console.log('NOPE')
+  // }
 
   render() {
-    return(
 
+    return (
       <div className="thing">
         <div className="container">
           <div className="row">
@@ -17,44 +79,79 @@ class Search extends Container {
                 <span class="fa fa-search form-control-feedback" />
                 <input
                   type="text"
-                  name="plotSearch"
                   class="form-control form-control-lg search"
                   placeholder="Search"
-                  // value={this.state.plotSearch}
+                  name="plotSearch"
+                  value={this.state.plotSearch}
                   onChange={this.handleInputChange}
                 />
               </div>
             </div>
           </div>
+          <div className="row switches">
+            <div className="col-4">
+              <div class="material-switch pad center">
+                <input
+                  id="someSwitchOptionSuccess"
+                  name="someSwitchOption001"
+                  type="checkbox"
+                />
+                <label for="someSwitchOptionSuccess" class="label-success" />
+              </div>
+            </div>
+            <div className="col-4 center">
+              <div class="material-switch pad ">
+                <input
+                  id="someSwitchOptionSuccess2"
+                  name="someSwitchOption002"
+                  type="checkbox"
+                />
+                <label for="someSwitchOptionSuccess2" class="label-success center" />
+              </div>
+            </div>
+            <div className="col-4 ">
+              <div class="material-switch pad center">
+                <input
+                  id="someSwitchOptionSuccess3"
+                  name="someSwitchOption003"
+                  type="checkbox"
+                />
+                <label for="someSwitchOptionSuccess3" class="label-success" />
+              </div>
+            </div>
+
+
+
+
+          </div>
           <div className="row">
             <div className="col-12">
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="https://via.placeholder.com/75" class="card-img" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Common Name</h5>
-                      <p class="card-text">
-                        <small class="text-muted">Scientific Name</small>
-                      </p>
-                      <p class="card-text">
-                        Info about the plant Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non purus non turpis volutpat vulputate. Aenean egestas, neque quis sodales mollis, risus ligula rhoncus lectus, sed faucibus arcu velit vel magna. Suspendisse potenti. Sed eget dapibus velit, quis consequat elit. Cras molestie ut elit at porttitor. Nulla sapien arcu, dapibus et neque at, elementum mollis massa. Proin vel ultricies augue. Pellentesque sed sem sit amet felis convallis rhoncus a ac ipsum. Suspendisse consectetur varius mauris, eu mattis lectus placerat vitae. Mauris consectetur erat ultricies, tempus enim at, dignissim orci.
-                      </p><p>
-                        Quisque commodo tempus maximus. Nunc in gravida velit. Aenean at lorem ligula. Vestibulum non varius dolor. Nullam pretium ante diam, tempus ultricies diam cursus eget. Sed ante odio, finibus a nunc ac, semper vulputate felis. Nam bibendum sapien mi, vitae luctus quam blandit sed. Morbi vulputate orci turpis, a dapibus sem aliquet in. Fusce lorem felis, ornare vitae hendrerit in, dapibus vel nulla. Suspendisse tincidunt facilisis massa nec accumsan. In quis semper nibh, eu mattis erat. Sed scelerisque porta libero, eu pellentesque turpis ultricies eu. Nulla ac dictum ligula. Proin nec finibus magna, sed feugiat mi.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {      
+                this.state.items.map(item => {
+                  return (
+                    <PlantSearch  
+                      Image={item.Image[0]}
+                      Common_Name={item.Common_Name}
+                      Scientific_Name={item.Scientific_Name}
+                      Active_Growth_Period={item.Active_Growth_Period}
+                      Flower_Color={item.Flower_Color}
+                      Foliage_Color={item.Foliage_Color}
+                      Fruit_Color={item.Fruit_Color}
+                      Growth_Rate={item.Growth_Rate}
+                      Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                      Height_Mature_feet={item.Height_Mature_feet}
+                    />
+                  );
+                })
+              }
             </div>
           </div>
         </div>
+
       </div>
-      
+
     )
-  }  
+  }
 }
 
 export default Search;

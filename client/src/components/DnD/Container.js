@@ -46,11 +46,31 @@ const seasons = {
   dec: 'early_winter'
 }
 
-
 class Container extends React.Component {
-  constructor() {
+  constructor(handleInputChange) {
     super(...arguments)
     this.ref = React.createRef();
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({ [name]: value });
+      fetch('/api/plants/plotSearch', {
+        method: 'POST',
+        body: JSON.stringify({data: value}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+        .then((result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+          });
+          this.forceUpdate();
+        })
+    }
+  
     this.state = {
       error: null,
       items: null,
@@ -84,27 +104,66 @@ class Container extends React.Component {
     }
   }
 
-  whatAmI =(plant, style) => {
+  whatAmI = (plant, style) => {
+
+    console.log(plant, style);
+
     let isTree = false;
     let isShrub = false;
     let isFlower = false;
-  
+
+    let treeImg = Math.floor(Math.random() * 4) + 1;
+    let shrubImg = Math.floor(Math.random() * 4) + 1;
+    
+
     if (plant.Christmas_Tree_Product)
-      if (plant.Christmas_Tree_Product === "Yes") 
+      if (plant.Christmas_Tree_Product === "Yes")  {
         isTree = true;
+        treeImg = 2;
+      }
+        
     if (plant.Height_Mature_feet)
-      if (plant.Height_Mature_feet > 5) 
+      if (plant.Height_Mature_feet >= 5) 
          isTree = true;
   
     if (isTree === false)
       if (plant.Shape_And_Orientation === "Rounded")
         isShrub = true;
-      if (plant.Flower_Color)
+      if (plant.Flower_Color) {
         isFlower = true;
-  
-    if (isTree) return "tree";
-    if (isShrub) return "shrub";
-    if (isFlower) return "flower";
+        var flowerColor = plant.Flower_Color;
+      }
+      
+      style.backgroundRepeat = 'no-repeat';
+      style.backgroundPosition = 'center';
+      style.backgroundSize = 'cover';
+      style.height = '150px';
+      style.width = 'auto';
+      style.fontSize = '1.2rem';
+      style.textShadow = '1px 1px 1px white';
+      style.zIndex = '100';
+
+      if (isTree) {
+        console.log("it's a tree."); 
+        style.backgroundImage = 'url(./images/Trees/Tree' + treeImg + '.png)';
+
+        return "tree";
+      }
+
+      if (isShrub) {
+        console.log("it's a shrub."); 
+        style.backgroundImage = 'url(./images/Bushes/Bush' + shrubImg + '.png)';
+
+        return "shrub";
+      }
+      if (isFlower) {
+        console.log("it's a flower. \ncolor:", flowerColor); 
+
+        flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
+        style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)';
+
+        return "flower";
+      }
   }
   
   populateResults() {
@@ -141,26 +200,6 @@ class Container extends React.Component {
     this.setState({xtraSeason: season});
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-    fetch('/api/plants/plotSearch', {
-      method: 'POST',
-      body: JSON.stringify({data: value}),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-      .then((result) => {
-        this.setState({
-          items: result,
-          isLoaded: true,
-        });
-        this.forceUpdate();
-      })
-  }
 
   pageChange = (page) => {
     if (page === 'next') {
@@ -262,19 +301,17 @@ class Container extends React.Component {
 
         <div className="row">
           <div className="col-lg-12 plot-col" style={plotCol}>
-            
-            {/* <Seasons 
-            onClick={this.changeSeason} /> */}
+              {/* <Seasons 
+              onClick={this.changeSeason} /> */}
 
-            {this.state.plotted.map(object => {
-                
-                var style = {
-                  boxShadow: '0px 0px 20px brown'
-                }
-                this.seasonStyle(object, style)
-                const { left, top, id, Common_Name ,isOrigin, index } = object
-                
-                return (
+              {this.state.plotted.map(object => {
+                  var style = {
+                    boxShadow: '0px 0px 20px brown'
+                  }
+                  this.seasonStyle(object, style)
+                  this.whatAmI(object, style)
+                  const { left, top, id, Common_Name, isOrigin, index } = object
+                  return (
                     <Box   
                       key={index}
                       index={object.index}
@@ -287,8 +324,9 @@ class Container extends React.Component {
                       seasonStyle={style}
                       plant={object}
                     >{Common_Name}</Box>
-                )
-            })}
+            )
+          })}
+
           </div>
         </div>
         </div>            
