@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./css/jumbotron.css";
-import Plan from "../Home/css/imgs/planicon.png";
-import Search from "../Home/css/imgs/searchicon.png";
+import Plan from "../Home/css/imgs/planner.png";
+import Search from "../Home/css/imgs/search2.png";
 import Tilt from "react-tilt";
 
 
