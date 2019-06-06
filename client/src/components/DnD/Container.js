@@ -152,7 +152,7 @@ class Container extends React.Component {
     }
 
     if (isFlower) {
-      console.log("it's a flower. \ncolor:", flowerColor);
+      console.log("it's a flower. \ncolor:", flowerColor);  
       if (!isBunch) {
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
         style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)';
@@ -168,10 +168,21 @@ class Container extends React.Component {
 
   populateResults() {
     const plants = this.state.items.map((plant, index) => {
+      let plantIndex;
+      let plantLeft;
+
+      if (index) plantIndex = index;
+      else plantIndex = 0;
+
+      if (plant.Common_Name)
+        plantLeft = ((index + 1) * 15) - (plant.Common_Name.length / 4) + '%';
+        else plantLeft = ((index + 1) * 15) - (48 / 4) + '%';
+
+      plantLeft = ((index + 1) * 15) + '%';
       return (
         plant.top = 100,
-        plant.left = ((index + 1) * 15) - (plant.Common_Name.length / 4) + '%',
-        plant.index = index,
+        plant.left = plantLeft,
+        plant.index = plantIndex,
         plant.moved = false,
         plant.isOrigin = true,
         plant
@@ -185,7 +196,7 @@ class Container extends React.Component {
         pageNumber: this.state.pageNumber + 5,
         nextPage: false
       })
-      this.forceUpdate();
+      // this.forceUpdate();
     } else if (!this.state.nextPage) {
       console.log('BACK')
       this.setState({
@@ -194,7 +205,7 @@ class Container extends React.Component {
         pageNumber: this.state.pageNumber - 5,
         nextPage: true,
       });
-      this.forceUpdate();
+      // this.forceUpdate();
     }
   }
 
@@ -219,7 +230,7 @@ class Container extends React.Component {
           items: result,
           isLoaded: true,
         });
-        this.forceUpdate();
+        // this.forceUpdate();
       })
   }
 
@@ -241,7 +252,7 @@ class Container extends React.Component {
             nextPage: true,
             pageNumber: this.state.pageNumber + 5
           });
-          this.forceUpdate();
+          // this.forceUpdate();
         })
     } else if (page === 'back') {
       fetch('/api/plants/getNew', {
@@ -260,7 +271,7 @@ class Container extends React.Component {
             nextPage: false,
             pageNumber: this.state.pageNumber - 5
           });
-          this.forceUpdate();
+          // this.forceUpdate();
         })
     }
   }
@@ -311,7 +322,7 @@ class Container extends React.Component {
                     isOrigin='true'
                     seasonStyle={style}
                     plant={object}
-                  >{Common_Name}</Box>
+                  ><span className='undropped-plants'>{Common_Name}</span></Box>
                 )
               })}
               <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
@@ -369,7 +380,7 @@ class Container extends React.Component {
       }
       items.moved = true;
       items.isOrigin = false;
-      items.index = this.state.plotted.length
+      items.index = this.state.plotted.length;
       items.position = 'absolute'
     }
       return (
