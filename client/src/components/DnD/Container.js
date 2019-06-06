@@ -67,18 +67,18 @@ class Container extends React.Component {
   seasonStyle(props, style) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
-        style.boxShadow = `0px 0px 20px ${props.Flower_Color}`
+        style.textShadow = `0px 0px 20px ${props.Flower_Color}`
         console.log('bloom')
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
-        style.boxShadow = `0px 0px 20px ${props.Fruit_Color}`
+        style.textShadow = `0px 0px 20px ${props.Fruit_Color}`
         console.log('fruit')
     } else if (leafRetention.includes(this.state.xtraSeason)) {
         if (props.Leaf_Retention === 'Yes') {
-            style.boxShadow = `0px 0px 20px ${props.Foliage_Color}`
+            style.textShadow = `0px 0px 20px ${props.Foliage_Color}`
             console.log('retention')
         } else {
             console.log('problem')
-            style.boxShadow = `0px 0px 20px brown`
+            style.textShadow = `0px 0px 20px brown`
         }
     }
   }
@@ -90,6 +90,7 @@ class Container extends React.Component {
     let isTree = false;
     let isShrub = false;
     let isFlower = false;
+    let isBunch = false;
 
     let treeImg = Math.floor(Math.random() * 4) + 1;
     let shrubImg = Math.floor(Math.random() * 4) + 1;
@@ -101,9 +102,16 @@ class Container extends React.Component {
         treeImg = 2;
       }
         
-    if (plant.Height_Mature_feet)
-      if (plant.Height_Mature_feet >= 5) 
+    if (plant.Height_Mature_feet) {
+      let plantHeight = plant.Height_Mature_feet;
+      if (plantHeight >= 8) {
          isTree = true;
+         if (plant.Christmas_Tree_Product === "Yes")  {
+          treeImg = 2;
+        } else if (plantHeight > 15) treeImg = 3;
+          else if (plantHeight < 15) treeImg = 1;
+      }
+    }
   
     if (isTree === false)
       if (plant.Shape_And_Orientation === "Rounded")
@@ -111,13 +119,17 @@ class Container extends React.Component {
       if (plant.Flower_Color) {
         isFlower = true;
         var flowerColor = plant.Flower_Color;
+        if (plant.Growth_Form)
+          if (plant.Growth_Form === "Bunch")
+            isBunch = true;
       }
       
+      style.borderRadius = '1px'; 
       style.backgroundRepeat = 'no-repeat';
       style.backgroundPosition = 'center';
-      style.backgroundSize = 'cover';
-      style.height = '150px';
-      style.width = 'auto';
+      style.backgroundSize = 'contain';
+      style.minHeight = '150px';
+      style.minWidth = 'auto';
       style.fontSize = '1.2rem';
       style.textShadow = '1px 1px 1px white';
       style.zIndex = '100';
@@ -131,17 +143,25 @@ class Container extends React.Component {
 
       if (isShrub) {
         console.log("it's a shrub."); 
+        shrubImg = 3;
         style.backgroundImage = 'url(./images/Bushes/Bush' + shrubImg + '.png)';
+        style.minHeight = '125px';
+        style.maxHeight = '150px';
 
         return "shrub";
       }
+      
       if (isFlower) {
         console.log("it's a flower. \ncolor:", flowerColor); 
 
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
         style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)';
+        style.minHeight = '100px';
+        if (isBunch) {
+          console.log("actually, it's a bunch of flowers.");
+        }
 
-        return "flower";
+        return "bunchflower";
       }
   }
   
@@ -152,7 +172,7 @@ class Container extends React.Component {
       const plants = this.state.items.map((plant, index) => {
         console.log(plant.Common_Name.length)
       return (
-        plant.top = 20,
+        plant.top = 100,
         plant.left = ((index+1)*15) - (plant.Common_Name.length/4) + '%',
         plant.index = index,
         plant.moved = false,
@@ -165,7 +185,7 @@ class Container extends React.Component {
         this.setState({
           boxes: plants,
           isLoaded: false,
-          // pageNumber: this.state.pageNumber + 5,
+          pageNumber: this.state.pageNumber + 5,
           nextPage: false
         })
         this.forceUpdate();
@@ -174,7 +194,7 @@ class Container extends React.Component {
         this.setState({
           boxes: plants,
           isLoaded: false,
-          // pageNumber: this.state.pageNumber - 5,
+          pageNumber: this.state.pageNumber - 5,
           nextPage: true,
         })
         this.forceUpdate();
@@ -289,7 +309,7 @@ class Container extends React.Component {
                         {this.state.boxes.map(object => {
                           console.log(object)
                             var style = {
-                              boxShadow: `0px 0px 20px brown`
+                              textShadow: `0px 0px 20px brown`
                             }
                             this.seasonStyle(object, style)
                             this.whatAmI(object, style);
@@ -308,8 +328,8 @@ class Container extends React.Component {
                             >{Common_Name}</Box>
                           )
                         })}
-                        {/* <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-                        <PageButtons onClick={this.pageChange}/> */}
+                        <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+                        <PageButtons onClick={this.pageChange}/>
                       </div>
                     </div>
         
@@ -321,7 +341,7 @@ class Container extends React.Component {
 
               {this.state.plotted.map(object => {
                   var style = {
-                    boxShadow: '0px 0px 20px brown'
+                    textShadow: '0px 0px 20px brown'
                   }
                   this.seasonStyle(object, style)
                   this.whatAmI(object, style)
@@ -399,7 +419,7 @@ export default DropTarget(
       const delta = monitor.getDifferenceFromInitialOffset()
       const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x 
       const left = monitor.getClientOffset().x + leftOffset
-      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y - 100
+      const topOffset = monitor.getInitialSourceClientOffset().y - monitor.getInitialClientOffset().y - 200
       const top = monitor.getClientOffset().y + topOffset
       component.moveBox(item.id, left, top, item.index, item)
     },

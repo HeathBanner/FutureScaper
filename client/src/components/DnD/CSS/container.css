@@ -4,7 +4,7 @@
     z-index: 2;
     position: fixed;
     top: 0%;
-    background: white;
+    background: skyblue;
     /* display: none */
 }
 
@@ -17,7 +17,7 @@
 .item-col {
     /* overflow: scroll; */
     width: 100%;
-    height: 100px;
+    height: 200px;
 }
 
 .drag-area {
@@ -28,7 +28,7 @@
 #backBtn {
     position: absolute;
     bottom: 2%;
-    left: 10%;
+    left: 5%;
     border: none;
     border-radius: 3px;
     background: rgb(152, 224, 94);
@@ -39,7 +39,7 @@
 #nextBtn {
     position: absolute;
     bottom: 2%;
-    right: 10%;
+    right: 5%;
     border: none;
     border-radius: 3px;
     background: rgb(152, 224, 94);
@@ -48,17 +48,17 @@
 }
 
 .plot-btns:hover {
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
 }
 
 #backBtn:active, #nextBtn:active, #nextBtn:focus, #nextBtn:visited {
     border: none;
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.7);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
 }
 
 #plot-search {
     position: absolute;
-    bottom: 10%;
+    bottom: 75%;
     width: 85%;
     text-align: center;
     border-radius: 3px;
@@ -68,10 +68,29 @@
 }
 
 #plot-search:hover {
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    /* transform: translateY(100%); */
+    /* animation-name: drift;
+    animation-duration: 0.5s; */
+}
+
+#plot-search:active {
+    /* box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5); */
+    /* transform: translateY(100%); */
 }
 
 .DnD {
     margin-top: 6em;
 }
 
+/* @keyframes drift {
+    from{
+        top: 100%;
+        opacity: 0.1;
+    }
+    to{
+        height: 30px;
+        top: 10%;
+        opacity: 1;
+    }
+} */
