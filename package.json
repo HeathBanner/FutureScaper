@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "server/server.js",
+  "engines": {
+    "node": "11.10.1"
+  },
   "scripts": {
     "install": "yarn run install:client && yarn run install:server",
     "install:client": "cd client && yarn",
