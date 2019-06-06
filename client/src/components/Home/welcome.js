@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
+import { CSSPlugin, TimelineLite, TweenMax, Power2 } from 'gsap/all';
 
 
 class Welcome extends React.Component {
