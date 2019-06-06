@@ -4,7 +4,8 @@
   "license": "MIT",
   "main": "server/server.js",
   "engines": {
-    "node": "11.10.1"
+    "node": "11.10.1",
+    "yarn": "1.16.0"
   },
   "scripts": {
     "install": "yarn run install:client && yarn run install:server",
