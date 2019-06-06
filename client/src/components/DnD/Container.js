@@ -47,9 +47,30 @@ const seasons = {
 }
 
 class Container extends React.Component {
-  constructor() {
+  constructor(handleInputChange) {
     super(...arguments)
     this.ref = React.createRef();
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({ [name]: value });
+      fetch('/api/plants/plotSearch', {
+        method: 'POST',
+        body: JSON.stringify({data: value}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+        .then((result) => {
+          this.setState({
+            items: result,
+            isLoaded: true,
+          });
+          this.forceUpdate();
+        })
+    }
+  
     this.state = {
       error: null,
       items: null,
@@ -67,19 +88,19 @@ class Container extends React.Component {
   seasonStyle(props, style) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
-        style.boxShadow = `0px 0px 20px ${props.Flower_Color}`
-        console.log('bloom')
+      style.boxShadow = `0px 0px 20px ${props.Flower_Color}`
+      console.log('bloom')
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
-        style.boxShadow = `0px 0px 20px ${props.Fruit_Color}`
-        console.log('fruit')
+      style.boxShadow = `0px 0px 20px ${props.Fruit_Color}`
+      console.log('fruit')
     } else if (leafRetention.includes(this.state.xtraSeason)) {
-        if (props.Leaf_Retention === 'Yes') {
-            style.boxShadow = `0px 0px 20px ${props.Foliage_Color}`
-            console.log('retention')
-        } else {
-            console.log('problem')
-            style.boxShadow = `0px 0px 20px brown`
-        }
+      if (props.Leaf_Retention === 'Yes') {
+        style.boxShadow = `0px 0px 20px ${props.Foliage_Color}`
+        console.log('retention')
+      } else {
+        console.log('problem')
+        style.boxShadow = `0px 0px 20px brown`
+      }
     }
   }
 
@@ -145,12 +166,8 @@ class Container extends React.Component {
       }
   }
   
-
   populateResults() {
-    console.log(this.state.items)
-
-      const plants = this.state.items.map((plant, index) => {
-        console.log(plant.Common_Name.length)
+    const plants = this.state.items.map((plant, index) => {
       return (
         plant.top = 20,
         plant.left = ((index+1)*15) - (plant.Common_Name.length/4) + '%',
@@ -158,62 +175,33 @@ class Container extends React.Component {
         plant.moved = false,
         plant.isOrigin = true,
         plant
-        )
-      })
-      if (this.state.nextPage) {
-        console.log('NEXT')
-        this.setState({
-          boxes: plants,
-          isLoaded: false,
-          // pageNumber: this.state.pageNumber + 5,
-          nextPage: false
-        })
-        this.forceUpdate();
-      } else if (!this.state.nextPage) {
-        console.log('BACK')
+      )
+    });
+    if (this.state.nextPage) {
+      this.setState({
+        boxes: plants,
+        isLoaded: false,
+        // pageNumber: this.state.pageNumber + 5,
+        nextPage: false
+      });
+      this.forceUpdate();
+    } else if (!this.state.nextPage) {
         this.setState({
           boxes: plants,
           isLoaded: false,
           // pageNumber: this.state.pageNumber - 5,
           nextPage: true,
-        })
+        });
         this.forceUpdate();
-      }
+    }
   }
 
   changeSeason = (season) => {
-    console.log('FIRE')
-    console.log(season)
     this.setState({xtraSeason: season});
-    console.log(this.state.xtraSeason);
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    console.log(value)
-    this.setState({
-      [name]: value
-    });
-    fetch('/api/plants/plotSearch', {
-      method: 'POST',
-      body: JSON.stringify({data: value}),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-      .then((result) => {
-        this.setState({
-          items: result,
-          isLoaded: true,
-        });
-        this.forceUpdate();
-      })
-  }
 
   pageChange = (page) => {
-    console.log(page)
     if (page === 'next') {
       fetch('/api/plants/getNew', {
         method: 'POST',
@@ -252,7 +240,6 @@ class Container extends React.Component {
           });
           this.forceUpdate();
         })
-
     }
   }
   
@@ -261,9 +248,7 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
-    console.log('DID MOUNT')
     if (!this.state.items) {
-
       fetch('/api/plants/getPlants')
       .then(res => res.json())
         .then(
@@ -284,37 +269,37 @@ class Container extends React.Component {
     return connectDropTarget(
       <div>
         <div className="row main-col">
-                  <div className="col-lg-12 item-col">
-                      <div id="loaded-dnd">
-                        {this.state.boxes.map(object => {
-                          console.log(object)
-                            var style = {
-                              boxShadow: `0px 0px 20px brown`
-                            }
-                            this.seasonStyle(object, style)
-                            this.whatAmI(object, style);
-                          const { left, top, id, Common_Name } = object
-                          return (
-                            <Box
-                              key={id}
-                              index={object.index}
-                              id={id}
-                              left={left}
-                              top={top}
-                              hideSourceOnDrag={hideSourceOnDrag}
-                              isOrigin='true'
-                              seasonStyle={style}
-                              plant={object}
-                            >{Common_Name}</Box>
-                          )
-                        })}
-                        {/* <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-                        <PageButtons onClick={this.pageChange}/> */}
-                      </div>
-                    </div>
-        
-        <div className="row">
+          <div className="col-lg-12 item-col">
+            <div id="loaded-dnd">
+                <PlotSearch onChange={this.handleInputChange} />
+                  {this.state.boxes.map(object => {
+                    console.log(object)
+                      var style = {
+                        boxShadow: `0px 0px 20px brown`
+                      }
+                      this.seasonStyle(object, style)
+                      this.whatAmI(object, style);
+                    const { left, top, id, Common_Name } = object
+                    return (
+                      <Box
+                        key={id}
+                        index={object.index}
+                        id={id}
+                        left={left}
+                        top={top}
+                        hideSourceOnDrag={hideSourceOnDrag}
+                        isOrigin='true'
+                        seasonStyle={style}
+                        plant={object}
+                      >{Common_Name}</Box>
+                    )
+                  })}
+                {/* <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
+                <PageButtons onClick={this.pageChange}/> */}
+              </div>
+          </div>
 
+        <div className="row">
           <div className="col-lg-12 plot-col" style={plotCol}>
               {/* <Seasons 
               onClick={this.changeSeason} /> */}
@@ -346,7 +331,7 @@ class Container extends React.Component {
         </div>
         </div>            
       </div>
-      )
+    )
   }
   moveBox(id, left, top, index, items) {
     if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
@@ -372,9 +357,9 @@ class Container extends React.Component {
                   $push: [items]
                 }
               }
-              )
+            )
           )
-        )
+        );
     } else if (!items.isOrigin) {
       this.setState(
         update(this.state,
@@ -393,8 +378,7 @@ export default DropTarget(
     drop(props, monitor, component) {
       if (!component) {
         return
-      }
-      
+      } 
       const item = monitor.getItem()
       const delta = monitor.getDifferenceFromInitialOffset()
       const leftOffset = monitor.getInitialSourceClientOffset().x - monitor.getInitialClientOffset().x 
