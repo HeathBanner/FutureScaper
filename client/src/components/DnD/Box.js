@@ -30,7 +30,11 @@ const Box = ({
     return null
   }
   return connectDragSource(
-      <div style={Object.assign({}, style, { left, top }, seasonStyle )} plant onClick={onClick} origin={isOrigin} >{children}
+      <div style={
+        Object.assign({}, style, { left, top }, seasonStyle )
+        } 
+        plant onClick={onClick} 
+        origin={isOrigin} > {children}
       </div>  
   )
 }
