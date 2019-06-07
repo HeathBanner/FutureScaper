@@ -317,6 +317,7 @@ componentDidUpdate(newProps, newState) {
   this.state.isLoaded ? this.populateResults() : console.log('NOPE')
 }
 
+
 componentDidMount() {
   if (!this.state.items) {
     fetch('/api/plants/getPlants')
@@ -341,7 +342,7 @@ render() {
       <div className="col-lg-12 item-col">
         <div id="loaded-dnd">
           {this.state.boxes.map(object => {
-            console.log(object)
+            // console.log(object)
             var style = {
               textShadow: `0px 0px 20px brown`
             }
@@ -350,7 +351,7 @@ render() {
             const { left, top, id, Common_Name } = object
             return (
               <Box
-                key={id}
+                key={object.id}
                 index={object.index}
                 id={id}
                 left={left}
