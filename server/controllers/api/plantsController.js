@@ -19,7 +19,7 @@ const PLANTS = {
   findAll: function(page, res) {
     console.log('hit')
     db
-      .find({}, null , {skip: page, limit: 5})
+      .find({}, null, {skip: page, limit: 5})
       .sort({ date: -1 })
       .then(dbModel => {
         res.json(dbModel)
@@ -163,14 +163,15 @@ const PLANTS = {
 }
 
 plantsController.get('/getPlants', (req, res) => {
-  console.log('TEST');
+  console.log('Getting plants...');
   PLANTS.findAll(0, res);
 });
 
 plantsController.post('/getNew', (req, res) => {
-  console.log('NEXT');
-  console.log(req.body.data);
-  PLANTS.findAll(req.body.data, res);
+  currentIndex = req.body.data;
+  console.log('Getting next set of plants...');
+  console.log('Current index:', currentIndex);
+  PLANTS.findAll(currentIndex, res);
 });
 
 plantsController.post('/plotSearch', (req, res) => {
