@@ -63,14 +63,15 @@ class Search extends React.Component {
 
   render() {
 
-    var plants;
+    var plants = this.state.items
     if (this.state.comAvail) {
-      plants = this.state.items.filter(item => {return item.Commercial_Availability})
+      plants = plants.filter(item => {return item.Commercial_Availability && item.Commercial_Availability !== 'No Known Source'})
     }
     if (this.state.flower) {
       plants = plants.filter(item => {return item.Flower_Color})
     }
-    if (this.state.trees) {
+    if (this.state.tree) {
+      console.log(plants)
       plants = plants.filter(item => {return item.Height_Mature_feet > 8})
     }
     return (
