@@ -45,6 +45,7 @@ class PlantsBody extends React.Component {
 
     componentDidMount() {
         document.addEventListener('wheel', this.trackScrolling,true);
+        console.log('COMPONENT MOUNTED')
     }
 
     componentWillUnmount = () => {
@@ -60,6 +61,7 @@ class PlantsBody extends React.Component {
         //     document.removeEventListener('scroll', this.trackScrolling);
         // }
         this.introScroll(event);
+        console.log(event)
     }
 
     headerAnimate() {
