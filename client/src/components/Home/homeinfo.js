@@ -33,7 +33,7 @@ class Homeinfo extends React.Component {
           <div className="row">
             <div className="col-12 pad">
               <Link to="/create" onClick={this.toggleCollapse}>
-              <button type="button" class="btn btn-success shadow" data-toggle="modal" data-target=".bd-example-modal-xl">
+              <button type="button" className="btn btn-success shadow" data-toggle="modal" data-target=".bd-example-modal-xl">
                 Create Garden
               </button>
               </Link>
@@ -53,13 +53,13 @@ class Homeinfo extends React.Component {
           </div>
           <div className="row">
             <div className="col-12">
-              <h3 class="pad">Search Plant Database</h3>
+              <h3 className="pad">Search Plant Database</h3>
             </div>
           </div>
           <div className="row">
             <div className="col-12">
               <Link to="/search" onClick={this.toggleCollapse}>
-              <button type="submit" class="btn btn-success shadow" href="/search">
+              <button type="submit" className="btn btn-success shadow" href="/search">
                 Search Database
               </button>
               </Link>

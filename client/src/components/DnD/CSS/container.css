@@ -1,23 +1,23 @@
-
-
 .main-col {
     z-index: 2;
     position: fixed;
     top: 0%;
-    background: white;
+    background: skyblue;
+    background-image: url(Images/sky.jpg);
     /* display: none */
 }
 
 .plot-col {
     width: 100%;
     height: 100%;
-    background: rgb(10, 160, 0);
+    border: none !important;
+    background: rgb(51, 173, 55, 0.74);
 }
 
 .item-col {
     /* overflow: scroll; */
     width: 100%;
-    height: 100px;
+    height: 200px;
 }
 
 .drag-area {
@@ -27,38 +27,72 @@
 
 #backBtn {
     position: absolute;
-    bottom: 2%;
-    left: 10%;
+    top: 135px;
+    left: 5%;
     border: none;
-    border-radius: 3px;
-    background: rgb(152, 224, 94);
+    border-radius: 30%;
+    /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
+    background-image: url(/Images/Buttons/PrevIcon2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+    z-index: 100;
 }
 
 #nextBtn {
     position: absolute;
-    bottom: 2%;
-    right: 10%;
+    top: 135px;
+    right: 5%;
     border: none;
-    border-radius: 3px;
-    background: rgb(152, 224, 94);
+    border-radius: 30%;
+    /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
+    background-image: url(/Images/Buttons/NextIcon2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+    z-index: 100;
+}
+
+.undropped-plants {
+    text-transform: capitalize;
+    opacity: 0.8;
+}
+
+.undropped-plants:hover{
+    opacity: 1;
+    text-shadow: 2px 2px 1px white;
+    text-emphasis: bold;
+}
+
+.dropped-plants {
+    text-transform: capitalize;
+    opacity: 0;
+}
+
+.dropped-plants:hover{
+    opacity: .8;
 }
 
 .plot-btns:hover {
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    border: 1px 1px 1px black;
+    cursor: url(/Images/Buttons/NextIcon.png), auto;
 }
 
 #backBtn:active, #nextBtn:active, #nextBtn:focus, #nextBtn:visited {
     border: none;
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.7);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
 }
 
 #plot-search {
     position: absolute;
-    bottom: 10%;
+    bottom: 75%;
     width: 85%;
     text-align: center;
     border-radius: 3px;
@@ -68,10 +102,24 @@
 }
 
 #plot-search:hover {
-    box-shadow: 0px 0px 20px rgb(255, 0, 0, 0.5);
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    /* transform: translateY(100%); */
+    /* animation-name: drift;
+    animation-duration: 0.5s; */
 }
 
 .DnD {
     margin-top: 6em;
 }
 
+/* @keyframes drift {
+    from{
+        top: 100%;
+        opacity: 0.1;
+    }
+    to{
+        height: 30px;
+        top: 10%;
+        opacity: 1;
+    }
+} */
