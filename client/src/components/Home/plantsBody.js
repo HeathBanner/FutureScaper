@@ -14,22 +14,25 @@ class PlantsBody extends React.Component {
     }
 
     introScroll = event => {
-        console.log('INTROSCROLL ' + event);
+        console.log('INTROSCROLL ')
         var timeout;
         if(timeout) clearTimeout(timeout);
         setTimeout(this.callParallax.bind(null, event), 200);
     }
 
     callParallax = event => {
-        console.log('CALLPAR '+event)
+        console.log('CALLPAR ')
         this.parallaxIt(event, '#plant-p', -200);
         this.parallaxIt(event, '#plant-parallax', -120);
     }
 
     parallaxIt = (e, target, movement) => {
     var $this = ReactDOM.findDOMNode(this);
-    console.log('THIS ' +$this)
+    console.log('INTROSCROLL ')
+    console.log($this)
     var relY = e.pageY - $this.offsetTop
+    console.log('RELY')
+    console.log(relY)
         TweenMax.to(target, 1, {
             y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,
             ease: Power2.easeOut
@@ -38,6 +41,9 @@ class PlantsBody extends React.Component {
 
     isBottom(el) {
         const center = el.getBoundingClientRect().bottom
+        console.log('BOUNDING')
+        console.log(el.getBoundingClientRect().top)
+        console.log(window.innerHeight)
         return (
             el.getBoundingClientRect().top <= window.innerHeight
         );
