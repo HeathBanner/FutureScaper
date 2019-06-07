@@ -13,6 +13,7 @@
 .lbutton {
     width: 100% !important;
     border: 1px solid green !important;
+    margin-left: 0px;
 }
 
 .lbutton:focus {

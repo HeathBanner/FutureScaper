@@ -66,6 +66,7 @@ class PlantsBody extends React.Component {
 
     render() {
         return (
+            <div className="bot">
         <div className="row">
             <div
                 onScroll={this.trackScrolling}
@@ -74,20 +75,13 @@ class PlantsBody extends React.Component {
                 <p
                     id="plant-p"
                     ref={p => this.logoContainer = p}
-                >TEST Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
-                eleifend vitae lorem at, tristique feugiat neque. Phasellus nec ornare leo. 
-                Suspendisse potenti. Nulla sed dapibus arcu. Duis urna erat, scelerisque at 
-                ultrices nec, viverra at massa. Ut pulvinar placerat viverra. Vivamus ultrices 
-                risus eget sapien vestibulum mattis. Sed et consectetur mauris. Cras vitae rutrum 
-                urna, ut dignissim lacus. Proin commodo finibus augue. Nullam efficitur elit felis, 
-                ut commodo velit lacinia vel. Donec sed erat id purus suscipit facilisis quis non 
-                neque. Praesent ullamcorper facilisis leo id dapibus. Maecenas et luctus velit, eu 
-                ornare sapien. Vivamus porttitor vehicula urna, id sollicitudin velit hendrerit eget.</p>
+                ><h4>
+                    The USDA database provides standardized information about the vascular plants, mosses, liverworts, hornworts, and lichens of the U.S. and its territories. It includes names, plant symbols, checklists, distributional data, species abstracts, characteristics, images, crop information, automated tools, onward Web links, and references. This information primarily promotes land conservation in the United States and its territories, but academic, educational, and general use is encouraged. </h4>.</p>
             </div>
-            <div className="col-lg-4 ">
-                <div id="plant-parallax">
+            <div className="col-lg-4 bottom">
+                <div id="plant-parallax" className="shadow">
                     <Parallax
-                        bgImage={require('./css/imgs/annie-spratt-path.jpg')}
+                        bgImage={require('../Home/css/imgs/flower.jpg')}
                         bgImageAlt="Jumbtron"
                         strength={200}>
                                 <div className="test2" id="intro-img">
@@ -95,6 +89,7 @@ class PlantsBody extends React.Component {
                     </Parallax>
                 </div>
             </div>
+        </div>
         </div>
         );
     }

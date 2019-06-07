@@ -81,11 +81,6 @@ const PlantSchema = new Schema({
         type:String,
         trim:true,
     }
-
-
-
-
-
 }, {collection: 'cleaner'});
 
 const Plant = mongoose.model('Plant', PlantSchema);

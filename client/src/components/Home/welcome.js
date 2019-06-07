@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
+import { CSSPlugin, TimelineLite, TweenMax, Power2 } from 'gsap/all';
 
 
 class Welcome extends React.Component {
@@ -70,6 +70,7 @@ class Welcome extends React.Component {
         return (
         <div className="row">
             <div id="welcome-div" className="col-lg-8">
+                <br></br>
                 <h1 
                 className = "test1"
                 id="welcome-parallax"

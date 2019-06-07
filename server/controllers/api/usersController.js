@@ -15,7 +15,6 @@ usersController.post('/login', (req, res) => {
     .then(user => {
       console.log(!user || !user.comparePassword(password))
       if (!user || !user.comparePassword(password)) {
-        console.log('wtf')
         return res.status(401).send("Unauthorized");
       }
 
@@ -28,10 +27,16 @@ usersController.post('/login', (req, res) => {
 
 usersController.post('/register', (req, res) => {
   const { email, password } = req.body;
-
-  db.Users.create({ email, password })
-    .then(user => res.json(user))
-    .catch(err => res.json(err));
+  console.log(req.body)
+  db.Users.findOne({email})
+    .then(user => {
+      console.log(user);
+      if(!user){db.Users.create({ email, password })
+        .then(user => res.json(user))
+        .catch(err => res.json(err));
+      }
+      if(user.email === email){res.json('Email already exists!')}
+    })
 });
 
 

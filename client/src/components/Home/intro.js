@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { TimelineLite, TweenMax, Power2 } from 'gsap/all';
+import { CSSPlugin, TimelineLite, TweenMax, Power2 } from 'gsap/all';
 
 import { Parallax } from 'react-parallax';
 
@@ -70,35 +70,26 @@ class Intro extends React.Component {
 
     render() {
         return (
-        <div id="intro-row" className="row">
+            <div id="intro-row" className="row">
             <div className="col-lg-4">
-                <div id="intro-div">
+                <div id="intro-div" className="shadow">
                     <Parallax
-                    bgImage={require('./css/imgs/annie-spratt.jpg')}
+                    bgImage={require('./css/imgs/flower1.jpg')}
                     bgImageAlt="Jumbtron"
                     strength={200}>
                         <div id="intro-img">
                         </div>
-
                     </Parallax>
                 </div>
-
             </div>
             <div
                 className="col-lg-8"
-                id="intro-div">
+                >
                 <p
                     id="intro-slide"
                     ref={p => this.logoContainer = p}
-                >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio mi, 
-                eleifend vitae lorem at, tristique feugiat neque. Phasellus nec ornare leo. 
-                Suspendisse potenti. Nulla sed dapibus arcu. Duis urna erat, scelerisque at 
-                ultrices nec, viverra at massa. Ut pulvinar placerat viverra. Vivamus ultrices 
-                risus eget sapien vestibulum mattis. Sed et consectetur mauris. Cras vitae rutrum 
-                urna, ut dignissim lacus. Proin commodo finibus augue. Nullam efficitur elit felis, 
-                ut commodo velit lacinia vel. Donec sed erat id purus suscipit facilisis quis non 
-                neque. Praesent ullamcorper facilisis leo id dapibus. Maecenas et luctus velit, eu 
-                ornare sapien. Vivamus porttitor vehicula urna, id sollicitudin velit hendrerit eget.</p>
+                ><h4>
+                    When planning a garden, being able to quickly try out different planting styles can save a huge amount of time and ultimately help you grow healthier plants which produce more food. Whether you use traditional rows, containers, raised beds or square foot gardening, the Garden Planner gives you the flexibility to create the best design for your garden.</h4></p>
             </div>
         </div>
         );
