@@ -9,7 +9,7 @@ import Login from '../../pages/Login/Login';
 import Secret from '../../pages/Secret/Secret';
 import Home from '../../pages/Home/Home';
 import NotFound from '../../pages/NotFound/NotFound';
-import About from '../../pages/About/About';
+import About from '../../pages/Home/Home';
 import Search from "../../pages/Search/Search"
 import Example from "../DnD/Example"
 import Register from "../../pages/Register/Register"

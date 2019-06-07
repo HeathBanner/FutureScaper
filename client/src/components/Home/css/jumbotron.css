@@ -55,10 +55,11 @@
     align-items: center;
     flex-wrap: wrap;
     background:white;
+    
 }
 
 #plant-header {
-    text-align: right;
+    text-align: left;
 }
 
 #plant-body {
@@ -130,3 +131,6 @@
   }
   
  
+.top {
+    margin-top: 5px;
+}
