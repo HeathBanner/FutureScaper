@@ -23,7 +23,7 @@ const PLANTS = {
       .sort({ date: -1 })
       .then(dbModel => {
         res.json(dbModel)
-        console.log(dbModel[0])
+        // console.log(dbModel[0])
       })
       .catch(err => res.status(422).json(err));
   },
@@ -94,18 +94,10 @@ const PLANTS = {
             
           }  
         })
-        
       })
-      
     })
-
-
     }
-
   },
-
-
-
 
 
   cleanUp: function() {

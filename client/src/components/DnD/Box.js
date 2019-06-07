@@ -33,7 +33,8 @@ const Box = ({
       <div style={
         Object.assign({}, style, { left, top }, seasonStyle )
         } 
-        plant onClick={onClick} 
+        plant = {plant}
+        onClick={onClick} 
         origin={isOrigin} > {children}
       </div>  
   )
