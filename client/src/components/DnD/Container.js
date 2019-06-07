@@ -241,6 +241,7 @@ class Container extends React.Component {
         nextPage: true,
       });
       // this.forceUpdate();
+      
     }
   }
 
