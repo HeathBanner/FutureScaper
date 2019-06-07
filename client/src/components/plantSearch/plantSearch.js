@@ -37,6 +37,9 @@ class PlantSearch extends React.Component {
                     <p>
                         Height at base age: {this.props.Height_at_Base_Age_Maximum_feet} Height when mature: {this.props.Height_Mature_feet}
                     </p>
+                    <p>
+                        Commercial Availability: {this.props.Commercial_Availability}
+                    </p>
                 </div>
               </div>
             </div>

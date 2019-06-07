@@ -194,7 +194,7 @@ class Container extends React.Component {
         return "flower";
       } else {
         console.log("actually, it's a bunch of flowers.");
-        style.backgroundImage = 'url(./images/Flowers/bunch.png)';
+        style.backgroundImage = 'url(./images/Flowers/Bunch.png)';
         style.minHeight = '115px';
         return "bunchflower";
       }
@@ -241,6 +241,7 @@ class Container extends React.Component {
         nextPage: true,
       });
       // this.forceUpdate();
+      
     }
   }
 

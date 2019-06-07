@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/futureScaper";
+var MONGODB_URI = "mongodb://localhost/futureScaper"
+// var MONGODB_URI = "mongodb://HeathBanner:Mixedpass1@ds133187.mlab.com:33187/heroku_3k4wk5ql";
 mongoose.connect(MONGODB_URI);
 
 // Global error catch for Mongoose
@@ -23,7 +23,7 @@ const PLANTS = {
       .sort({ date: -1 })
       .then(dbModel => {
         res.json(dbModel)
-        console.log(dbModel[0])
+        // console.log(dbModel[0])
       })
       .catch(err => res.status(422).json(err));
   },
@@ -94,18 +94,10 @@ const PLANTS = {
             
           }  
         })
-        
       })
-      
     })
-
-
     }
-
   },
-
-
-
 
 
   cleanUp: function() {
