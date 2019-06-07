@@ -66,6 +66,7 @@ class PlantsBody extends React.Component {
 
     render() {
         return (
+            <div className="">
         <div className="row">
             <div
                 onScroll={this.trackScrolling}
@@ -87,7 +88,7 @@ class PlantsBody extends React.Component {
             <div className="col-lg-4 ">
                 <div id="plant-parallax">
                     <Parallax
-                        bgImage={require('./css/imgs/annie-spratt-path.jpg')}
+                        bgImage={require('../Home/css/imgs/annie-spratt-path.jpg')}
                         bgImageAlt="Jumbtron"
                         strength={200}>
                                 <div className="test2" id="intro-img">
@@ -95,6 +96,7 @@ class PlantsBody extends React.Component {
                     </Parallax>
                 </div>
             </div>
+        </div>
         </div>
         );
     }

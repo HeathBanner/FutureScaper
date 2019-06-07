@@ -64,7 +64,7 @@ class PlantsHeader extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="row header">
                 <div className="col-lg-4"></div>
                 <div id="plants-header" className="col-lg-8">
                     <h1
