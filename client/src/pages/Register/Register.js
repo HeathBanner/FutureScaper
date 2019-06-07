@@ -1,28 +1,47 @@
 import React, { Component } from 'react';
+import  { Redirect } from 'react-router-dom';
+
 import "./register.css";
 class Register extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    registered: false,
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
-
+    console.log(name, value)
     this.setState({
       [name]: value
     });
   }
 
   handleSubmit = event => {
+    event.preventDefault();
+
     const { email, password } = this.state;
 
-    this.props.onSubmit(email, password);
-    event.preventDefault();
+    fetch('/api/users/register', {
+      method: 'POST',
+      body: JSON.stringify({email: email, password: password}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then((err, result) => {
+        this.setState({registered: true})
+        console.log('REGIST')
+      })
   }
 
   render() {
     const { email, password } = this.state;
+
+    if (this.state.registered) {
+      return( <Redirect to="/login" />)
+    }
 
     return (
       <div className="container">
@@ -35,6 +54,7 @@ class Register extends Component {
                 <div className="input-group-prepend">
                   <span className="input-group-text">@</span>
                 </div>
+                {() => this.componentDidUpdate}
                 <input
                   className='form-control'
                   id='email'

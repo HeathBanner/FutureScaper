@@ -62,10 +62,6 @@ class Search extends React.Component {
    console.log(this.state.comAvail)
  }
 
-  // componentDidUpdate(newProps, newState) {
-  //   this.state.isLoaded ? this.populateResults() : console.log('NOPE')
-  // }
-
   render() {
 
     return (
@@ -144,6 +140,7 @@ class Search extends React.Component {
                           Growth_Rate={item.Growth_Rate}
                           Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
                           Height_Mature_feet={item.Height_Mature_feet}
+                          Commercial_Availability={item.Commercial_Availability}
                           key={item._id}
                         />
                       )
@@ -163,6 +160,7 @@ class Search extends React.Component {
                       Growth_Rate={item.Growth_Rate}
                       Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
                       Height_Mature_feet={item.Height_Mature_feet}
+                      Commercial_Availability={item.Commercial_Availability}
                     />
                   );
                 })
