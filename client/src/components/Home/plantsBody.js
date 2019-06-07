@@ -14,18 +14,21 @@ class PlantsBody extends React.Component {
     }
 
     introScroll = event => {
+        console.log('INTROSCROLL ' + event);
         var timeout;
         if(timeout) clearTimeout(timeout);
         setTimeout(this.callParallax.bind(null, event), 200);
     }
 
     callParallax = event => {
+        console.log('CALLPAR '+event)
         this.parallaxIt(event, '#plant-p', -200);
         this.parallaxIt(event, '#plant-parallax', -120);
     }
 
     parallaxIt = (e, target, movement) => {
     var $this = ReactDOM.findDOMNode(this);
+    console.log('THIS ' +$this)
     var relY = e.pageY - $this.offsetTop
         TweenMax.to(target, 1, {
             y: (relY - $this.offsetHeight/2) / $this.offsetHeight * movement,

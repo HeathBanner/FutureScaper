@@ -12,6 +12,8 @@ class Search extends React.Component {
       items: [],
       isLoaded: false,
       comAvail: true,
+      flower: false,
+      tree: false,
       card: '',
       nextPage: '',
     }
@@ -57,9 +59,8 @@ class Search extends React.Component {
     }
   }
 
- toggleSwitch() {
-   this.setState({comAvail: !this.state.comAvail});
-   console.log(this.state.comAvail)
+ toggleSwitch = (toggleSwitch) => {
+     this.setState({[toggleSwitch]: !this.state[toggleSwitch]})
  }
 
   render() {
@@ -90,27 +91,31 @@ class Search extends React.Component {
                   id="someSwitchOptionSuccess"
                   name="someSwitchOption001"
                   type="checkbox"
-                  onClick={() => this.toggleSwitch('one')}
+                  onClick={() => this.toggleSwitch('comAvail')}
                 />
                 <label for="someSwitchOptionSuccess" className="label-success" />
               </div>
             </div>
             <div className="col-4 center">
+              <label>Flowers</label>
               <div className="material-switch pad ">
                 <input
                   id="someSwitchOptionSuccess2"
                   name="someSwitchOption002"
                   type="checkbox"
+                  onClick={() => this.toggleSwitch('flower')}
                 />
                 <label for="someSwitchOptionSuccess2" className="label-success center" />
               </div>
             </div>
             <div className="col-4 ">
+              <label>Trees</label>
               <div className="material-switch pad center">
                 <input
                   id="someSwitchOptionSuccess3"
                   name="someSwitchOption003"
                   type="checkbox"
+                  onClick={() => this.toggleSwitch('tree')}
                 />
                 <label for="someSwitchOptionSuccess3" className="label-success" />
               </div>
@@ -146,24 +151,68 @@ class Search extends React.Component {
                       )
                     }
                   }) 
-                  : this.state.items.map(item => {
-                  console.log('NOT COM')
-                  return (
-                    <PlantSearch  
-                      Image={item.Image[0]}
-                      Common_Name={item.Common_Name}
-                      Scientific_Name={item.Scientific_Name}
-                      Active_Growth_Period={item.Active_Growth_Period}
-                      Flower_Color={item.Flower_Color}
-                      Foliage_Color={item.Foliage_Color}
-                      Fruit_Color={item.Fruit_Color}
-                      Growth_Rate={item.Growth_Rate}
-                      Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
-                      Height_Mature_feet={item.Height_Mature_feet}
-                      Commercial_Availability={item.Commercial_Availability}
-                    />
-                  );
+                  : this.state.flower ?
+                    this.state.items.map(item => {
+                    console.log('Flower')
+                    if (item.Flower_Color) {
+                      return (
+                        <PlantSearch  
+                          Image={item.Image[0]}
+                          Common_Name={item.Common_Name}
+                          Scientific_Name={item.Scientific_Name}
+                          Active_Growth_Period={item.Active_Growth_Period}
+                          Flower_Color={item.Flower_Color}
+                          Foliage_Color={item.Foliage_Color}
+                          Fruit_Color={item.Fruit_Color}
+                          Growth_Rate={item.Growth_Rate}
+                          Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                          Height_Mature_feet={item.Height_Mature_feet}
+                          Commercial_Availability={item.Commercial_Availability}
+                        />
+                      );
+                  }
                 })
+                : this.state.tree ? 
+                this.state.items.map(item => {
+                  console.log('Tree')
+                  if (item.Height_Mature_feet > 8) {
+                    return (
+                      <PlantSearch  
+                        Image={item.Image[0]}
+                        Common_Name={item.Common_Name}
+                        Scientific_Name={item.Scientific_Name}
+                        Active_Growth_Period={item.Active_Growth_Period}
+                        Flower_Color={item.Flower_Color}
+                        Foliage_Color={item.Foliage_Color}
+                        Fruit_Color={item.Fruit_Color}
+                        Growth_Rate={item.Growth_Rate}
+                        Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                        Height_Mature_feet={item.Height_Mature_feet}
+                        Commercial_Availability={item.Commercial_Availability}
+                      />
+                    );
+                }
+              })
+                : this.state.items.map(item => {
+                    console.log('NOT COM')
+                    if (item.Flower_Color) {
+                      return (
+                        <PlantSearch  
+                          Image={item.Image[0]}
+                          Common_Name={item.Common_Name}
+                          Scientific_Name={item.Scientific_Name}
+                          Active_Growth_Period={item.Active_Growth_Period}
+                          Flower_Color={item.Flower_Color}
+                          Foliage_Color={item.Foliage_Color}
+                          Fruit_Color={item.Fruit_Color}
+                          Growth_Rate={item.Growth_Rate}
+                          Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                          Height_Mature_feet={item.Height_Mature_feet}
+                          Commercial_Availability={item.Commercial_Availability}
+                        />
+                      );
+                  }
+              })
               }
             </div>
           </div>
