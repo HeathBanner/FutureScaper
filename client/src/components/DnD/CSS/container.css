@@ -34,7 +34,7 @@
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
-    background-image: url(/Images/Buttons/PrevIcon2.png);
+    background-image: url(/Images/Buttons/newPrev.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 75px;
@@ -51,7 +51,7 @@
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
-    background-image: url(/Images/Buttons/NextIcon2.png);
+    background-image: url(/Images/Buttons/newNext.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 75px;
@@ -59,31 +59,50 @@
     z-index: 100;
 }
 
-.undropped-plants {
+#backBtn:hover {
+    background-image: url(/Images/Buttons/newPrev_hover.png);
+}
+
+#nextBtn:hover {
+    background-image: url(/Images/Buttons/newNext_hover.png);
+}
+
+/* .plot-btns:hover {
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    border: 1px 1px 1px black;
+} */
+
+
+.undropped-plants-title {
     text-transform: capitalize;
-    opacity: 0.8;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* text-shadow: 1px 1px 0px white; */
+    opacity: 0.7;
 }
 
 .undropped-plants:hover{
     opacity: 1;
-    text-shadow: 2px 2px 1px white;
-    text-emphasis: bold;
+    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    border: 1px 1px 1px black;
 }
 
-.dropped-plants {
+.undropped-plants:hover .undropped-plants-title{
+    opacity: 1;
+    text-shadow: 1px 1px 3px rgba(248, 93, 4, 0.897);
+    text-emphasis: bold;
+    z-index: 1000;
+}
+
+.dropped-plants-title {
     text-transform: capitalize;
     opacity: 0;
 }
 
-.dropped-plants:hover{
-    opacity: .8;
+.dropped-plants:hover .dropped-plants-title {
+    text-shadow: 1px 1px 3px rgba(248, 93, 4, 0.897);
+    opacity: 1;
 }
 
-.plot-btns:hover {
-    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
-    border: 1px 1px 1px black;
-    cursor: url(/Images/Buttons/NextIcon.png), auto;
-}
 
 #backBtn:active, #nextBtn:active, #nextBtn:focus, #nextBtn:visited {
     border: none;
