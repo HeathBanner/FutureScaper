@@ -4,11 +4,13 @@ import "./css/jumbotron.css";
 import Plan from "../Home/css/imgs/planner.png";
 import Search from "../Home/css/imgs/search2.png";
 import Tilt from "react-tilt";
+import About from "../About/About";
 
 
 class Homeinfo extends React.Component {
   render() {
     return (
+      <div>
 <div className="row homepageinfo">
         <div className="col-md-6 col-sm-12 sides">
           <div className="row">
@@ -63,7 +65,12 @@ class Homeinfo extends React.Component {
               </Link>
             </div>
           </div>
+
         </div>
+
+      </div>
+      <About />
+
       </div>
     );
   }
