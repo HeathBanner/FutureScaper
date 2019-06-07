@@ -11,6 +11,7 @@ class Search extends React.Component {
       plotSearch: '',
       items: [],
       isLoaded: false,
+      comAvail: true,
       card: '',
       nextPage: '',
     }
@@ -40,7 +41,7 @@ class Search extends React.Component {
 
   componentWillMount() {
     console.log('MOUNTED')
-    if (!this.state.items) {
+    if (this.state.items < 1) {
       console.log('BEFORE FIRE')
       fetch('/api/plants/getPlants')
       .then(res => res.json())
@@ -51,18 +52,15 @@ class Search extends React.Component {
             items: result,
             isLoaded: true,
           });
-          this.forceUpdate();
         }
       )
     }
   }
 
-  populateCards() {
-    console.log(this.state.items)
-    if (this.state.items) {
-
-    }
-  }
+ toggleSwitch() {
+   this.setState({comAvail: !this.state.comAvail});
+   console.log(this.state.comAvail)
+ }
 
   // componentDidUpdate(newProps, newState) {
   //   this.state.isLoaded ? this.populateResults() : console.log('NOPE')
@@ -75,11 +73,11 @@ class Search extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback" />
+              <div className="form-group has-search">
+                <span className="fa fa-search form-control-feedback" />
                 <input
                   type="text"
-                  class="form-control form-control-lg search"
+                  className="form-control form-control-lg search"
                   placeholder="Search"
                   name="plotSearch"
                   value={this.state.plotSearch}
@@ -90,33 +88,35 @@ class Search extends React.Component {
           </div>
           <div className="row switches">
             <div className="col-4">
-              <div class="material-switch pad center">
+            <label>Commercial Availability</label>
+              <div className="material-switch pad center">
                 <input
                   id="someSwitchOptionSuccess"
                   name="someSwitchOption001"
                   type="checkbox"
+                  onClick={() => this.toggleSwitch('one')}
                 />
-                <label for="someSwitchOptionSuccess" class="label-success" />
+                <label for="someSwitchOptionSuccess" className="label-success" />
               </div>
             </div>
             <div className="col-4 center">
-              <div class="material-switch pad ">
+              <div className="material-switch pad ">
                 <input
                   id="someSwitchOptionSuccess2"
                   name="someSwitchOption002"
                   type="checkbox"
                 />
-                <label for="someSwitchOptionSuccess2" class="label-success center" />
+                <label for="someSwitchOptionSuccess2" className="label-success center" />
               </div>
             </div>
             <div className="col-4 ">
-              <div class="material-switch pad center">
+              <div className="material-switch pad center">
                 <input
                   id="someSwitchOptionSuccess3"
                   name="someSwitchOption003"
                   type="checkbox"
                 />
-                <label for="someSwitchOptionSuccess3" class="label-success" />
+                <label for="someSwitchOptionSuccess3" className="label-success" />
               </div>
             </div>
 
@@ -126,8 +126,31 @@ class Search extends React.Component {
           </div>
           <div className="row">
             <div className="col-12">
-              {      
-                this.state.items.map(item => {
+              { 
+                this.state.comAvail ?     
+                  this.state.items.map(item => {
+                    console.log(item.Commercial_Availability)
+                    if ((item.Commercial_Availability) && (item.Commercial_Availability !== 'No Known Source')) {
+                      console.log('COMM')
+                      return (
+                        <PlantSearch  
+                          Image={item.Image[0]}
+                          Common_Name={item.Common_Name}
+                          Scientific_Name={item.Scientific_Name}
+                          Active_Growth_Period={item.Active_Growth_Period}
+                          Flower_Color={item.Flower_Color}
+                          Foliage_Color={item.Foliage_Color}
+                          Fruit_Color={item.Fruit_Color}
+                          Growth_Rate={item.Growth_Rate}
+                          Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                          Height_Mature_feet={item.Height_Mature_feet}
+                          key={item._id}
+                        />
+                      )
+                    }
+                  }) 
+                  : this.state.items.map(item => {
+                  console.log('NOT COM')
                   return (
                     <PlantSearch  
                       Image={item.Image[0]}
