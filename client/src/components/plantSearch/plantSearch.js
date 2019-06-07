@@ -4,22 +4,22 @@ class PlantSearch extends React.Component {
 
     render() {
         return (
-            <div class="card mb-3 sitem">
-            <div class="row no-gutters">
-              <div class="col-md-4">
+            <div className="card mb-3 sitem">
+            <div className="row no-gutters">
+              <div className="col-md-4">
                 <img
                   src={this.props.Image}
-                  class="card-img"
+                  className="card-img"
                   alt={this.props.Common_Name}
                 />
               </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{this.props.Common_Name}</h5>
-                    <p class="card-text">
-                        <small class="text-muted">{this.props.Scientific_Name}</small>
+              <div className="col-md-8">
+                <div className="card-body">
+                    <h5 className="card-title">{this.props.Common_Name}</h5>
+                    <p className="card-text">
+                        <small className="text-muted">{this.props.Scientific_Name}</small>
                     </p>
-                    <p class="card-text">
+                    <p className="card-text">
                         Active Growth Period: {this.props.Active_Growth_Period}
                     </p>
                     <p>
