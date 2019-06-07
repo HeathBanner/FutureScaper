@@ -2,8 +2,8 @@ import React from 'react';
 import '../Home/css/jumbotron.css';
 import Welcome from "../Home/welcome";
 import Intro from "../Home/intro";
-import PlantsHeader from "./plantsHeader";
-import PlantsBody from "./plantsBody";
+import PlantsHeader from "../Home/plantsHeader";
+import PlantsBody from "../Home/plantsBody";
 import Jumbotron2 from "../Home/jumbotron2";
 
 class About extends React.Component {
