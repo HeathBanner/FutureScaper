@@ -46,7 +46,7 @@ class Homeinfo extends React.Component {
             <Link to="/search" onClick={this.toggleCollapse}>
 
               <Tilt>
-                <img src={Search} className="icon" alt="plan icon" />
+                <img src={Search} className="icon2" alt="plan icon" />
               </Tilt>
               </Link>
             </div>

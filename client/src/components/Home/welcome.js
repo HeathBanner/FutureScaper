@@ -70,6 +70,7 @@ class Welcome extends React.Component {
         return (
         <div className="row">
             <div id="welcome-div" className="col-lg-8">
+                <br></br>
                 <h1 
                 className = "test1"
                 id="welcome-parallax"
