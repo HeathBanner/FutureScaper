@@ -7,7 +7,7 @@ class Jumbotron2 extends React.Component {
 
     render() {
         return (
-            <div className="col-lg-12 col-padding shadow">
+            <div className="col-lg-12 col-padding shadow ts">
                 
                 <Parallax 
                 bgImage={require('./css/imgs/flower5.jpg')}

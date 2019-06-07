@@ -29,7 +29,7 @@ const PLANTS = {
   },
   findByName: function(req, res) {
     console.log(req.body.data)
-    var regex = new RegExp("^"  + req.body.data);
+    var regex = new RegExp(req.body.data, "i");
     db
       .find({'Common_Name': regex}, null, {limit: 5})
       .sort({date: -1})

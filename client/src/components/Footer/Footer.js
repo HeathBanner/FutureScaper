@@ -4,7 +4,8 @@ import "./Footer.css";
 const Footer = () =>
 <footer className="page-footer font-small">
 
-<div className="footer-copyright text-center py-3">© 2018 Copyright
+<div className="footer-copyright text-center py-3">
+    Future Scraper
 </div>
 
 </footer>

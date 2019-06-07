@@ -18,13 +18,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 -3px 10px 3px rgba(0, 0, 0, 0.2);
+
 }
 
 #jumbotron h1 {
     color: white;
     font-size: 60px;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 5px;
     text-align: center;
 
 }
@@ -36,13 +37,26 @@
     background: white;
 }
 
+#intro-slide {
+    margin-top: 10em;
+}
+
+#plant-p {
+    margin-top: 5em;
+}
+
 #intro-container h1 {
     align-items: center;
+}
+
+#intro-row {
+    padding: 10px;
 }
 
 #welcome-div {
     width: 100vw;
     text-align: left;
+    padding: 10px;
 }
 
 #intro-img {
@@ -56,6 +70,10 @@
     flex-wrap: wrap;
     background:white;
     
+}
+
+.bot{
+    padding: 10px;
 }
 
 #plant-header {
@@ -121,7 +139,7 @@
  }
 
  .icon2 {
-     height: 190px;
+     height: 195px;
      padding: 20px;
  }
 
@@ -132,5 +150,10 @@
   
  
 .top {
-    margin-top: 5px;
+    margin-top: 3px;
 }
+
+.bottom {
+    margin-bottom: 4em;
+}
+

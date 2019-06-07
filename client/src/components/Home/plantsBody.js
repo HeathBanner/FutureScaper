@@ -4,6 +4,8 @@ import { CSSPlugin, TimelineLite, TweenMax, Power2 } from 'gsap/all';
 import { Parallax } from 'react-parallax';
 import Container from '../Container';
 
+const C = CSSPlugin
+
 class PlantsBody extends React.Component {
     constructor(props) {
         super(props);
@@ -45,8 +47,6 @@ class PlantsBody extends React.Component {
     }
 
     componentWillUnmount = () => {
-        console.log("PLANT BODY TESTING ")
-
         document.removeEventListener("wheel", this.trackScrolling, true);
       };
 

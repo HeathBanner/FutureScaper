@@ -12,6 +12,8 @@ class Search extends React.Component {
       items: [],
       isLoaded: false,
       comAvail: true,
+      flower: false,
+      tree: false,
       card: '',
       nextPage: '',
     }
@@ -57,13 +59,20 @@ class Search extends React.Component {
     }
   }
 
- toggleSwitch() {
-   this.setState({comAvail: !this.state.comAvail});
-   console.log(this.state.comAvail)
- }
+ toggleSwitch = (toggleSwitch) => {this.setState({[toggleSwitch]: !this.state[toggleSwitch]})}
 
   render() {
 
+    var plants;
+    if (this.state.comAvail) {
+      plants = this.state.items.filter(item => {return item.Commercial_Availability})
+    }
+    if (this.state.flower) {
+      plants = plants.filter(item => {return item.Flower_Color})
+    }
+    if (this.state.trees) {
+      plants = plants.filter(item => {return item.Height_Mature_feet > 8})
+    }
     return (
       <div className="thing">
         <div className="container">
@@ -90,27 +99,31 @@ class Search extends React.Component {
                   id="someSwitchOptionSuccess"
                   name="someSwitchOption001"
                   type="checkbox"
-                  onClick={() => this.toggleSwitch('one')}
+                  onClick={() => this.toggleSwitch('comAvail')}
                 />
                 <label for="someSwitchOptionSuccess" className="label-success" />
               </div>
             </div>
             <div className="col-4 center">
+              <label>Flowers</label>
               <div className="material-switch pad ">
                 <input
                   id="someSwitchOptionSuccess2"
                   name="someSwitchOption002"
                   type="checkbox"
+                  onClick={() => this.toggleSwitch('flower')}
                 />
                 <label for="someSwitchOptionSuccess2" className="label-success center" />
               </div>
             </div>
             <div className="col-4 ">
+              <label>Trees</label>
               <div className="material-switch pad center">
                 <input
                   id="someSwitchOptionSuccess3"
                   name="someSwitchOption003"
                   type="checkbox"
+                  onClick={() => this.toggleSwitch('tree')}
                 />
                 <label for="someSwitchOptionSuccess3" className="label-success" />
               </div>
@@ -123,46 +136,24 @@ class Search extends React.Component {
           <div className="row">
             <div className="col-12">
               { 
-                this.state.comAvail ?     
-                  this.state.items.map(item => {
-                    console.log(item.Commercial_Availability)
-                    if ((item.Commercial_Availability) && (item.Commercial_Availability !== 'No Known Source')) {
-                      console.log('COMM')
-                      return (
-                        <PlantSearch  
-                          Image={item.Image[0]}
-                          Common_Name={item.Common_Name}
-                          Scientific_Name={item.Scientific_Name}
-                          Active_Growth_Period={item.Active_Growth_Period}
-                          Flower_Color={item.Flower_Color}
-                          Foliage_Color={item.Foliage_Color}
-                          Fruit_Color={item.Fruit_Color}
-                          Growth_Rate={item.Growth_Rate}
-                          Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
-                          Height_Mature_feet={item.Height_Mature_feet}
-                          Commercial_Availability={item.Commercial_Availability}
-                          key={item._id}
-                        />
-                      )
-                    }
-                  }) 
-                  : this.state.items.map(item => {
-                  console.log('NOT COM')
-                  return (
-                    <PlantSearch  
-                      Image={item.Image[0]}
-                      Common_Name={item.Common_Name}
-                      Scientific_Name={item.Scientific_Name}
-                      Active_Growth_Period={item.Active_Growth_Period}
-                      Flower_Color={item.Flower_Color}
-                      Foliage_Color={item.Foliage_Color}
-                      Fruit_Color={item.Fruit_Color}
-                      Growth_Rate={item.Growth_Rate}
-                      Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
-                      Height_Mature_feet={item.Height_Mature_feet}
-                      Commercial_Availability={item.Commercial_Availability}
-                    />
-                  );
+                plants.map(item => {
+                  console.log(item.Commercial_Availability)
+                    return (
+                      <PlantSearch  
+                        Image={item.Image[0]}
+                        Common_Name={item.Common_Name}
+                        Scientific_Name={item.Scientific_Name}
+                        Active_Growth_Period={item.Active_Growth_Period}
+                        Flower_Color={item.Flower_Color}
+                        Foliage_Color={item.Foliage_Color}
+                        Fruit_Color={item.Fruit_Color}
+                        Growth_Rate={item.Growth_Rate}
+                        Height_at_Base_Age_Maximum_feet={item.Height_at_Base_Age_Maximum_feet}
+                        Height_Mature_feet={item.Height_Mature_feet}
+                        Commercial_Availability={item.Commercial_Availability}
+                        key={item._id}
+                      />
+                    )
                 })
               }
             </div>

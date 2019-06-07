@@ -42,7 +42,7 @@ class Navigation extends Component {
           </button>
 
           <div className={targetClass} id='navbarSupportedContent'>
-            <ul className='navbar-nav ml-auto'>
+            <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
                 <Link className='nav-link' to='/about'  onClick={this.toggleCollapse}>About</Link>
               </li>
