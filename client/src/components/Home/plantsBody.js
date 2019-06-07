@@ -30,6 +30,8 @@ class PlantsBody extends React.Component {
     var $this = ReactDOM.findDOMNode(this);
     console.log('INTROSCROLL ')
     console.log($this)
+    console.log(target)
+    console.log(movement)
     var relY = e.pageY - $this.offsetTop
     console.log('RELY')
     console.log(relY)
