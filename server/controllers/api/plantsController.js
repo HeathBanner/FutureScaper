@@ -26,6 +26,18 @@ const PLANTS = {
       .then(dbModel => {res.json(dbModel)})
       .catch(err => res.status(422).json(err));
   },
+  findNewByName: function(req, res) {
+    const regex = new RegExp(req.body.search, "i");
+    const page = req.body.page
+    console.log(page)
+    console.log(regex)
+    db
+      .find({'Common_Name': regex}, null, {skip: page, limit: 5})
+      .sort({date: -1})
+      .then(dbModel => {res.json(dbModel)})
+      .catch(err => res.status(422).json(err));
+
+  },
   create: function(req, res) {
     db.Plant
       .create(req.body)
@@ -111,6 +123,11 @@ plantsController.post('/getNew', (req, res) => {
   console.log('Current index:', currentIndex);
   PLANTS.findAll(currentIndex, res);
 });
+
+plantsController.post('/getNewByName', (req, res) => {
+  console.log(req.body)
+  PLANTS.findNewByName(req, res);
+})
 
 plantsController.post('/plotSearch', (req, res) => {PLANTS.findByName(req, res)});
 

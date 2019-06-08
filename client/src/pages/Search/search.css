@@ -36,6 +36,8 @@
     margin: 5px;
 }
 
+
+
 .material-switch > input[type="checkbox"] {
     display: none;   
 }
@@ -47,6 +49,12 @@
     width: 40px;  
 }
 
+.switch-labels {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
 .material-switch > label::before {
     background: rgb(28, 155, 45);
     box-shadow: inset 0px 0px 10px rgba(17, 118, 25, 0.5);
@@ -55,6 +63,8 @@
     height: 16px;
     margin-top: -8px;
     position:absolute;
+    top: 50%; right: 50%;
+    transform: translate(50%,-50%);
     opacity: 0.3;
     transition: all 0.4s ease-in-out;
     width: 40px;
@@ -65,20 +75,26 @@
     box-shadow: 0px 0px 5px rgba(8, 85, 25, 0.3);
     content: '';
     height: 24px;
-    left: 15px;
+    top: 50%; right: 50%;
+    transform: translate(50%,-50%);
     margin-top: -8px;
     position: absolute;
-    top: -4px;
+    right: 30px;
+    /* top: -4px; */
     transition: all 0.3s ease-in-out;
     width: 24px;
 }
 .material-switch > input[type="checkbox"]:checked + label::before {
     background: inherit;
     opacity: 0.5;
+    /* top: 50%; right: 50%;
+    transform: translate(50%,-50%); */
 }
 .material-switch > input[type="checkbox"]:checked + label::after {
     background: inherit;
-    left: 40px;
+    right: 10px;
+    /* top: 50%; right: 50%;
+    transform: translate(50%,-50%); */
 }
 
 .blue {
@@ -97,4 +113,12 @@
 
 .pad{
     padding: 5px;
+}
+
+.card-body {
+    text-transform: capitalize
+}
+
+.search-bar {
+    padding-top: 30px;
 }
