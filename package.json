@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "server/server.js",
   "engines": {
-    "node": "10.15.3",
+    "node": "11.10.1",
     "yarn": "1.16.0"
   },
   "scripts": {
@@ -23,7 +23,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "@material-ui/core": "^4.0.1",
+    "@material-ui/core": "^4.0.2",
     "@material-ui/icons": "^4.0.1",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
@@ -39,6 +39,7 @@
     "react-modal": "^3.8.1",
     "react-parallax": "^2.2.0",
     "react-slick": "^0.24.0",
+    "react-swipeable-views": "^0.13.3",
     "react-tilt": "^0.1.4",
     "slick-carousel": "^1.8.1",
     "tilt.js": "^1.2.1"

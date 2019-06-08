@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom';
+import  { Redirect, Link } from 'react-router-dom';
 
 import "./register.css";
 class Register extends Component {
@@ -7,14 +7,13 @@ class Register extends Component {
     email: '',
     password: '',
     registered: false,
+    error: '',
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
     console.log(name, value)
-    this.setState({
-      [name]: value
-    });
+    this.setState({[name]: value});
   }
 
   handleSubmit = event => {
@@ -25,23 +24,20 @@ class Register extends Component {
     fetch('/api/users/register', {
       method: 'POST',
       body: JSON.stringify({email: email, password: password}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: {'Content-Type': 'application/json'}
     })
       .then(res => res.json())
-      .then((err, result) => {
-        this.setState({registered: true})
-        console.log('REGIST')
+      .then((result) => {
+        if(result._id){this.setState({registered: true})}
+        else{this.setState({error: result})}     
+        console.log(result)
       })
   }
 
   render() {
     const { email, password } = this.state;
 
-    if (this.state.registered) {
-      return( <Redirect to="/login" />)
-    }
+    if (this.state.registered){return(<Redirect to="/login" />)}
 
     return (
       <div className="container">
@@ -83,8 +79,20 @@ class Register extends Component {
 
               <button className='btn btn-primary lbutton' type='submit'>Register</button>
             </form>
+          <Link to="/login" onClick={this.toggleCollapse}>
+            <button className='btn btn-primary lbutton' type='submit'>Login</button>
+          </Link>
           </div>
         </div>
+        {this.state.error &&
+          <div className='row alert'>
+            <div className='col'>
+              <div className='alert alert-danger mb-3' role='alert'>
+                {this.state.error}
+              </div>
+            </div>
+          </div>}
+
       </div>
       </div>
     )

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Stepper from './Stepper';
+
 class PlantSearch extends React.Component {
 
     render() {
@@ -7,11 +9,7 @@ class PlantSearch extends React.Component {
             <div className="card mb-3 sitem">
             <div className="row no-gutters">
               <div className="col-md-4">
-                <img
-                  src={this.props.Image}
-                  className="card-img"
-                  alt={this.props.Common_Name}
-                />
+                <Stepper imgPath={this.props.images}/>
               </div>
               <div className="col-md-8">
                 <div className="card-body">

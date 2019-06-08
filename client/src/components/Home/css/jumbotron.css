@@ -105,9 +105,13 @@
 }
 
 .btn {
-    background: rgb(17, 142, 44) !important;
+    background: rgba(43, 206, 78, 0.281) !important;
     width: 75%;
     text-align: center;
+}
+
+.custom-btn {
+    width: 100%;
 }
 
 .pad {
