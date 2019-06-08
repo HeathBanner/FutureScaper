@@ -4,6 +4,7 @@ import "./search.css";
 import Navigation from '../../components/Navigation/Navigation';
 import PlantSearch from '../../components/plantSearch/plantSearch';
 
+
 class Search extends React.Component {
 
   constructor() {
@@ -18,7 +19,7 @@ class Search extends React.Component {
       card: '',
       nextPage: '',
     }
-  }
+  }  
 
   handleInputChange = event => {
     console.log(this.state.items)
@@ -129,7 +130,7 @@ class Search extends React.Component {
                 plants.map(item => {
                   return (
                     <PlantSearch  
-                      Image={item.Image[0]}
+                      images={item.Image}
                       Common_Name={item.Common_Name}
                       Scientific_Name={item.Scientific_Name}
                       Active_Growth_Period={item.Active_Growth_Period}
