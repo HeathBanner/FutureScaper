@@ -67,7 +67,8 @@ plantsController.get('/getPlants', (req, res) => {
 plantsController.post('/getNew', (req, res) => {
   currentIndex = req.body.data;
   console.log('Getting next set of plants...');
-  console.log(`                       HeathHeat                                         
+  console.log(`                       
+                                      HeathHeat                                         
                                   hHeathHeathHeathH                                     
                               eathHeathHeathHeathHeath                                  
                       HeathHeathHeath           HeathHea                                
