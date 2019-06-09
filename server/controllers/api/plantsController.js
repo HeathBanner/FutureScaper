@@ -67,59 +67,58 @@ plantsController.get('/getPlants', (req, res) => {
 plantsController.post('/getNew', (req, res) => {
   currentIndex = req.body.data;
   console.log('Getting next set of plants...');
-  console.log(`                                                                                        
-                                                                                        
-                                      JonJonJon                                         
-                                  JonJonJonJonJonJo                                     
-                              nJonJonJonJonJonJonJonJo                                  
-                      nJonJonJonJonJo           nJonJonJ                                
-                   onJonJonJonJo                  nJonJon                               
-                 JonJonJonJonJon                   JonJon                               
-                 JonJonJonJonJonJ                   onJon                               
-                 JonJonJonJo nJonJo    nJonJonJonJ  onJon                               
-                 JonJonJonJonJonJonJ onJonJonJonJonJ onJo                               
-                 nJonJonJonJonJonJ  onJonJonJonJonJonJonJ                               
-                onJon  JonJonJonJo  nJonJonJonJonJonJonJo                               
-               nJonJonJonJonJonJonJ onJonJonJon JonJonJon                               
-              JonJonJonJonJonJonJ   onJonJonJonJonJonJonJ                               
-             onJonJonJonJonJonJonJonJonJonJonJonJ  onJon                                
-            JonJo          nJonJonJonJonJonJo     nJonJo                                
-           nJonJ                      onJonJo     nJonJo                                
-          nJonJo                                 nJonJo                                 
-         nJonJo                                 nJonJo                                  
-        nJonJo                                  nJonJo                                  
-        nJonJ                      onJo        nJonJo                                   
-        nJon                      JonJo nJo   nJonJo                                    
-        nJon                      JonJonJonJ  onJon                         JonJonJon   
-       JonJo                      nJonJonJo  nJonJ                        onJonJonJonJ  
-       onJon                     JonJonJonJ onJon                       JonJon    JonJ  
-       onJon                     JonJonJon  JonJo                     nJonJon    JonJo  
-       nJonJ                    onJonJonJ  onJonJ                   onJonJo     nJonJ   
-       onJon                    JonJonJo   nJonJonJonJonJonJonJ   onJonJo     nJonJ     
-        onJo                   nJonJonJ    onJonJonJonJonJonJonJonJonJo      nJonJ      
-        onJo                   nJonJon     JonJo   nJonJ   onJonJonJo      nJonJo       
-        nJon                  JonJonJo      nJo   nJonJonJonJonJonJ      onJonJ         
-        onJon               JonJo nJonJ         onJonJonJonJonJonJ     onJonJo          
-         nJon             JonJo  nJonJon         JonJonJonJonJonJonJ   onJonJon         
-         JonJo            nJonJonJonJonJ                     onJonJon    JonJonJon      
-          JonJo            nJonJonJonJo              nJon       JonJon  JonJ onJon      
-          JonJon              JonJ                   onJo        nJonJo  nJonJonJ       
-           onJonJ                                onJ              onJon    JonJ         
-            onJonJon                            JonJ              onJon     JonJ        
-               onJonJo                          nJon              JonJonJonJonJo        
-     nJo        nJonJonJon                       JonJ           onJonJonJonJonJ         
-    onJonJo    nJonJonJonJonJonJ                  onJ         onJonJo    n              
-    JonJonJonJonJo nJonJonJonJonJonJonJo           nJon    JonJonJ                      
-    onJo nJonJonJonJonJ    onJonJonJonJonJ onJonJonJonJonJonJonJ                        
-     onJo  nJonJonJon         JonJonJonJo nJonJonJonJonJonJon                           
-      JonJ   onJonJ         onJonJonJonJ onJon JonJonJonJo                              
-       nJonJonJon           JonJonJonJo  nJon                                           
-        JonJonJ              onJonJon   JonJ                                            
-          onJ                onJonJ    onJo                                             
-                              nJonJo  nJon                                              
-                               JonJonJonJ                                               
-                                 onJonJo                                                
-                                   nJo       `)
+  console.log(`                       
+                                      HeathHeat                                         
+                                  hHeathHeathHeathH                                     
+                              eathHeathHeathHeathHeath                                  
+                      HeathHeathHeath           HeathHea                                
+                   thHeathHeathH                  eathHea                               
+                 thHeathHeathHea                   thHeat                               
+                 hHeathHeathHeath                   Heath                               
+                 HeathHeathH eathHe    athHeathHea  thHea                               
+                 thHeathHeathHeathHe athHeathHeathHe athH                               
+                 eathHeathHeathHea  thHeathHeathHeathHeat                               
+                hHeat  hHeathHeath  HeathHeathHeathHeathH                               
+               eathHeathHeathHeathH eathHeathHe athHeathH                               
+              eathHeathHeathHeath   HeathHeathHeathHeathH                               
+             eathHeathHeathHeathHeathHeathHeathHe  athHe                                
+            athHe          athHeathHeathHeath     HeathH                                
+           eathH                      eathHea     thHeat                                
+          hHeath                                 HeathH                                 
+         eathHe                                 athHea                                  
+        thHeat                                  hHeath                                  
+        Heath                      Heat        hHeath                                   
+        Heat                      hHeat hHe   athHea                                    
+        thHe                      athHeathHe  athHe                         athHeathH   
+       eathH                      eathHeath  Heath                        HeathHeathHe  
+       athHe                     athHeathHe athHe                       athHea    thHe  
+       athHe                     athHeathH  eathH                     eathHea    thHea  
+       thHea                    thHeathHe  athHea                   thHeath     Heath   
+       Heath                    HeathHea   thHeathHeathHeathHea   thHeath     Heath     
+        Heat                   hHeathHe    athHeathHeathHeathHeathHeath      Heath      
+        Heat                   hHeathH     eathH   eathH   eathHeathH      eathHe       
+        athH                  eathHeat      hHe   athHeathHeathHeat      hHeath         
+        Heath               Heath Heath         HeathHeathHeathHea     thHeath          
+         Heat             hHeat  hHeathH         eathHeathHeathHeath   HeathHea         
+         thHea            thHeathHeathHe                     athHeath    HeathHeat      
+          hHeat            hHeathHeathH              eath       HeathH  eath Heath      
+          HeathH              eath                   Heat        hHeath  HeathHea       
+           thHeat                                hHe              athHe    athH         
+            eathHeat                            hHea              thHea     thHe        
+               athHeat                          hHea              thHeathHeathHe        
+     ath        HeathHeath                       Heat           hHeathHeathHeat         
+    hHeathH    eathHeathHeathHea                  thH         eathHea    t              
+    hHeathHeathHea thHeathHeathHeathHeat           hHea    thHeath                      
+    Heat hHeathHeathHea    thHeathHeathHea thHeathHeathHeathHeat                        
+     hHea  thHeathHea         thHeathHeat hHeathHeathHeathHea                           
+      thHe   athHea         thHeathHeath Heath HeathHeathH                              
+       eathHeathH           eathHeathHe  athH                                           
+        eathHea              thHeathH   eath                                            
+          Hea                thHeat    hHea                                             
+                              thHeat  hHea                                              
+                               thHeathHea                                               
+                                 thHeath                                                
+                                   Hea  `)
   console.log('Current index:', currentIndex);
   PLANTS.findAll(currentIndex, res);
 });
