@@ -7,8 +7,8 @@ const partA = require('../../models/partA');
 var goodyInterval = 300
 
 
-var MONGODB_URI = "mongodb://localhost/futureScaper"
-// var MONGODB_URI = "mongodb://HeathBanner:Mixedpass1@ds133187.mlab.com:33187/heroku_3k4wk5ql";
+// var MONGODB_URI = "mongodb://localhost/futureScaper"
+var MONGODB_URI = "mongodb://HeathBanner:Mixedpass1@ds133187.mlab.com:33187/heroku_3k4wk5ql";
 mongoose.connect(MONGODB_URI);
 
 // Global error catch for Mongoose

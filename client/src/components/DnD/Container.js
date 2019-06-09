@@ -105,26 +105,26 @@ class Container extends React.Component {
     }
   }
 
-  seasonStyle(props, season, classes) {
+  seasonStyle(props, season) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
       // style.textShadow = `0px 0px 20px ${props.Flower_Color}`
       console.log('bloom')
-        season = 'flower'
+      season.color = 'flower'
 
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
       // style.textShadow = `0px 0px 20px ${props.Fruit_Color}`
       console.log('fruit')
-        season = 'fruit'
+      season.color = 'fruit'
     } else if (leafRetention.includes(this.state.xtraSeason)) {
       if (props.Leaf_Retention === 'Yes') {
         // style.textShadow = `0px 0px 20px ${props.Foliage_Color}`
         console.log('retention')
-          season = 'foliage'
+      season.color = 'foliage'
       } else {
         console.log('problem')
         // style.textShadow = `0px 0px 20px brown`
-          season = 'nothing'
+      season.color = 'nothing'
       }
     }
   }
@@ -311,14 +311,15 @@ class Container extends React.Component {
             <SpeedDial />
             {this.state.boxes.map(object => {
               var style = {}
-              var season;
+              var season = {}
               this.seasonStyle(object, season)
-              season === 'flower' ? season = object.Flower_Color :
-              season === 'fruit' ? season = object.Fruit_Color : 
-              season === 'foliage' ? season = object.Foliage_Color :
-              season = 'brown'
-              
               console.log(season)
+              season.color === 'flower' ? season.circle = object.Flower_Color :
+              season.color === 'fruit' ? season.circle = object.Fruit_Color : 
+              season.color === 'foliage' ? season.circle = object.Foliage_Color :
+              season.circle = 'black'
+              
+              console.log(season.circle)
 
               this.whatAmI(object, style);
 
@@ -327,9 +328,6 @@ class Container extends React.Component {
               // if (!Common_Name) return false;
 
               return (
-  
-                
-                
                 <Box
                 key={object.id}
                 index={index}
@@ -342,7 +340,7 @@ class Container extends React.Component {
                 plant={object}
                 className='undropped-plants'
                 ><span style={{display: 'block'}} className='undropped-plants-title'>{Common_Name}</span>
-                <CircularProgress style={{display: 'block', color: season}}  variant="static" value={100} />
+                <CircularProgress style={{display: 'block', color: season.circle}}  variant="static" value={100} />
                 </Box>
               )
             })}
@@ -355,20 +353,21 @@ class Container extends React.Component {
 
           <div className="row">
             <div className="col-lg-12 plot-col" style={plotCol}>
-              {/* <Seasons 
-              onClick={this.changeSeason} /> */}
+              <Seasons 
+              onClick={this.changeSeason} />
 
               {this.state.plotted.map(object => {
-                var style = {
-                  // textShadow: '0px 0px 20px brown'
-                }
-                this.seasonStyle(object, style)
+                var style = {}
                 this.whatAmI(object, style)
                 const { left, top, id, Common_Name, isOrigin, index } = object
 
-                // if (!Common_Name) Common_Name = "Falsicus Planticus";
-                // if (!Common_Name) return false;
-
+                var season = {}
+                this.seasonStyle(object, season)
+                season.color === 'flower' ? season.circle = object.Flower_Color :
+                season.color === 'fruit' ? season.circle = object.Fruit_Color : 
+                season.color === 'foliage' ? season.circle = object.Foliage_Color :
+                season.circle = 'black'
+    
                 return (<span className='dropped-plants'>
                   <Box
                     key={index}
@@ -381,7 +380,10 @@ class Container extends React.Component {
                     isOrigin={isOrigin}
                     seasonStyle={style}
                     plant={object}
-                  ><span className='dropped-plants-title'>{Common_Name}</span></Box></span>
+                  >
+                    <span className='dropped-plants-title'>{Common_Name}</span>
+                    <CircularProgress style={{display: 'block', color: season.circle}}  variant="static" value={100} />
+                    </Box></span>
                 )
               })}
 
