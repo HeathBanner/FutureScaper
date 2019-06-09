@@ -42,7 +42,7 @@ class NavAbout extends Component {
           <div className={targetClass} id='navbarSupportedContent'>
             <ul className='navbar-nav mr-auto'>
               <li className='nav-item'>
-                <Link className='nav-link' to='/'  onClick={this.toggleCollapse}>Home</Link>
+                <Link className='nav-link' to='/' onClick={this.toggleCollapse}>Home</Link>
               </li>
               {user &&
                 <li className='nav-item'>

@@ -81,6 +81,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+
 class Container extends React.Component {
   constructor() {
     super(...arguments)
@@ -424,7 +425,10 @@ class Container extends React.Component {
   }
 
   moveBox(id, left, top, index, items) {
-
+    console.log("length", this.state.plotted.length);
+    console.log("index", index);
+    console.log("moved", this.state.boxes[items.index].moved);
+    // console.log(items);
     if ((!this.state.boxes[items.index].moved) && (items.isOrigin)) {
       const plotted = this.state.boxes[index]
       let entries = []
