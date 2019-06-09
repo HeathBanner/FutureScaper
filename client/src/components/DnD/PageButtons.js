@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 class PageButtons extends React.Component {
     
@@ -7,10 +8,12 @@ class PageButtons extends React.Component {
         return (
             <div>
                 <div>
-                    {/* <button onClick={() => this.props.onClick('back')} id="backBtn" className="plot-btns">Prev</button>
-                    <button onClick={() => this.props.onClick('next')} id="nextBtn" className="plot-btns">Next</button> */}
-                    <div onClick={() => this.props.onClick('back')} id="backBtn" alt="" className="plot-btns"></div>
-                    <div onClick={() => this.props.onClick('next')} id="nextBtn" alt="" className="plot-btns"></div>
+                    <Button onClick={() => this.props.onClick('back')} disabled={this.props.pageNum === 0} id="backBtn" alt="" className="plot-btns">
+
+                    </Button>
+                    <Button onClick={() => this.props.onClick('next')} id="nextBtn" alt="" className="plot-btns">
+
+                    </Button>
                 </div>
             </div>
         )

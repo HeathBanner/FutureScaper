@@ -1,9 +1,6 @@
 
 // const axios = require('axios');
 // const cheerio = require('cheerio');
-// const partA = require('../../models/partA');
-
-// var goodyInterval = 0
 
 
 //   scraper: function(req, res) {
@@ -77,40 +74,9 @@
 //     console.log("done!")
 //     console.log(counter);
 //   },
-//   insertGoodies: function() {
-//     for (var i = 0; i <= 300; i++) {
-//     partA
-//     .find({}, null , {skip: i + goodyInterval, limit: 1})
-//     .then(result => {
-//       console.log(result[0].Scientific_Name)
-//       console.log(result[0].Common_Name)
-//       console.log(result[0].Fact_Sheets)
-//       console.log(result[0].Plant_Guides)
-//       console.log(result[0].Characteristics_Data)
-//       var plant = result[0].Common_Name
-//       db.update({Scientific_Name: result[0].Scientific_Name}, {
-//         Common_Name: result[0].Common_Name,
-//         Fact_Sheets: result[0].Fact_Sheets,
-//         Plant_Guides: result[0].Plant_Guides,
-//         Characteristics_Data: result[0].Characteristics_Data
-//       }, {new: true})
-//       .then(final => {
-//         console.log(final)
-//         console.log(plant)
-//           console.log(goodyInterval - 1)
-//         })
-        
-//       })
-//           if (i === 300) {
-//             console.log('UPDATE')
-//             goodyInterval = parseInt(goodyInterval + 300)
-//           }
-//   }
-// }
 
-//   // setInterval(PLANTS.scraper, 20000);
-// // PLANTS.scraper()
+//   setInterval(PLANTS.scraper, 20000);
+// PLANTS.scraper()
 
-// // setInterval(PLANTS.insertGoodies, 30000)
 
 

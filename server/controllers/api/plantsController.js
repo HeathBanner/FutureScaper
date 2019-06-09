@@ -2,6 +2,11 @@ const plantsController = require('express').Router();
 const db = require("../../models/plant");
 const mongoose = require('mongoose');
 
+const partA = require('../../models/partA');
+
+var goodyInterval = 300
+
+
 var MONGODB_URI = "mongodb://localhost/futureScaper"
 // var MONGODB_URI = "mongodb://HeathBanner:Mixedpass1@ds133187.mlab.com:33187/heroku_3k4wk5ql";
 mongoose.connect(MONGODB_URI);
@@ -57,6 +62,37 @@ const PLANTS = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  insertGoodies: function() {
+    for (var i = 0; i <= 300; i++) {
+    partA
+    .find({}, null , {skip: i + goodyInterval, limit: 1})
+    .then(result => {
+      // console.log(result[0].Scientific_Name)
+      // console.log(result[0].Common_Name)
+      // console.log(result[0].Fact_Sheets)
+      // console.log(result[0].Plant_Guides)
+      // console.log(result[0].Characteristics_Data)
+      var plant = result[0].Common_Name
+      db.update({Scientific_Name: result[0].Scientific_Name}, {
+        Common_Name: result[0].Common_Name,
+        Fact_Sheets: result[0].Fact_Sheets,
+        Plant_Guides: result[0].Plant_Guides,
+        Characteristics_Data: result[0].Characteristics_Data
+      }, {new: true})
+      .then(final => {
+        console.log(final)
+        console.log(plant)
+        console.log(goodyInterval)
+      })
+        
+      })
+        if (i === 300) {
+          console.log('UPDATE')
+          goodyInterval = parseInt(goodyInterval + 300)
+        }
+  }
+},
+
 }
 
 plantsController.get('/getPlants', (req, res) => {
@@ -67,59 +103,6 @@ plantsController.get('/getPlants', (req, res) => {
 plantsController.post('/getNew', (req, res) => {
   currentIndex = req.body.data;
   console.log('Getting next set of plants...');
-  console.log(`                                                                                        
-                                                                                        
-                                      JonJonJon                                         
-                                  JonJonJonJonJonJo                                     
-                              nJonJonJonJonJonJonJonJo                                  
-                      nJonJonJonJonJo           nJonJonJ                                
-                   onJonJonJonJo                  nJonJon                               
-                 JonJonJonJonJon                   JonJon                               
-                 JonJonJonJonJonJ                   onJon                               
-                 JonJonJonJo nJonJo    nJonJonJonJ  onJon                               
-                 JonJonJonJonJonJonJ onJonJonJonJonJ onJo                               
-                 nJonJonJonJonJonJ  onJonJonJonJonJonJonJ                               
-                onJon  JonJonJonJo  nJonJonJonJonJonJonJo                               
-               nJonJonJonJonJonJonJ onJonJonJon JonJonJon                               
-              JonJonJonJonJonJonJ   onJonJonJonJonJonJonJ                               
-             onJonJonJonJonJonJonJonJonJonJonJonJ  onJon                                
-            JonJo          nJonJonJonJonJonJo     nJonJo                                
-           nJonJ                      onJonJo     nJonJo                                
-          nJonJo                                 nJonJo                                 
-         nJonJo                                 nJonJo                                  
-        nJonJo                                  nJonJo                                  
-        nJonJ                      onJo        nJonJo                                   
-        nJon                      JonJo nJo   nJonJo                                    
-        nJon                      JonJonJonJ  onJon                         JonJonJon   
-       JonJo                      nJonJonJo  nJonJ                        onJonJonJonJ  
-       onJon                     JonJonJonJ onJon                       JonJon    JonJ  
-       onJon                     JonJonJon  JonJo                     nJonJon    JonJo  
-       nJonJ                    onJonJonJ  onJonJ                   onJonJo     nJonJ   
-       onJon                    JonJonJo   nJonJonJonJonJonJonJ   onJonJo     nJonJ     
-        onJo                   nJonJonJ    onJonJonJonJonJonJonJonJonJo      nJonJ      
-        onJo                   nJonJon     JonJo   nJonJ   onJonJonJo      nJonJo       
-        nJon                  JonJonJo      nJo   nJonJonJonJonJonJ      onJonJ         
-        onJon               JonJo nJonJ         onJonJonJonJonJonJ     onJonJo          
-         nJon             JonJo  nJonJon         JonJonJonJonJonJonJ   onJonJon         
-         JonJo            nJonJonJonJonJ                     onJonJon    JonJonJon      
-          JonJo            nJonJonJonJo              nJon       JonJon  JonJ onJon      
-          JonJon              JonJ                   onJo        nJonJo  nJonJonJ       
-           onJonJ                                onJ              onJon    JonJ         
-            onJonJon                            JonJ              onJon     JonJ        
-               onJonJo                          nJon              JonJonJonJonJo        
-     nJo        nJonJonJon                       JonJ           onJonJonJonJonJ         
-    onJonJo    nJonJonJonJonJonJ                  onJ         onJonJo    n              
-    JonJonJonJonJo nJonJonJonJonJonJonJo           nJon    JonJonJ                      
-    onJo nJonJonJonJonJ    onJonJonJonJonJ onJonJonJonJonJonJonJ                        
-     onJo  nJonJonJon         JonJonJonJo nJonJonJonJonJonJon                           
-      JonJ   onJonJ         onJonJonJonJ onJon JonJonJonJo                              
-       nJonJonJon           JonJonJonJo  nJon                                           
-        JonJonJ              onJonJon   JonJ                                            
-          onJ                onJonJ    onJo                                             
-                              nJonJo  nJon                                              
-                               JonJonJonJ                                               
-                                 onJonJo                                                
-                                   nJo       `)
   console.log('Current index:', currentIndex);
   PLANTS.findAll(currentIndex, res);
 });
@@ -132,6 +115,9 @@ plantsController.post('/getNewByName', (req, res) => {
 plantsController.post('/plotSearch', (req, res) => {PLANTS.findByName(req, res)});
 
 plantsController.post('/plantSearch', (req, res) => {PLANTS.findByName(req, res)});
+
+
+// setInterval(PLANTS.insertGoodies, 30000)
 
 
 module.exports = plantsController;

@@ -7,11 +7,15 @@
     /* display: none */
 }
 
+#home-btn {
+    font-weight: bold;
+}
+
 .plot-col {
     width: 100%;
     height: 100%;
     border: none !important;
-    background: rgb(51, 173, 55, 0.74);
+    background: rgb(51, 173, 55);
 }
 
 .item-col {
@@ -72,12 +76,13 @@
     border: 1px 1px 1px black;
 } */
 
+.loaded-dnd {
+    display: block;
+}
 
 .undropped-plants-title {
     text-transform: capitalize;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    /* text-shadow: 1px 1px 0px white; */
-    opacity: 0.7;
 }
 
 .undropped-plants:hover{
@@ -90,7 +95,6 @@
     opacity: 1;
     text-shadow: 1px 1px 3px rgba(248, 93, 4, 0.897);
     text-emphasis: bold;
-    z-index: 1000;
 }
 
 .dropped-plants-title {
@@ -109,19 +113,31 @@
     box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
 }
 
-#plot-search {
+.plot-search {
+    display: inline-block;
     position: absolute;
-    bottom: 75%;
-    width: 85%;
-    text-align: center;
+    top: 15%;
+    right: 45%;
+    transform: translate(50%,-50%);
+    width: 30%;
+    /* text-align: center;
     border-radius: 3px;
     background: rgb(152, 224, 94, 0.3);
-    padding: 2px 10px;
+    padding: 2px 10px; */
     font-weight: bold;
 }
 
+.plot-search label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.plot-search input {
+    font-size: 18px;
+}
+
 #plot-search:hover {
-    box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5);
+    /* box-shadow: 0px 0px 20px rgba(5, 224, 67, 0.5); */
     /* transform: translateY(100%); */
     /* animation-name: drift;
     animation-duration: 0.5s; */
@@ -142,3 +158,14 @@
         opacity: 1;
     }
 } */
+
+.search-link {
+    display: inline-block;
+}
+.search-link:hover {
+    text-decoration: none;
+}
+
+.tilte-create {
+    display: inline-block;
+}

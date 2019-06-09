@@ -5,13 +5,15 @@ import { findDOMNode } from 'react-dom';
 
 const style = {
   position: 'absolute',
-  display: 'inline',
+  display: 'flex',
+  alignItems: 'center',
   borderRadius: '50%',
   // backgroundColor: 'rgb(239, 255, 226)',
   padding: '0.5rem 1rem',
   cursor: 'move',
   // width: '150px',
-  margin: '0px 0px'
+  margin: '0px 0px',
+  flexWrap: 'nowrap'
 }
 
 const Box = ({
@@ -35,7 +37,9 @@ const Box = ({
         } 
         plant = {plant}
         onClick={onClick} 
-        origin={isOrigin} > {children}
+        origin={isOrigin}
+        className="plant-dnd"
+         > {children}
       </div>  
   )
 }

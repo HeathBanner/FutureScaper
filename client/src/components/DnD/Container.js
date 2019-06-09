@@ -7,6 +7,8 @@ import Box from './Box'
 import Seasons from './seasons';
 import PageButtons from './PageButtons';
 import PlotSearch from './PlotSearch';
+import SpeedDial from './SpeedDial';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './CSS/container.css'
 
@@ -97,31 +99,37 @@ class Container extends React.Component {
       isLoaded: false,
       nextPage: true,
       plotSearch: "",
+      direction: 'up',
+      open: false,
+      hidden: false,
     }
   }
 
-  seasonStyle(props, style) {
+  seasonStyle(props, season, classes) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
       // style.textShadow = `0px 0px 20px ${props.Flower_Color}`
-      // console.log('bloom')
+      console.log('bloom')
+        season = 'flower'
+
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
       // style.textShadow = `0px 0px 20px ${props.Fruit_Color}`
-      // console.log('fruit')
+      console.log('fruit')
+        season = 'fruit'
     } else if (leafRetention.includes(this.state.xtraSeason)) {
       if (props.Leaf_Retention === 'Yes') {
         // style.textShadow = `0px 0px 20px ${props.Foliage_Color}`
-        // console.log('retention')
+        console.log('retention')
+          season = 'foliage'
       } else {
-        // console.log('problem')
+        console.log('problem')
         // style.textShadow = `0px 0px 20px brown`
+          season = 'nothing'
       }
     }
   }
 
   whatAmI = (plant, style) => {
-
-    // console.log(plant, style);
 
     let isTree = false;
     let isShrub = false;
@@ -132,10 +140,7 @@ class Container extends React.Component {
     let shrubImg = Math.floor(Math.random() * 4) + 1;
 
     if (plant.Christmas_Tree_Product)
-      if (plant.Christmas_Tree_Product === "Yes") {
-        isTree = true;
-        treeImg = 2;
-      }
+      if (plant.Christmas_Tree_Product === "Yes") {isTree = true; treeImg = 2;}
 
     if (plant.Height_Mature_feet) {
       let plantHeight = plant.Height_Mature_feet;
@@ -170,14 +175,11 @@ class Container extends React.Component {
     style.zIndex = '100';
 
     if (isTree) {
-      // console.log("it's a tree.");
       style.backgroundImage = 'url(./images/Trees/Tree' + treeImg + '.png)';
-
       return "tree";
     }
 
     if (isShrub) {
-      console.log("it's a shrub.");
       shrubImg = 3;
       style.backgroundImage = 'url(./images/Bushes/Bush' + shrubImg + '.png)';
       style.minHeight = '125px';
@@ -187,14 +189,12 @@ class Container extends React.Component {
     }
 
     if (isFlower) {
-      // console.log("it's a flower. \ncolor:", flowerColor);
       if (!isBunch) {
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
         style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)'
         style.minHeight = '115px';
         return "flower";
       } else {
-        // console.log("actually, it's a bunch of flowers.");
         style.backgroundImage = 'url(./images/Flowers/Bunch.png)';
         style.minHeight = '115px';
         return "bunchflower";
@@ -203,14 +203,11 @@ class Container extends React.Component {
   }
 
   populateResults() {
-    console.log("populateResults (nextPage):", this.state.nextPage);
     const plants = this.state.items.map((plant, index) => {
       let plantIndex;
       let plantLeft;
 
-      console.log(index, plant.Common_Name);
-        if (!plant.Common_Name) return false;
-
+      if (!plant.Common_Name) return false;
       if (index) plantIndex = index;
       else plantIndex = 0;
 
@@ -229,27 +226,7 @@ class Container extends React.Component {
         plant
       )
     })
-
-    if (this.state.nextPage) {
-      console.log('NEXT')
-      this.setState({
-        boxes: plants,
-        isLoaded: false,
-        pageNumber: this.state.pageNumber + 5,
-        nextPage: !this.state.nextPage
-      })
-      // this.forceUpdate();
-    } else if (!this.state.nextPage) {
-      console.log('BACK')
-      this.setState({
-        boxes: plants,
-        isLoaded: false,
-        pageNumber: this.state.pageNumber - 5,
-        nextPage: !this.state.nextPage,
-      });
-      // this.forceUpdate();
-
-    }
+    this.setState({boxes: plants, isLoaded: false})
   }
 
   changeSeason = (season) => {
@@ -262,86 +239,66 @@ class Container extends React.Component {
     fetch('/api/plants/plotSearch', {
       method: 'POST',
       body: JSON.stringify({ data: value }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: {'Content-Type': 'application/json'}
     })
       .then(res => res.json())
       .catch(error => console.error('Error:', error))
-      .then((result) => {
-        this.setState({
-          items: result,
-          isLoaded: true,
-        });
-        // this.forceUpdate();
-      })
+      .then((result) => {this.setState({items: result, isLoaded: true})})
   }
 
 
   componentDidUpdate(newProps, newState) {
-    this.state.isLoaded ? this.populateResults() : console.log("componentDidUpdate (nextPage):", newState.nextPage)
+    !this.state.isLoaded ?  console.log() : this.populateResults()
   }
 
   componentDidMount() {
-    if (!this.state.items) {
+    if (this.state.items < 1) {
       fetch('/api/plants/getPlants')
         .then(res => res.json())
         .then(
-          (result) => {
-            this.setState({
-              items: result,
-              isLoaded: true,
-            });
-          }
+          (result) => {this.setState({items: result, isLoaded: true})}
         )
     }
   }
 
   pageChange = (page) => {
     if (page === 'next') {
-      console.log("pageChange (NEXT)! current pageNumber:", this.state.pageNumber, "nextPage:", this.state.nextPage);
+      var queryNumber = this.state.pageNumber + 5;
+      this.setState({nextPage: true, pageNumber: this.state.pageNumber + 5});
       fetch('/api/plants/getNew', {
         method: 'POST',
-        body: JSON.stringify({ data: this.state.pageNumber }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify({ data: queryNumber }),
+        headers: {'Content-Type': 'application/json'}
       })
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
-        .then((result) => {
-          this.setState({
-            items: result,
-            isLoaded: true,
-            nextPage: true,
-            pageNumber: this.state.pageNumber
-          });
-          // this.forceUpdate();
-        })
+        .then((result) => {this.setState({items: result, isLoaded: true})})
     } else if (page === 'back') {
-      console.log("pageChange (PREV)! current pageNumber:", this.state.pageNumber, "nextPage:", this.state.nextPage);
+      var queryNumber = this.state.pageNumber - 5
+      this.setState({pageNumber: this.state.pageNumber - 5});
       fetch('/api/plants/getNew', {
         method: 'POST',
-        body: JSON.stringify({ data: this.state.pageNumber }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify({ data: queryNumber }),
+        headers: {'Content-Type': 'application/json'}
       })
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
-        .then((result) => {
-          if (this.state.pageNumber > 5) {
-            this.setState({
-              items: result,
-              isLoaded: true,
-              nextPage: false,
-              pageNumber: this.state.pageNumber
-            });
-          }
-          // this.forceUpdate();
-        })
+        .then((result) => {this.setState({items: result, isLoaded: true})})
     }
   }
+
+  handleClick = (guide) => {
+    if(guide === 'click'){this.setState(state => ({open: !state.open}))}
+    else if((guide === 'close')||(guide === 'blur')||(guide === 'onMouseLeave')){this.setState({open: false })}
+  };
+
+  handleChange = (event, value, guide) => {
+    if(guide === 'direction'){this.setState({direction: value})}
+    else if(guide === 'hidden'){this.setState(state => ({value, open: value ? false : state.open}))}
+  };
+
+  handleOpen = () => {this.setState({ open: true })};
+
 
   render() {
 
@@ -351,34 +308,46 @@ class Container extends React.Component {
       <div className="row main-col">
         <div className="col-lg-12 item-col">
           <div id="loaded-dnd">
+            <SpeedDial />
             {this.state.boxes.map(object => {
-              // console.log(object)
-              var style = {
-                // textShadow: `0px 0px 20px brown`
-              }
-              this.seasonStyle(object, style)
+              var style = {}
+              var season;
+              this.seasonStyle(object, season)
+              season === 'flower' ? season = object.Flower_Color :
+              season === 'fruit' ? season = object.Fruit_Color : 
+              season === 'foliage' ? season = object.Foliage_Color :
+              season = 'brown'
+              
+              console.log(season)
+
               this.whatAmI(object, style);
-            
+
               const { left, top, id, Common_Name, index } = object
               // if (!Common_Name) Common_Name = "Falsicus Planticus";
               // if (!Common_Name) return false;
 
-              return (<span className='undropped-plants'>
+              return (
+  
+                
+                
                 <Box
-                  key={object.id}
-                  index={index}
-                  id={id}
-                  left={left}
-                  top={top}
-                  hideSourceOnDrag={hideSourceOnDrag}
-                  isOrigin='true'
-                  seasonStyle={style}
-                  plant={object}
-                ><span className='undropped-plants-title'>{Common_Name}</span></Box></span>
+                key={object.id}
+                index={index}
+                id={id}
+                left={left}
+                top={top}
+                hideSourceOnDrag={hideSourceOnDrag}
+                isOrigin='true'
+                seasonStyle={style}
+                plant={object}
+                className='undropped-plants'
+                ><span style={{display: 'block'}} className='undropped-plants-title'>{Common_Name}</span>
+                <CircularProgress style={{display: 'block', color: season}}  variant="static" value={100} />
+                </Box>
               )
             })}
             <PlotSearch name="plotSearch" value={this.state.plotSearch} onChange={this.handleInputChange} />
-            <PageButtons onClick={this.pageChange} />
+            <PageButtons pageNum={this.state.pageNumber} onClick={this.pageChange} />
           </div>
         </div>
 
