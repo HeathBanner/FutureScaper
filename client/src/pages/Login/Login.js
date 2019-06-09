@@ -48,14 +48,9 @@ class Login extends Component {
     }
 
     return (
-      <div className="container">
       <div className='Login'>
         
-        <div className='row'>
-          <div className='col'>
             <LoginForm onSubmit={this.handleSubmit} />
-          </div>
-        </div>
         {this.state.error &&
           <div className='row alert'>
             <div className='col'>
@@ -64,7 +59,6 @@ class Login extends Component {
               </div>
             </div>
           </div>}
-      </div>
       </div>
     );
   }

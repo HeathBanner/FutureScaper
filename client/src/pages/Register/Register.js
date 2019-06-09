@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import  { Redirect, Link } from 'react-router-dom';
+import Icon  from '@material-ui/core/Icon';
 
 import "./register.css";
 class Register extends Component {
@@ -44,11 +45,13 @@ class Register extends Component {
       <div className='RegisterForm top'>
         <div className='card'>
           <div className='card-body'>
-            <h1>Register</h1>
+            <h1 id="register-header">Register</h1>
             <form className='RegisterForm' onSubmit={this.handleSubmit}>
               <div className='input-group mb-3'>
                 <div className="input-group-prepend">
-                  <span className="input-group-text">@</span>
+                  <span className="input-group-text">
+                    <Icon>mail</Icon>
+                  </span>
                 </div>
                 {() => this.componentDidUpdate}
                 <input
@@ -64,7 +67,9 @@ class Register extends Component {
 
               <div className='input-group mb-3'>
                 <div className="input-group-prepend">
-                  <span className="input-group-text">a3b</span>
+                  <span className="input-group-text">
+                    <Icon>vpn_key</Icon>
+                  </span>
                 </div>
                 <input
                   className='form-control'
@@ -77,7 +82,7 @@ class Register extends Component {
                 />
               </div>
 
-              <button className='btn btn-primary lbutton' type='submit'>Register</button>
+              <button className='btn btn-primary lbutton' type='submit'>Submit</button>
             </form>
           <Link to="/login" onClick={this.toggleCollapse}>
             <button className='btn btn-primary lbutton' type='submit'>Login</button>
