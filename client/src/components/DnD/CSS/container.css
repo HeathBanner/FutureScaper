@@ -38,7 +38,7 @@
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
-    background-image: url(/Images/Buttons/newPrev.png);
+    background-image: url(/images/button/newPrev.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 75px;
@@ -55,7 +55,7 @@
     /* background: rgb(152, 224, 94); */
     padding: 5px 10px;
     font-weight: bold;
-    background-image: url(/Images/Buttons/newNext.png);
+    background-image: url(/images/button/newNext.png);
     background-repeat: no-repeat;
     background-size: contain;
     height: 75px;
@@ -64,11 +64,11 @@
 }
 
 #backBtn:hover {
-    background-image: url(/Images/Buttons/newPrev_hover.png);
+    background-image: url(/images/button/newPrev_hover.png);
 }
 
 #nextBtn:hover {
-    background-image: url(/Images/Buttons/newNext_hover.png);
+    background-image: url(/images/button/newNext_hover.png);
 }
 
 /* .plot-btns:hover {
