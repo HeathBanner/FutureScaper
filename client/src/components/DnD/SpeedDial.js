@@ -16,28 +16,25 @@ const styles = theme => ({
 root: {
     marginTop: '20px',
     height: 100,
-        width: 380 + theme.spacing(4),
+    width: 380 + theme.spacing(4),
     display: 'inline-block'
 },
 wrapper: {
     display: 'flex',
     alignItems: 'center',
-    // display: 'inline-block',
     width: 280 + theme.spacing(4),
     height: 50,
 },
 paper: {
     zIndex: 555,
     position: 'relative',
-    margin: theme.spacing(2),
-    // background: 'linear-gradient(45deg, #1dc42b 30%, #a4e22f 90%)',
+    // margin: theme.spacing(2),
     background: 'rgb(0, 0, 0, 0.3)',
     color: '#1dc42b',
 },
 svg: {
     display: 'inline-block',
     width: 200,
-    // height: 100,
     zIndex: 600,
 },
 button: {

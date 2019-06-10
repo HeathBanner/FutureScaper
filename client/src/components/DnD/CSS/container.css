@@ -158,6 +158,7 @@
 
 .search-link {
     display: inline-block;
+    margin-left: 5px;
 }
 .search-link:hover {
     text-decoration: none;

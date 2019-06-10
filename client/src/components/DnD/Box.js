@@ -5,15 +5,13 @@ import { findDOMNode } from 'react-dom';
 
 const style = {
   position: 'absolute',
-  // display: 'flex',
-  // alignItems: 'center',
+  display: 'inline-block',
   borderRadius: '50%',
-  // backgroundColor: 'rgb(239, 255, 226)',
   padding: '0.5rem 1rem',
   cursor: 'move',
-  // width: '150px',
+  width: '150px',
   margin: '0px 0px',
-  // flexWrap: 'nowrap'
+  textAlign: 'center'
 }
 
 const Box = ({

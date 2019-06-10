@@ -9,6 +9,7 @@ import PageButtons from './PageButtons';
 import PlotSearch from './PlotSearch';
 import SpeedDial from './SpeedDial';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SeasonDrawer from './SeasonDrawer';
 
 import './CSS/container.css'
 
@@ -34,18 +35,18 @@ const months = {
   early_winter: 'Dec'
 };
 const seasons = {
-  jan: 'mid_winter',
-  feb: 'late_winter',
-  mar: 'early_spring',
-  apr: 'mid_spring',
-  may: 'late_spring',
-  june: 'early_summer',
-  july: 'mid_summer',
-  aug: 'late_summer',
-  sep: 'early_fall',
-  oct: 'mid_fall',
-  nov: 'late_fall',
-  dec: 'early_winter'
+  January: 'Mid Winter',
+  February: 'Late Winter',
+  March: 'Early Spring',
+  April: 'Mid Spring',
+  May: 'Late Spring',
+  June: 'Early Summer',
+  July: 'Mid Summer',
+  August: 'Late Summer',
+  September: 'Early Fall',
+  October: 'Mid Fall',
+  November: 'Late Fall',
+  December: 'Early Winter'
 }
 
 class ErrorBoundary extends React.Component {
@@ -105,16 +106,24 @@ class Container extends React.Component {
     }
   }
 
+  getSeason = (season) => {
+    console.log(season);
+
+    this.setState({xtraSeason: seasons.season});
+  }
+
   seasonStyle(props, season) {
     const leafRetention = ['Early Fall', 'Mid Fall', 'Late Fall', 'Early Winter', 'Mid Winter', 'Late Winter'];
     if ((this.state.xtraSeason === props.Bloom_Period) && (props.Flower_Color)) {
       // style.textShadow = `0px 0px 20px ${props.Flower_Color}`
       console.log('bloom')
+      console.log(props.Bloom_Period)
       season.color = 'flower'
 
     } else if (this.state.xtraSeason === props.FruitSeed_Period_Begin) {
       // style.textShadow = `0px 0px 20px ${props.Fruit_Color}`
       console.log('fruit')
+      console.log(props.Fruit_Color)
       season.color = 'fruit'
     } else if (leafRetention.includes(this.state.xtraSeason)) {
       if (props.Leaf_Retention === 'Yes') {
@@ -171,7 +180,6 @@ class Container extends React.Component {
     style.minHeight = '150px';
     style.minWidth = 'auto';
     style.fontSize = '1.2rem';
-    // style.textShadow = '1px 1px 1px white';
     style.zIndex = '100';
 
     if (isTree) {
@@ -200,10 +208,15 @@ class Container extends React.Component {
         return "bunchflower";
       }
     }
+    console.log(isTree)
+    console.log(isShrub)
+    console.log(isFlower)
+    console.log(isBunch)
   }
 
   populateResults() {
     const plants = this.state.items.map((plant, index) => {
+      console.log(plant)
       let plantIndex;
       let plantLeft;
 
@@ -313,19 +326,20 @@ class Container extends React.Component {
               var style = {}
               var season = {}
               this.seasonStyle(object, season)
-              console.log(season)
+              this.whatAmI(object, style);
               season.color === 'flower' ? season.circle = object.Flower_Color :
               season.color === 'fruit' ? season.circle = object.Fruit_Color : 
               season.color === 'foliage' ? season.circle = object.Foliage_Color :
-              season.circle = 'black'
-              
-              console.log(season.circle)
+              season.circle = 'rgb(0, 0, 0, 0.0)'
+              if((season.color === 'fruit') && (object.Fruit_Color === 'Brown')) {
+                season.circle = '#7f5502'
+              }
 
-              this.whatAmI(object, style);
 
               const { left, top, id, Common_Name, index } = object
               // if (!Common_Name) Common_Name = "Falsicus Planticus";
               // if (!Common_Name) return false;
+              console.log(style.backgroundImage)
 
               return (
                 <Box
@@ -340,7 +354,7 @@ class Container extends React.Component {
                 plant={object}
                 className='undropped-plants'
                 ><span style={{display: 'block'}} className='undropped-plants-title'>{Common_Name}</span>
-                <CircularProgress style={{display: 'block', color: season.circle}}  variant="static" value={100} />
+                <CircularProgress style={{display: 'block', color: season.circle, margin: '0 auto'}}  variant="static" value={100} />
                 </Box>
               )
             })}
@@ -353,8 +367,9 @@ class Container extends React.Component {
 
           <div className="row">
             <div className="col-lg-12 plot-col" style={plotCol}>
-              <Seasons 
-              onClick={this.changeSeason} />
+              {/* <Seasons 
+              onClick={this.changeSeason} /> */}
+              <SeasonDrawer sendData={this.getSeason} />
 
               {this.state.plotted.map(object => {
                 var style = {}
@@ -366,7 +381,10 @@ class Container extends React.Component {
                 season.color === 'flower' ? season.circle = object.Flower_Color :
                 season.color === 'fruit' ? season.circle = object.Fruit_Color : 
                 season.color === 'foliage' ? season.circle = object.Foliage_Color :
-                season.circle = 'black'
+                season.circle = 'rgb(0, 0, 0, 0.0)'
+                if((season.color === 'fruit') && (object.Fruit_Color === 'Brown')) {
+                  season.circle = '#7f5502'
+                }
     
                 return (<span className='dropped-plants'>
                   <Box
@@ -382,7 +400,7 @@ class Container extends React.Component {
                     plant={object}
                   >
                     <span className='dropped-plants-title'>{Common_Name}</span>
-                    <CircularProgress style={{display: 'block', color: season.circle}}  variant="static" value={100} />
+                    <CircularProgress style={{display: 'block', color: season.circle, margin: '0 auto'}}  variant="static" value={100} />
                     </Box></span>
                 )
               })}
