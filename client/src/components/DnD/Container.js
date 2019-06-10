@@ -183,7 +183,7 @@ class Container extends React.Component {
     style.zIndex = '100';
 
     if (isTree) {
-      style.backgroundImage = 'url(./images/Trees/Tree' + treeImg + '.png)';
+      style.backgroundImage = 'url(./images/tree/Tree' + treeImg + '.png)';
       return "tree";
     }
 
@@ -199,6 +199,8 @@ class Container extends React.Component {
     if (isFlower) {
       if (!isBunch) {
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
+        console.log('FLOWER')
+        console.log(flowerColor)
         style.backgroundImage = 'url(./images/flower/' + flowerColor + 'Flower.png)'
         style.minHeight = '115px';
         return "flower";
