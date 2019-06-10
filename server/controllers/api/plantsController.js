@@ -2,9 +2,9 @@ const plantsController = require('express').Router();
 const db = require("../../models/plant");
 const mongoose = require('mongoose');
 
-const partA = require('../../models/partA');
+// const partA = require('../../models/partA');
 
-var goodyInterval = 300
+// var goodyInterval = 300
 
 
 // var MONGODB_URI = "mongodb://localhost/futureScaper"
