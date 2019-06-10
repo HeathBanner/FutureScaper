@@ -199,11 +199,11 @@ class Container extends React.Component {
     if (isFlower) {
       if (!isBunch) {
         flowerColor = flowerColor.charAt(0).toUpperCase() + flowerColor.slice(1);
-        style.backgroundImage = 'url(./images/Flowers/' + flowerColor + 'Flower.png)'
+        style.backgroundImage = 'url(./images/flower/' + flowerColor + 'Flower.png)'
         style.minHeight = '115px';
         return "flower";
       } else {
-        style.backgroundImage = 'url(./images/Flowers/Bunch.png)';
+        style.backgroundImage = 'url(./images/flower/Bunch.png)';
         style.minHeight = '115px';
         return "bunchflower";
       }
