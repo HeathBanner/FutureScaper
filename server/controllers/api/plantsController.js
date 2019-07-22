@@ -2,12 +2,6 @@ const plantsController = require('express').Router();
 const db = require("../../models/plant");
 const mongoose = require('mongoose');
 
-// const partA = require('../../models/partA');
-
-// var goodyInterval = 300
-
-
-// var MONGODB_URI = "mongodb://localhost/futureScaper"
 var MONGODB_URI = "mongodb://HeathBanner:Mixedpass1@ds133187.mlab.com:33187/heroku_3k4wk5ql";
 mongoose.connect(MONGODB_URI);
 
@@ -16,6 +10,7 @@ db.events.on('error', err => console.log(err.message));
 
 // Define methods for the plantsController
 const PLANTS = {
+
   findAll: function(page, res) {
     db
       .find({}, null, {skip: page, limit: 5})
@@ -23,6 +18,7 @@ const PLANTS = {
       .then(dbModel => {res.json(dbModel)})
       .catch(err => res.status(422).json(err));
   },
+
   findByName: function(req, res) {
     var regex = new RegExp(req.body.data, "i");
     db
@@ -31,11 +27,10 @@ const PLANTS = {
       .then(dbModel => {res.json(dbModel)})
       .catch(err => res.status(422).json(err));
   },
+
   findNewByName: function(req, res) {
     const regex = new RegExp(req.body.search, "i");
     const page = req.body.page
-    console.log(page)
-    console.log(regex)
     db
       .find({'Common_Name': regex}, null, {skip: page, limit: 5})
       .sort({date: -1})
@@ -43,18 +38,21 @@ const PLANTS = {
       .catch(err => res.status(422).json(err));
 
   },
+
   create: function(req, res) {
     db.Plant
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   update: function(req, res) {
     db.Plant
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   remove: function(req, res) {
     db.Plant
       .findById({ _id: req.params.id })
@@ -62,6 +60,7 @@ const PLANTS = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   insertGoodies: function() {
     for (var i = 0; i <= 300; i++) {
     partA
@@ -78,21 +77,14 @@ const PLANTS = {
         Fact_Sheets: result[0].Fact_Sheets,
         Plant_Guides: result[0].Plant_Guides,
         Characteristics_Data: result[0].Characteristics_Data
-      }, {new: true})
-      .then(final => {
-        console.log(final)
-        console.log(plant)
-        console.log(goodyInterval)
-      })
-        
-      })
-        if (i === 300) {
-          console.log('UPDATE')
-          goodyInterval = parseInt(goodyInterval + 300)
-        }
+      }, {new: true}).then(final => {});    
+    });
+    if (i === 300) {
+      console.log('UPDATE')
+      goodyInterval = parseInt(goodyInterval + 300)
+    }
   }
 },
-
 }
 
 plantsController.get('/getPlants', (req, res) => {

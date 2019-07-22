@@ -162,3 +162,9 @@
 .bottom {
     margin-bottom: 4em;
 }
+
+@media only screen and (max-width: 768px) {
+    #planner {
+        display: none;
+    }
+}
