@@ -1,67 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import API from '../../lib/API';
 import AuthContext from '../../contexts/AuthContext';
+
 import LoginForm from '../../components/LoginForm/LoginForm';
-import "../../components/LoginForm/login.css"
 
 
-class Login extends Component {
-  static contextType = AuthContext;
+const Login = () => {
 
-  state = {
-    redirectToReferrer: false,
-    error: ""
-  }
+  const auth = useContext(AuthContext);
+  
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  const [error, setError] = useState('');
 
-  handleSubmit = (email, password) => {
-    API.Users.login(email, password)
-      .then(response => response.data)
-      .then(({ user, token }) => {
-        this.context.onLogin(user, token);
-        this.setState({ redirectToReferrer: true, error: "" });
-      })
-      .catch(err => {
-        let message;
+  const handleSubmit = (email, password) => {
 
-        switch (err.response.status) {
-          case 401:
-            message = 'Sorry, that email/password combination is not valid. Please try again.';
-            break;
-          case 500:
-            message = 'Server error. Please try again later.';
-            break;
-          default:
-            message = 'Unknown error.';
-        }
+    fetch('/api/users/login', {
+      method: 'POST',
+      body: JSON.stringify({email: email, password: password}),
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(({user, token}) => {
 
-        this.setState({ error: message });
-      });
-  }
+      auth.onLogin(user, token);
+      setRedirectToReferrer(true);
+      setError('');
+    });
+  };
 
-  render() {
-    const { redirectToReferrer } = this.state;
+  const renderRedirect = () => {
 
     if (redirectToReferrer) {
       return <Redirect to={'/'} />;
     }
+  };
 
-    return (
-      <div className='Login'>
-        
-            <LoginForm onSubmit={this.handleSubmit} />
-        {this.state.error &&
-          <div className='row alert'>
-            <div className='col'>
-              <div className='alert alert-danger mb-3' role='alert'>
-                {this.state.error}
-              </div>
-            </div>
-          </div>}
-      </div>
-    );
-  }
-}
+  return (
+    
+    <Fragment>
+
+      <LoginForm onSubmit={handleSubmit} error={error} />
+
+      {renderRedirect()}
+
+    </Fragment>
+
+  );
+};
 
 export default Login;

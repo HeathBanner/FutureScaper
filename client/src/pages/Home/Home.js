@@ -1,41 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+
 import Homeinfo from "../../components/Home/homeinfo";
 import Jumbotron from '../../components/Home/jumbotron';
 import Footer from "../../components/Footer/Footer";
 import Navigation from '../../components/Navigation/Navigation';
 
-class HomePage extends Component {
+import { Grid } from '@material-ui/core';
 
-  constructor(props) {
-    super(props);
+const HomePage = () => {
 
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-    }
-  }
+    return (
+      <Grid container>
 
-  render() {
+        <Navigation />
 
-        return (
-          <div>
-                <Navigation></Navigation>
+        <Jumbotron />
 
-                {/* <Example /> */}
-              <div className="row">
-                <Jumbotron />
-              </div>
-              <div className="row">
-                <Homeinfo />
-              </div>
-              <Footer />
-          </div>
-              
-        )
-  }
+        <Homeinfo />
+
+        <Footer />
+
+      </Grid>     
+    )
 }
 
 export default DragDropContext(HTML5Backend)(HomePage);

@@ -1,28 +1,24 @@
-import React from 'react';
-import '../Home/css/jumbotron.css';
-import Welcome from "../Home/welcome";
-import Intro from "../Home/intro";
-import PlantsHeader from "../Home/plantsHeader";
-import PlantsBody from "../../components/About/plantsBody";
+import React, { Fragment } from 'react';
+
+import Intro from "./intro";
 import Jumbotron2 from "../Home/jumbotron2";
 
-class About extends React.Component {
+import { Grid } from '@material-ui/core';
 
-render(){
-    return(
-        <div className="row top" id="about">
-      <div id="intro-container" className="item-container">
+const About = () => {
+
+  return (
+    <Fragment>
+
+      <Grid item xs={12}>
+
         <Jumbotron2/>
-        <Welcome />
         <Intro />
-      </div>
-      <div id="container-two">
-        <PlantsHeader />
-        <PlantsBody />
-      </div>
-      </div>
-    )
-}
-}
+
+      </Grid>
+
+    </Fragment>
+  );
+};
 
 export default About

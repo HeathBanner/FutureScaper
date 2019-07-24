@@ -1,11 +1,4 @@
 import React from "react";
-import Hero from "../../components/Hero";
-import Container from "../../components/Container";
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import bg from './images/bg.jpg';
-import Logo from '../../components/Home/css/imgs/logo.png'
-import Homeinfo from "../../components/Home/homeinfo";
 
 import NavAbout from '../../components/NavAbout/NavAbout'
 
@@ -15,20 +8,14 @@ import Footer from "../../components/Footer/Footer";
 
 import Welcome from '../../components/Home/welcome';
 import Intro from '../../components/Home/intro';
-import PlantsHeader from '../../components/Home/plantsHeader';
-import PlantsBody from '../../components/Home/plantsBody';
 
 
 const About = () =>
 
   <div>
     <NavAbout></NavAbout>
-        {/* <Example /> */}
       <div className="row">
         <Jumbotron />
-      </div>
-      <div className="row">
-        {/* <Homeinfo /> */}
       </div>
 
       <div id="intro-container" className="item-container">
@@ -36,8 +23,6 @@ const About = () =>
         <Intro />
       </div>
       <div id="container-two">
-        <PlantsHeader />
-        <PlantsBody />
       </div>
       <Footer />
 

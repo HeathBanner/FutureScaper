@@ -1,86 +1,140 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {Link} from "react-router-dom";
-import Icon  from '@material-ui/core/Icon';
 
-import "./login.css";
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, TextField, Paper, Button }  from '@material-ui/core';
 
-class LoginForm extends Component {
-  state = {
-    email: '',
-    password: ''
-  };
+const useStyles = makeStyles(theme => ({
+  container: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'linear-gradient(45deg, #bbc5fc 30%, #99a9ff 90%)'
+  },
+  paper: {
+    width: '80%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  typo: {
+    marginTop: 20,
+    padding: '5px 50px',
+    borderBottom: '1px solid rgba(0,0,0,0.2)'
+  },
+  error: {
+    width: '100%',
+    marginTop: 20,
+  },
+  input: {
+    width: '80%',
+    marginTop: 20,
+  },
+  submit: {
+    width: '80%',
+    marginTop: 20,
+    color: 'white',
+    background: 'linear-gradient(45deg, #8092ff 30%, #6b81ff 90%)',
+    '&:hover': {
+      background: 'linear-gradient(45deg, #99a7ff 30%, #8092ff 90%)',
+    },
+  },
+  login: {
+    width: '80%',
+    margin: '10px 0px 20px 0px',
+    textDecoration: 'none !important',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginButton: {
+    width: '100%',
+    background: 'linear-gradient(45deg, #ffe330 30%, #fcdb0d 90%)',
+    '&:hover': {
+      background: 'linear-gradient(45deg, #ffcd59 30%, #ffd678 90%)',
+    },
+  },
+}));
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
+const LoginForm = (props) => {
 
-    this.setState({
-      [name]: value
-    });
-  }
+  const classes = useStyles();
 
-  handleSubmit = event => {
-    const { email, password } = this.state;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    this.props.onSubmit(email, password);
-    event.preventDefault();
-  }
+  return (
 
-  render() {
-    const { email, password } = this.state;
+    <Grid container>
+      <Grid className={classes.container} item xs={12}>
 
-    return (
-      <div className="container">
-      <div className='LoginForm'>
-        <div className='card'>
-          <div className='card-body'>
-            <h1 id="login-header">Login</h1>
-            <form className='LoginForm' onSubmit={this.handleSubmit}>
-              <div className='input-group mb-3'>
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <Icon>mail</Icon>
-                  </span>
-                </div>
-                <input
-                  className='form-control'
-                  id='email'
-                  type='email'
-                  name='email'
-                  placeholder='email@provider.com'
-                  value={email}
-                  onChange={this.handleInputChange}
-                />
-              </div>
+        <Paper className={classes.paper}>
 
-              <div className='input-group mb-3'>
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <Icon>vpn_key</Icon>
-                  </span>
-                </div>
-                <input
-                  className='form-control'
-                  id='password'
-                  type='password'
-                  name='password'
-                  placeholder='password'
-                  value={password}
-                  onChange={this.handleInputChange}
-                />
-              </div>
+          <Typography className={classes.typo} color="primary" variant="h3" align="center">
+            Login
+          </Typography>
 
-              <button className='btn btn-primary lbutton' type='submit'>Submit</button>
-              <Link to="/register" onClick={this.toggleCollapse}>
-              <button className='btn btn-primary lbutton' type='submit'>Create a new account</button>
-              </Link>
-            </form>
-          </div>
-        </div>
-      </div>
-      </div>
-    )
-  }
-}
+          {
+            props.error 
+
+              ? 
+
+              <Typography className={classes.error} color="error" variant="h6" align="center">
+                Email or Password didn't was invalid
+              </Typography> 
+
+              : 
+              
+              ''
+          }
+          
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            type='email'
+            label='email@provider.com'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            type='password'
+            label='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <Button 
+            className={classes.submit}
+            onClick={() => props.onSubmit(email, password)}
+          >
+
+            <Typography variant="h6">
+              Submit
+            </Typography>
+
+          </Button>
+
+          <Link className={classes.login} to="/register">
+            <Button className={classes.loginButton}>
+
+              <Typography variant="h6">
+                Create a new account
+              </Typography>
+
+            </Button>
+          </Link>
+
+        </Paper>
+
+      </Grid>
+    </Grid>
+  );
+};
 
 export default LoginForm;
 

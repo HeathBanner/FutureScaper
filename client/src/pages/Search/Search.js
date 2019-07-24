@@ -1,81 +1,97 @@
 import React, { useState, useEffect } from "react";
-import "./search.css";
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, TextField, Switch, FormControlLabel } from '@material-ui/core';
 
 import Navigation from '../../components/Navigation/Navigation';
 import PlantSearch from '../../components/plantSearch/plantSearch';
 import PageButtons from '../../components/plantSearch/PageButtons';
-import { common } from "@material-ui/core/colors";
-import { textAlign } from "@material-ui/system";
 
-function Search() {
+const useStyles = makeStyles(theme => ({
+  containers: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  search: {
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
+      marginTop: 80,
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '80%',
+      marginTop: 80,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+      marginTop: 60,
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+      marginTop: 40,
+    },      
+  },
+  formControls: {
+    marginTop: 40,
+    textAlign: 'center',
+  },
+}));
 
+const Search = () => {
 
   const [plotSearch, setPlotSearch] = useState('')
   const [items, setItems] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
   const [commAvail, setCommAvail] = useState(true)
   const [flower, setFlower] = useState(false)
   const [tree, setTree] = useState(false)
-  const [nextPage, setNextPage] = useState(false)
   const [pageNum, setPageNum] = useState(0);
 
+  const classes = useStyles();
 
-  function handleInputChange(event) {
-    console.log(items)
-    const { name, value } = event.target;
+  const handleInputChange = (event) => {
+
+    const { value } = event.target;
+
     setPlotSearch(value)
+
     fetch('/api/plants/plantSearch', {
       method: 'POST',
       body: JSON.stringify({ data: value }),
       headers: {'Content-Type': 'application/json'}
     })
-      .then(res => res.json())
-      .catch(error => console.error('Error:', error))
-      .then((result) => {
-        setItems(result) 
-        setIsLoaded(true)
-      });
-  }
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(result => setItems(result));
+  };
 
   useEffect(() => {
-    console.log('MOUNTED')
+
     if (items < 1) {
-      console.log('BEFORE FIRE')
+
       fetch('/api/plants/getPlants')
       .then(res => res.json())
-        .then((result) => {
-          console.log(result);
-          setItems(result);
-          setIsLoaded(true);
-        }
-      )
+      .then((result) => {
+
+        setItems(result);
+      });
     }
   });
 
-  function toggleSwitch(toggleSwitch){
-    if (toggleSwitch === 'setCommAvail') {setCommAvail(!commAvail)}
-    else if(toggleSwitch === 'setFlower') {setFlower(!flower)}
-    else if (toggleSwitch === 'setTree') {setTree(!tree)}
-  }
-
-  function handlePageChange(page) {
+  const handlePageChange = (page) => {
     var queryNumber = ''
+    
     if (page === 'next') {queryNumber = pageNum + 5; setPageNum(pageNum+5);}
-    else if (page='back') {queryNumber = pageNum-5; setPageNum(pageNum-5);}
-    console.log(plotSearch)
+    else if (page === 'back') {queryNumber = pageNum - 5; setPageNum(pageNum-5);}
+
     fetch('/api/plants/getNewByName', {
       method: 'POST',
       body: JSON.stringify({page: queryNumber, search: plotSearch}),
       headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-        setItems(result);
-        setIsLoaded(true);
-      }
-    )
-  }
+    .then(result => setItems(result));
+  };
 
 
   var plants = items
@@ -91,67 +107,75 @@ function Search() {
 
 
   return (
-    <div className="thing">
+
+    <Grid container>
+      
       <Navigation />
-      <div className="container">
-        <div className="row">
-          <div className="col-12 search-bar">
-            <div className="form-group has-search">
-              <span className="fa fa-search form-control-feedback" />
-              <input
-                type="text"
-                className="form-control form-control-lg search"
-                placeholder="Search"
-                name="setPlotSearch"
-                value={plotSearch}
-                onChange={handleInputChange}
+
+        <Grid className={classes.containers} item xs={12}>
+
+          <TextField
+            className={classes.search}
+            variant="outlined"
+            label="Search the USDA Database!"
+            value={plotSearch}
+            onChange={handleInputChange}
+          />
+
+        </Grid>
+        <Grid className={classes.containers} item xs={4}>
+
+          <FormControlLabel 
+            className={classes.formControls} 
+            control={
+              <Switch 
+                checked={commAvail}
+                value={commAvail}
+                onChange={() => setCommAvail(!commAvail)}
+                color="primary"
               />
-            </div>
-          </div>
-        </div>
-        <div className="row switches">
-          <div className="col-4">
-          <label className="switch-labels">Commercial Availability</label>
-            <div className="material-switch pad center">
-              <input
-                id="someSwitchOptionSuccess"
-                name="someSwitchOption001"
-                type="checkbox"
-                checked={!commAvail}
-                onClick={() => toggleSwitch('setCommAvail')}
+            }
+            label="Commercially Available"
+            labelPlacement="top"
+          />
+
+        </Grid>
+        <Grid className={classes.containers} item xs={4}>
+
+          <FormControlLabel 
+            className={classes.formControls} 
+            control={
+              <Switch 
+                checked={flower}
+                value={flower}
+                onChange={() => setFlower(!flower)}
+                color="primary"
+              />  
+            }
+            label="Flowers"
+            labelPlacement="top"
+          />
+
+        </Grid>
+        <Grid className={classes.containers} item xs={4}>
+
+          <FormControlLabel
+            className={classes.formControls} 
+            control={
+              <Switch 
+                checked={tree}
+                value={tree}
+                onChange={() => setTree(!tree)}
+                color="primary"
               />
-              <label for="someSwitchOptionSuccess" className="label-success" />
-            </div>
-          </div>
-          <div className="col-4 center">
-            <label className="switch-labels">Flowers</label>
-            <div className="material-switch pad ">
-              <input
-                id="someSwitchOptionSuccess2"
-                name="someSwitchOption002"
-                type="checkbox"
-                checked={!flower}
-                onClick={() => toggleSwitch('setFlower')}
-              />
-              <label for="someSwitchOptionSuccess2" className="label-success center" />
-            </div>
-          </div>
-          <div className="col-4 ">
-            <label className="switch-labels">Trees</label>
-            <div className="material-switch pad center">
-              <input
-                id="someSwitchOptionSuccess3"
-                name="someSwitchOption003"
-                type="checkbox"
-                checked={!tree}
-                onClick={() => toggleSwitch('setTree')}
-              />
-              <label for="someSwitchOptionSuccess3" className="label-success" />
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
+            }
+            label="Trees"
+            labelPlacement="top"
+          />
+
+        </Grid>
+        <Grid item xs={12}>
+
             { 
               plants.map(item => {
                 return (
@@ -173,11 +197,11 @@ function Search() {
               })
             }
             <PageButtons onClick={handlePageChange} page={pageNum} />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+
+        </Grid>
+    </Grid>
+    
+  );
+};
 
 export default Search;

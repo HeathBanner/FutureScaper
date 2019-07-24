@@ -1,27 +1,54 @@
 import React from 'react';
-import { Parallax, Background } from 'react-parallax';
-import './css/jumbotron.css';
+import { Parallax } from 'react-parallax';
 
-class Jumbotron2 extends React.Component {
+import { useMediaQuery, Grid, Typography } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+    jumbotron: {
+        height: '65vh',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    typo: {
+        color: 'white',
+    },
+}));
 
-    render() {
-        return (
-            <div className="col-lg-12 col-padding shadow ts">
-                
-                <Parallax 
-                bgImage={require('./css/imgs/flower5.jpg')}
+const Jumbotron2 = () => {
+
+    const classes = useStyles();
+    const theme = useTheme();
+
+    const sm = useMediaQuery(theme.breakpoints.down('sm'));
+    const xs = useMediaQuery(theme.breakpoints.down('xs'));
+
+    const getVariant = () => {
+        if(xs) { return 'h3' }
+        if(sm) { return 'h2' }
+        else { return 'h1' }
+    };
+
+    return (
+        <Grid item xs={12}>
+            
+            <Parallax 
+                bgImage={require('../../images/biel-morro.jpg')}
                 bgImageAlt="Jumbtron"
-                strength={300}>
+                strength={300}
+            >
 
-                    <div id="jumbotron">
-                        <h1 id="jumbo-header"><i className="fas fa-seedling"></i><strong>About Future Scaper</strong></h1>  
-                    </div>
+                <div className={classes.jumbotron}>
+                    <Typography className={classes.typo} variant={getVariant()} align="center">
+                        About Future Scaper
+                    </Typography>
+                </div>
 
-                </Parallax>
-            </div>
-        )
-    }
+            </Parallax>
+        </Grid>
+    )
 }
 
 export default Jumbotron2;

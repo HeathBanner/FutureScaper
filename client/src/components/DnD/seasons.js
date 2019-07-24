@@ -1,5 +1,4 @@
 import React from 'react';
-import PlantsBody from '../Home/plantsBody';
 
 import results from './1000'
 

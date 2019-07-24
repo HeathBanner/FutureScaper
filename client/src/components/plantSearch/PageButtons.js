@@ -1,8 +1,7 @@
 import React from "react";
-import Icon  from '@material-ui/core/Icon';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
+import { Icon, Button, Typography }  from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -13,33 +12,39 @@ const useStyles = makeStyles(theme => ({
     next: {
         float: 'right',
         marginBottom: '10px',
-        background: 'linear-gradient(45deg, #1dc42b 30%, #a4e22f 90%)',
+        background: 'linear-gradient(45deg, #1fbf24 30%, #00a806 90%)',
+        '&:hover': {
+            background: 'linear-gradient(45deg, #47d64b 30%, #1fbf24 90%)',  
+        },
     },
     back: {
         float: 'left',
         marginBottom: '10px',
-        background: 'linear-gradient(45deg, #a4e22f 30%, #1dc42b 90%)',
+        background: 'linear-gradient(45deg, #00a806 30%, #1fbf24 90%)',
+        '&:hover': {
+            background: 'linear-gradient(45deg, #1fbf24 30%, #47d64b 90%)',     
+        },
     },
     page: {
-        textAlign: 'center',
-        fontWeight: 'bold',
         margin: '0px 20px 10px 20px',
     },
+    icons: {
+        color: '#3f51b5',
+    }
   }));
   
-
-function PageButtons(props) {
+const PageButtons = (props) => {
 
     const classes = useStyles();
 
-    return(
+    return (
         <div className={classes.div}>
             <Button className={classes.back} disabled={props.page === 0}>
-                <Icon fontSize="large" onClick={() => props.onClick('back')}>navigate_before</Icon>
+                <Icon className={classes.icons} fontSize="large" onClick={() => props.onClick('back')}>navigate_before</Icon>
             </Button>
-            <p className={classes.page}>{props.page}/{props.page+5}</p>
+            <Typography className={classes.page} color="primary" variant="h6">{props.page}/{props.page+5}</Typography>
             <Button className={classes.next} >
-                <Icon fontSize="large" onClick={() => props.onClick('next')}>navigate_next</Icon>
+                <Icon className={classes.icons} fontSize="large" onClick={() => props.onClick('next')}>navigate_next</Icon>
             </Button>
         </div>
     );

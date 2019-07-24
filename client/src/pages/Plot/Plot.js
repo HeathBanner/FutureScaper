@@ -1,29 +1,19 @@
-import React, { Component } from 'react';
-import Example from "../../components/DnD/Example"
+import React, { useState, Fragment } from 'react';
+
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
+import Example from "../../components/DnD/Example"
 
-class PlotPage extends Component {
+const PlotPage = () => {
 
-  constructor(props) {
-    super(props);
+  return (
+    <Fragment>
 
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-    }
-  }
+      <Example />
 
-  render() {
-
-        return (
-          <div>
-                <Example />
-          </div> 
-        )
-  }
-}
+    </Fragment>
+  );
+};
 
 export default DragDropContext(HTML5Backend)(PlotPage);

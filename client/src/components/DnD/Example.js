@@ -1,12 +1,21 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, Fragment } from 'react'
 import Container from './Container'
 
+
+
 const DragAroundNaive = () => {
+  
   const hideSourceOnDrag = useState(true)
+  
   return (
-    <div className="row DnD">
+
+    <Fragment>
+
       <Container hideSourceOnDrag={hideSourceOnDrag} />
-    </div>
-  )
-}
+
+    </Fragment>
+    
+  );
+};
+
 export default DragAroundNaive;
