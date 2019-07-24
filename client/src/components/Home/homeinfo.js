@@ -51,13 +51,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    textDecoration: 'none',
   },
   links: {
     width: '70%',
-    '&:hover': {
-      textDecoration: 'none',
-    }
+    textDecoration: 'none',
   },
   buttonTypo: {
     color: '#2b3987',
@@ -82,7 +81,6 @@ const Homeinfo = () => {
         <div style={{borderRight: '1px solid rgb(0, 0, 0, .5)', height: '85%'}}></div>
       );
     }
-
   };
 
   return (
