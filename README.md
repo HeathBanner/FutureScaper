@@ -9,7 +9,11 @@ We wanted to create an application that would help amateur gardeners plan out th
 
 ## Build Status
 
+![Build Status](https://travis-ci.org/HeathBanner/FutureScaper.svg?branch=master)
 
+## Code Style
+
+![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)
 
 ## Tech / Framework
 
@@ -25,11 +29,18 @@ We wanted to create an application that would help amateur gardeners plan out th
 - [Passport JS](http://www.passportjs.org/)
 
 
-<h4>Project under construction!</h4>
-<p>This application is currently going through rennovations. Re-Factoring and Re-Styling!</p>
+## Credits
 
-<h2>Build a Greener Future</h2>
+[Jeremiah Thorn](https://github.com/jthorn70)
+[Cody Swank](https://github.com/codyswank)
+[Jon Ledbet](https://github.com/jtledbet)
 
+## License
+MIT @ [Heath Banner](https://github.com/HeathBanner)
+
+## Project under construction!
+
+This application is currently going through rennovations. Re-Factoring and Re-Styling!
 
 
 ## [Future Scaper](https://futurescaper.herokuapp.com/)
