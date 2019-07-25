@@ -5,7 +5,7 @@ There are over 40,000 different plants to choose from. Once you have a good idea
 
 ## Motivation
 
-We wanted to create an application that would help amateur gardeners plan out their ideas/dreams. Not many people know about the distances you're to plant other plants from one another as well as the amount of water one should get but not the other. Our aim is to simplify this.
+We wanted to create an application that would help amateur gardeners plan out their ideas/dreams. Not many people know about the distances you're to plant other plants from one another as well as the amount one should water but not the other. Our aim is to simplify this.
 
 ## Build Status
 
