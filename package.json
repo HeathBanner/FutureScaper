@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "server/server.js",
   "engines": {
-    "node": "11.10.1 || 10.16.0",
+    "node": "11.10.1",
     "yarn": "1.16.0"
   },
   "scripts": {
