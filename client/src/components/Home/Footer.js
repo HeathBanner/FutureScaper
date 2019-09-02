@@ -1,9 +1,9 @@
 import React from "react";
 
-import {Grid, Typography, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, Icon } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     container: {
         height: 45,
         marginTop: 40,
@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme => ({
     },
     typo: {
         color: 'white',
-    }
+    },
 }));
 
 const Footer = () => {
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <Grid item xs={12} className={classes.container}>
@@ -30,10 +30,12 @@ const Footer = () => {
                 Future Scaper
             </Typography>
 
-            <Icon className={classes.typo}>copyright</Icon>
+            <Icon className={classes.typo}>
+                copyright
+            </Icon>
 
         </Grid>
-    )
-}
+    );
+};
 
 export default Footer;

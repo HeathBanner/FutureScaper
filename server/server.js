@@ -1,8 +1,6 @@
-
 const path = require('path');
 
 if (process.env.NODE_ENV !== 'production') {
-  console.log('NOT PRODUCTION')
   require('dotenv').config({
     path: path.resolve(__dirname, '.env')
   });
@@ -24,9 +22,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('PRODUCTION')
   const clientBuildPath = path.join(__dirname, '..', 'client', 'build');
-  console.log(`Client build path: ${clientBuildPath}\n`);
   app.use(express.static(clientBuildPath));
 }
 
@@ -38,12 +34,9 @@ mongoose.connect(MONGODB_URI);
 app.use(require('./controllers'));
 
 app.get('*', (req, res) => {
-  console.log('Catch all')
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server listening on port ${PORT}...`);
-});
+app.listen(PORT, () => {});
 
 module.exports = app;

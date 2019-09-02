@@ -7,7 +7,7 @@ import Navigation from '../../components/Navigation/Navigation';
 import PlantSearch from '../../components/plantSearch/plantSearch';
 import PageButtons from '../../components/plantSearch/PageButtons';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   containers: {
     display: 'flex',
     justifyContent: 'center',
@@ -40,74 +40,67 @@ const useStyles = makeStyles(theme => ({
 
 const Search = () => {
 
-  const [plotSearch, setPlotSearch] = useState('')
-  const [items, setItems] = useState([])
-  const [commAvail, setCommAvail] = useState(true)
-  const [flower, setFlower] = useState(false)
-  const [tree, setTree] = useState(false)
+  const [plotSearch, setPlotSearch] = useState('');
+  const [items, setItems] = useState([]);
+  const [commAvail, setCommAvail] = useState(true);
+  const [flower, setFlower] = useState(false);
+  const [tree, setTree] = useState(false);
   const [pageNum, setPageNum] = useState(0);
 
   const classes = useStyles();
 
   const handleInputChange = (event) => {
-
-    const { value } = event.target;
-
-    setPlotSearch(value)
-
+    const data = event.target.value;
+    setPlotSearch(data);
     fetch('/api/plants/plantSearch', {
       method: 'POST',
-      body: JSON.stringify({ data: value }),
-      headers: {'Content-Type': 'application/json'}
+      body: JSON.stringify({ data }),
+      headers: { 'Content-Type': 'application/json' }
     })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(result => setItems(result));
+      .then(res => res.json())
+      .then((result) => { setItems(result); })
+      .catch((error) => { console.log('Something went wrong :('); });
   };
 
   useEffect(() => {
-
-    if (items < 1) {
-
-      fetch('/api/plants/getPlants')
+    fetch('/api/plants/getPlants')
       .then(res => res.json())
-      .then((result) => {
-
-        setItems(result);
-      });
-    }
-  });
+      .then((result) => { setItems(result); })
+      .catch((error) => { console.log('Something went wrong :('); })
+  }, []);
 
   const handlePageChange = (page) => {
-    var queryNumber = ''
-    
-    if (page === 'next') {queryNumber = pageNum + 5; setPageNum(pageNum+5);}
-    else if (page === 'back') {queryNumber = pageNum - 5; setPageNum(pageNum-5);}
-
+    let queryNumber = ''
+    if (page === 'next') { queryNumber = pageNum + 5; setPageNum(pageNum+5); }
+    else if (page === 'back') { queryNumber = pageNum - 5; setPageNum(pageNum-5); }
     fetch('/api/plants/getNewByName', {
       method: 'POST',
-      body: JSON.stringify({page: queryNumber, search: plotSearch}),
-      headers: {'Content-Type': 'application/json'}
+      body: JSON.stringify({ page: queryNumber, search: plotSearch }),
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(res => res.json())
-    .then(result => setItems(result));
+      .then(res => res.json())
+      .then((result) => { setItems(result); })
+      .catch((error) => { console.log('Something went wrong :('); });
   };
 
-
-  var plants = items
+  let plants = items;
   if (commAvail) {
-    plants = plants.filter(item => {return item.Commercial_Availability && item.Commercial_Availability !== 'No Known Source'})
+    plants = plants.filter((item) => {
+      return item.Commercial_Availability && item.Commercial_Availability !== 'No Known Source';
+    });
   }
   if (flower) {
-    plants = plants.filter(item => {return item.Flower_Color && item.Height_Mature_feet < 4})
+    plants = plants.filter((item) => {
+      return item.Flower_Color && item.Height_Mature_feet < 4;
+    });
   }
   if (tree) {
-    plants = plants.filter(item => {return item.Height_Mature_feet > 8})
+    plants = plants.filter((item) => {
+      return item.Height_Mature_feet > 8
+    });
   }
 
-
   return (
-
     <Grid container>
       
       <Navigation />
@@ -177,7 +170,7 @@ const Search = () => {
         <Grid item xs={12}>
 
             { 
-              plants.map(item => {
+              plants.map((item) => {
                 return (
                   <PlantSearch  
                     images={item.Image}
@@ -196,11 +189,11 @@ const Search = () => {
                 )
               })
             }
+
             <PageButtons onClick={handlePageChange} page={pageNum} />
 
         </Grid>
     </Grid>
-    
   );
 };
 

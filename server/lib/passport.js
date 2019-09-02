@@ -9,12 +9,10 @@ var JWT_STRATEGY_OPTS = {
 };
 
 passport.use(
-
-  new JwtStrategy(JWT_STRATEGY_OPTS, function (jwtPayload, done) {
-    
+  new JwtStrategy(JWT_STRATEGY_OPTS, (jwtPayload, done) => {
     db.Users.findOne({ _id: jwtPayload.sub })
-      .then(user =>  done(null, user || false))
-      .catch(err => done(err, false));
+      .then((user) =>  done(null, user || false))
+      .catch((err) => done(err, false, { message: 'Email or Password is not valid!' }));
   })
 );
 

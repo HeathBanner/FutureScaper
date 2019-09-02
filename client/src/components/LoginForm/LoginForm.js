@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Link } from "react-router-dom";
+
+import { MediaContext } from '../../contexts/MediaContext';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, TextField, Paper, Button }  from '@material-ui/core';
+import { Grid, Typography, TextField, Paper, Button, Divider }  from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: 'linear-gradient(45deg, #bbc5fc 30%, #99a9ff 90%)'
+    background: 'linear-gradient(45deg, #bbc5fc 30%, #99a9ff 90%)',
   },
   paper: {
     width: '80%',
@@ -20,9 +22,9 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   typo: {
+    width: '100%',
     marginTop: 20,
     padding: '5px 50px',
-    borderBottom: '1px solid rgba(0,0,0,0.2)'
   },
   error: {
     width: '100%',
@@ -35,10 +37,13 @@ const useStyles = makeStyles(theme => ({
   submit: {
     width: '80%',
     marginTop: 20,
+    padding: 15,
     color: 'white',
     background: 'linear-gradient(45deg, #8092ff 30%, #6b81ff 90%)',
+    transition: 'all 0.4s ease',
     '&:hover': {
       background: 'linear-gradient(45deg, #99a7ff 30%, #8092ff 90%)',
+      transform: 'scale(1.03)',
     },
   },
   login: {
@@ -51,9 +56,12 @@ const useStyles = makeStyles(theme => ({
   },
   loginButton: {
     width: '100%',
+    padding: 15,
     background: 'linear-gradient(45deg, #ffe330 30%, #fcdb0d 90%)',
+    transition: 'all 0.4s ease',
     '&:hover': {
       background: 'linear-gradient(45deg, #ffcd59 30%, #ffd678 90%)',
+      transform: 'scale(1.03)',
     },
   },
 }));
@@ -61,32 +69,40 @@ const useStyles = makeStyles(theme => ({
 const LoginForm = (props) => {
 
   const classes = useStyles();
+  const media = useContext(MediaContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-
     <Grid container>
       <Grid className={classes.container} item xs={12}>
 
         <Paper className={classes.paper}>
 
-          <Typography className={classes.typo} color="primary" variant="h3" align="center">
+          <Typography
+            className={classes.typo}
+            color="primary"
+            variant={media.sm ? 'h3' : 'h1'}
+            align="center"
+          >
             Login
           </Typography>
 
+          <Divider style={{ width: '60%', marginBlockStart: '0.5em' }} />
+
           {
             props.error 
-
-              ? 
-
-              <Typography className={classes.error} color="error" variant="h6" align="center">
-                Email or Password didn't was invalid
-              </Typography> 
-
-              : 
-              
+              ?
+            <Typography
+              className={classes.error}
+              color="error"
+              variant="h6"
+              align="center"
+            >
+              Email or Password didn't was invalid
+            </Typography> 
+                :
               ''
           }
           
@@ -112,11 +128,9 @@ const LoginForm = (props) => {
             className={classes.submit}
             onClick={() => props.onSubmit(email, password)}
           >
-
             <Typography variant="h6">
               Submit
             </Typography>
-
           </Button>
 
           <Link className={classes.login} to="/register">
@@ -137,4 +151,3 @@ const LoginForm = (props) => {
 };
 
 export default LoginForm;
-

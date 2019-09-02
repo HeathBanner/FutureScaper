@@ -132,6 +132,6 @@ const Intro = () => {
 
         </Grid>
     );
-}
+};
 
 export default Intro;

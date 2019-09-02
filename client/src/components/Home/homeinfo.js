@@ -6,13 +6,10 @@ import Search from "../../images/search2.png";
 
 import Tilt from "react-tilt";
 
-import About from "../About/About";
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, Typography, Tooltip, Zoom } from '@material-ui/core';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { useMediaQuery, Grid, Button, Typography, Tooltip, Zoom, Divider } from '@material-ui/core';
-
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   bodyNav: {
     display: 'flex',
     justifyContent: 'center',
@@ -66,34 +63,18 @@ const useStyles = makeStyles(theme => ({
 const Homeinfo = () => {
 
   const classes = useStyles();
-  const theme = useTheme();
-
-  const sm = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const renderDivider = () => {
-    if(sm) { 
-      return (
-        <Divider />
-      );
-    }
-    else {
-      return (
-        <div style={{borderRight: '1px solid rgb(0, 0, 0, .5)', height: '85%'}}></div>
-      );
-    }
-  };
 
   return (
     <Fragment>
 
-        <Grid className={classes.bodyNav} item lg={5} md={5} xs={12}>
+        <Grid className={classes.bodyNav} item lg={6} md={6} xs={12}>
             
             <Link className={classes.tiltLinks} to="/">
               <Tilt>
                 <Tooltip 
                   TransitionComponent={Zoom}
                   placement="right"  
-                  title="This section is under construction as of July 23, 2019. Sorry for any inconveniences!"
+                  title="This section is under construction. Sorry for any inconveniences!"
                 >
 
                   <img src={Plan} className={classes.icons} alt="Plan Icon" />
@@ -117,12 +98,7 @@ const Homeinfo = () => {
             </Link>
 
         </Grid>
-        <Grid style={sm ? null : {display: 'flex', justifyContent: 'center', alignItems: 'center'}} item lg={1} md={1} xs={12}>
-            
-        {renderDivider()}
-
-        </Grid>
-        <Grid className={classes.bodyNav} item lg={5} md={5} xs={12}>
+        <Grid className={classes.bodyNav} item lg={6} md={6} xs={12}>
 
           <Link className={classes.tiltLinks} to="/search">
             <Tilt>
@@ -142,11 +118,8 @@ const Homeinfo = () => {
 
       </Grid>
 
-      <About />
-
     </Fragment>
-
   );
-}
+};
 
 export default Homeinfo;
