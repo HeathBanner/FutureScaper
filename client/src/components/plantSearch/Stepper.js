@@ -83,7 +83,12 @@ const SwipeableTextMobileStepper = (props) => {
           props.imgPath.map((step, index) => (
             <div key={step}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <img className={classes.img} src={step} alt={step} onError={handleError} />
+                <img
+                  className={classes.img}
+                  src={step}
+                  alt={step}
+                  onError={handleError}
+                />
               ) : null}
             </div>
           ))

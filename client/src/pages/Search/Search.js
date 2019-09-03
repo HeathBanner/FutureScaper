@@ -59,14 +59,14 @@ const Search = () => {
     })
       .then(res => res.json())
       .then((result) => { setItems(result); })
-      .catch((error) => { console.log('Something went wrong :('); });
+      .catch(() => { console.log('Something went wrong :('); });
   };
 
   useEffect(() => {
     fetch('/api/plants/getPlants')
       .then(res => res.json())
       .then((result) => { setItems(result); })
-      .catch((error) => { console.log('Something went wrong :('); })
+      .catch(() => { console.log('Something went wrong :('); })
   }, []);
 
   const handlePageChange = (page) => {
@@ -80,7 +80,7 @@ const Search = () => {
     })
       .then(res => res.json())
       .then((result) => { setItems(result); })
-      .catch((error) => { console.log('Something went wrong :('); });
+      .catch(() => { console.log('Something went wrong :('); });
   };
 
   let plants = items;
