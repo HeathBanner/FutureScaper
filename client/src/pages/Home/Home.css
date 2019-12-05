@@ -1,0 +1,98 @@
+.topJumbotron {
+    height: 55vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -3px 10px 3px rgba(0, 0, 0, 0.2);
+}
+
+.bodyNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imgLinks {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.bodyIcons {
+    height: 150px;
+    width: auto;
+    margin: 30px 0px;
+}
+
+.linkHeaders {
+    color: #2b3987;
+}
+
+.btnLinks {
+    width: 70%;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+.createButton {
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    background: linear-gradient(45deg, #fcdb0d 30%, #ffe330 90%);
+    width: 100%;
+    margin: 30px 0px;
+    padding: 5px 10px;
+}
+.createButton:hover {
+    background: linear-gradient(45deg, #ffd678 30%, #ffcd59 90%);
+}
+
+.searchButton {
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    background: linear-gradient(45deg, #ffe330 30%, #fcdb0d 90%);
+    width: 100%;
+    margin: 30px 0px;
+    padding: 5px 10px;
+}
+.searchButton:hover {
+    background: linear-gradient(45deg, #ffcd59 30%, #ffd678 90%),
+}
+
+.bottomJumbotron {
+    height: 65vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin-top: 80px;
+    padding: 40px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paper {
+    width: 80%;
+    background: linear-gradient(45deg, #ffe330 30%, #fcdb0d 90%);
+}
+
+.divider {
+    margin: 0px 40px;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.footerContainer {
+    height: 45px;
+    margin-top: 40px;
+    border-top: 4px solid #3f51b5;
+    background: linear-gradient(45deg, #15b32c 30%, #009e17 90%);
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
