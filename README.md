@@ -33,7 +33,7 @@ We wanted to create an application that would help amateur gardeners plan out th
 
 - [Jeremiah Thorn](https://github.com/jthorn70)
 - [Cody Swank](https://github.com/codyswank)
-- [Jon Ledbet](https://github.com/jtledbet)
+- [Jon Ledbetter](https://github.com/jtledbet)
 
 ## License
 MIT @ [Heath Banner](https://github.com/HeathBanner)
